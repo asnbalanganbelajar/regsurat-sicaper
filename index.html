@@ -181,58 +181,185 @@
         .list-group-item.sortable-ghost { opacity: 0.4; background-color: #e2e8f0; }
 
         /* --- LOGIN --- */
-		/* PILIHAN 1: CLEAN & MODERN */
-		.login-wrapper {
-			min-height: 100vh;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			
-			/* Dasar Putih */
-			background-color: #f8fafc;
-			
-			/* Layer 1: Titik-titik Grid (Tekstur) */
-			/* Layer 2: Bias Hijau di Kiri Atas */
-			/* Layer 3: Bias Oranye di Kanan Bawah */
-			background-image: 
-				radial-gradient(#cbd5e1 1.5px, transparent 1.5px),
-				radial-gradient(circle at 0% 0%, rgba(5, 150, 105, 0.3) 0%, transparent 50%),
-				radial-gradient(circle at 100% 100%, rgba(234, 88, 12, 0.3) 0%, transparent 50%);
-				
-			background-size: 24px 24px, 100% 100%, 100% 100%;
-			background-attachment: fixed;
-		}
-		
-        .login-card {
-            width: 100%; max-width: 380px; padding: 2.5rem;
-           background: white; border-radius: 20px;
-           box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-          margin-bottom: 20px;
+		/* --- LOGIN REDESIGN: OFFICIAL DOCUMENT STYLE --- */
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f5f9; /* Background luar abu-abu terang */
+            padding: 20px;
+            /* Pattern background halus untuk dinding belakang */
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-        .login-footer { font-size: 0.8rem; color: #64748b; text-align: center; }
+
+        .login-container {
+            display: flex;
+            width: 100%;
+            max-width: 900px; /* Lebar total seperti dokumen terbuka */
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(0,0,0,0.02); /* Border halus */
+            min-height: 550px;
+        }
+
+        /* BAGIAN KIRI: BRANDING / COVER */
+        .login-brand-side {
+            flex: 1.2; /* Sedikit lebih lebar */
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Efek Ornamen/Watermark Geometris di Background Biru */
+        .login-brand-side::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background-image: 
+                radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 10px);
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+        
+        /* Dekorasi lingkaran bias warna */
+        .login-decoration-1 {
+            position: absolute; top: 10%; right: 10%;
+            width: 150px; height: 150px;
+            background: rgba(5, 150, 105, 0.4); /* Hijau */
+            filter: blur(60px); border-radius: 50%;
+        }
+        .login-decoration-2 {
+            position: absolute; bottom: 10%; left: 10%;
+            width: 150px; height: 150px;
+            background: rgba(234, 88, 12, 0.4); /* Orange */
+            filter: blur(60px); border-radius: 50%;
+        }
+
+        .brand-logo-img {
+            width: 100px; 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+            position: relative; z-index: 2;
+        }
+
+        .brand-title { font-size: 2.5rem; font-weight: 800; letter-spacing: 2px; line-height: 1; position: relative; z-index: 2; }
+        .brand-subtitle { font-size: 0.9rem; opacity: 0.8; margin-top: 10px; font-weight: 300; letter-spacing: 0.5px; position: relative; z-index: 2; }
+        .brand-divider { width: 50px; height: 4px; background: rgba(255,255,255,0.2); margin: 25px auto; border-radius: 2px; position: relative; z-index: 2; }
+
+        /* BAGIAN KANAN: FORM */
+        .login-form-side {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        .login-header { margin-bottom: 30px; }
+        .login-header h5 { font-weight: 700; color: #334155; }
+        .login-header p { font-size: 0.85rem; color: #94a3b8; }
+
+        .form-floating-custom .form-control {
+            border: none;
+            border-bottom: 2px solid #e2e8f0;
+            border-radius: 0;
+            padding-left: 0;
+            padding-right: 0;
+            background: transparent;
+        }
+        .form-floating-custom .form-control:focus {
+            box-shadow: none;
+            border-color: #1e293b; /* Warna Brand saat fokus */
+        }
+        .form-floating-custom label {
+            padding-left: 0;
+            color: #94a3b8;
+        }
+        .form-floating-custom .form-control:focus ~ label,
+        .form-floating-custom .form-control:not(:placeholder-shown) ~ label {
+            color: #1e293b;
+            opacity: 1;
+            transform: scale(0.85) translateY(-0.5rem) translateX(0);
+        }
+
+        .btn-login-custom {
+            background: #1e293b; color: white;
+            border-radius: 50px; padding: 12px;
+            font-weight: 600; letter-spacing: 0.5px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(30, 41, 59, 0.3);
+        }
+        .btn-login-custom:hover {
+            background: #334155;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(30, 41, 59, 0.3);
+            color: white;
+        }
+
+        .login-footer-text {
+            margin-top: auto;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #cbd5e1;
+        }
+        .login-footer-text span { color: #64748b; font-weight: 600; }
+
+        /* RESPONSIVE: Balik jadi susun bawah di HP */
+        @media (max-width: 768px) {
+            .login-container { flex-direction: column; min-height: auto; max-width: 400px; }
+            .login-brand-side { padding: 40px 20px; }
+            .brand-title { font-size: 2rem; }
+            .login-form-side { padding: 40px 30px; }
+            .brand-logo-img { width: 80px; }
+        }
         
         /* --- LOADING OVERLAY (IMPROVED) --- */
+		/* --- LOADING OVERLAY (UPDATED THEME) --- */
         .loading-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-           background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(5px);
+            /* Ganti background putih jadi gelap transparan (Navy Blue) */
+            background: rgba(30, 41, 59, 0.85); 
+            backdrop-filter: blur(8px); /* Efek kaca buram */
             z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; /* Teks jadi putih */
         }
         .loading-logo {
             width: 80px; height: auto; margin-bottom: 15px;
             animation: pulse 1.5s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); /* Glow halus */
         }
+        .loading-text {
+            font-weight: 600; 
+            color: white; /* Paksa warna putih */
+            letter-spacing: 2px; 
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.8; }
             50% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(0.95); opacity: 0.8; }
         }
-        .loading-text {
-          font-weight: 600; color: var(--brand-color); letter-spacing: 1px; font-size: 0.9rem;
-        }
-
+		
         /* --- SWEETALERT FIX --- */
         .swal2-container {
             z-index: 10000 !important;
@@ -248,27 +375,49 @@
     </div>
 
     <!-- 1. LOGIN PANEL -->
-    <div id="loginPanel" class="login-wrapper">
-        <div class="login-card">
-            <div class="text-center mb-4">
-               <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo" width="80" class="mb-3">
-                <h4 class="fw-bold text-dark">S I C A P E R</h4>
-                <p class="text-muted small">Sistem Informasi dan Catatan Persuratan</p>
-           </div>
-            <form id="formLogin">
-               <div class="mb-3">
-                 <label class="form-label small fw-bold text-muted">Username</label>
-                 <input type="text" class="form-control" id="username" placeholder="********" required>
-               </div>
-               <div class="mb-4">
-                 <label class="form-label small fw-bold text-muted">Password</label>
-                 <input type="password" class="form-control" id="password" placeholder="********" required>
-               </div>
-               <button type="submit" class="btn btn-dark w-100 py-2 fw-bold" style="border-radius: 8px;">Masuk</button>
-           </form>
-        </div>
-        <div class="login-footer">
-            &copy; 2026 - BKPSDM Balangan
+	<div id="loginPanel" class="login-wrapper">
+        <div class="login-container">
+            
+            <div class="login-brand-side">
+                <div class="login-decoration-1"></div>
+                <div class="login-decoration-2"></div>
+                
+                <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo BKPSDM" class="brand-logo-img">
+                <div class="brand-title">SICAPER</div>
+                <div class="brand-divider"></div>
+                <div class="brand-subtitle">
+                    Sistem Informasi & Catatan Persuratan<br>
+                    <strong>BKPSDM Kabupaten Balangan</strong>
+                </div>
+            </div>
+
+            <div class="login-form-side">
+                <div class="login-header">
+                    <h5>Selamat Datang</h5>
+                    <p>Silakan masukkan kredensial Anda untuk melanjutkan.</p>
+                </div>
+
+                <form id="formLogin">
+                    <div class="form-floating mb-4 form-floating-custom">
+                        <input type="text" class="form-control" id="username" placeholder="Username" required>
+                        <label for="username">Username</label>
+                    </div>
+                    
+                    <div class="form-floating mb-5 form-floating-custom">
+                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <label for="password">Password</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-login-custom w-100 mb-4">
+                        MASUK APLIKASI <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </form>
+
+                <div class="login-footer-text">
+                    &copy; 2026 <span>BKPSDM Balangan</span>. All rights reserved.
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -1624,3 +1773,4 @@
 </body>
 
 </html>
+
