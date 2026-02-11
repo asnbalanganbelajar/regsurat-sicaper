@@ -205,7 +205,7 @@
                 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
                 0 10px 10px -5px rgba(0, 0, 0, 0.04),
                 0 0 0 1px rgba(0,0,0,0.02); /* Border halus */
-            min-height: 550px;
+            min-height: 450px;
         }
 
         /* BAGIAN KIRI: BRANDING / COVER */
@@ -371,7 +371,7 @@
     <!-- Loading Overlay -->
     <div id="loading" class="loading-overlay d-none">
         <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo" class="loading-logo">
-        <div class="loading-text">Memuat Data...</div>
+        <div class="loading-text">Memuat Data ...</div>
     </div>
 
     <!-- 1. LOGIN PANEL -->
@@ -387,14 +387,14 @@
                 <div class="brand-divider"></div>
                 <div class="brand-subtitle">
                     Sistem Informasi & Catatan Persuratan<br>
-                    <strong>BKPSDM Kabupaten Balangan</strong>
+                    BKPSDM Kabupaten Balangan
                 </div>
             </div>
 
             <div class="login-form-side">
                 <div class="login-header">
                     <h5>Selamat Datang</h5>
-                    <p>Silakan masukkan kredensial Anda untuk melanjutkan.</p>
+                    <p>Silakan masukkan kredensial untuk melanjutkan.</p>
                 </div>
 
                 <form id="formLogin">
@@ -483,7 +483,7 @@
             <div class="d-flex justify-content-between align-items-end mb-4 px-1">
                <div>
                    <h4 id="pageTitle" class="fw-bold text-dark mb-0">Statistik Surat</h4>
-                   <p class="text-muted small mb-0">Ringkasan data persuratan terkini.</p>
+                   <p class="text-muted small mb-0">Kounter jumlah Surat Masuk dan Surat Keluar</p>
                </div>
            </div>
 
@@ -643,15 +643,6 @@
                   </div>
                </div>
 
-               <div class="card card-custom">
-                   <div class="card-body">
-                       <h6 class="fw-bold border-bottom pb-2 mb-3">Database Master</h6>
-                       <a href="https://docs.google.com/spreadsheets/d/1D8dnUtTP0YOo2E-5vV_kj8R2NVFPE8pjzUy3YwY2akQ/edit" target="_blank" class="btn btn-outline-primary text-start p-3 w-100">
-                           <i class="fas fa-database me-2"></i> Akses Spreadsheet Utama
-                           <div class="small text-muted ms-4">Lihat raw data dan backup manual.</div>
-                       </a>
-                   </div>
-               </div>
            </div>
 
         </div>
@@ -680,7 +671,7 @@
 
                      <div class="mb-3">
                          <label class="form-label small fw-bold text-muted">Nomor Surat</label>
-                         <input type="text" class="form-control" id="inpNomor" required placeholder="Tulis nomor surat lengkap...">
+                         <input type="text" class="form-control" id="inpNomor" required placeholder="......./......./.................../.......">
                      </div>
 
                      <div class="mb-3">
@@ -692,17 +683,17 @@
 
                      <div class="mb-3">
                          <label class="form-label small fw-bold text-muted">Perihal / Deskripsi</label>
-                         <textarea class="form-control" id="inpPerihal" rows="3" required placeholder="Perihal / deskripsi isi surat..."></textarea>
+                         <textarea class="form-control" id="inpPerihal" rows="3" required placeholder="Perihal surat / deskripsi isi surat ..."></textarea>
                      </div>
 
                      <div class="mb-3">
                          <label class="form-label small fw-bold text-muted" id="labelRelasi">Tujuan / Penerima</label>
-                         <input type="text" class="form-control" id="inpRelasi" required placeholder="...">
+                         <input type="text" class="form-control" id="inpRelasi" required placeholder="............">
                      </div>
 
                      <div class="mb-3">
                          <label class="form-label small fw-bold text-muted">Keterangan</label>
-                         <textarea class="form-control" id="inpKeterangan" rows="2" placeholder="Catatan tambahan..."></textarea>
+                         <textarea class="form-control" id="inpKeterangan" rows="2" placeholder="Catatan tambahan ..."></textarea>
                      </div>
 
                      <div class="mb-3">
@@ -713,7 +704,7 @@
                                 <div class="drop-zone-text" id="dropZoneText">
                                     <i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
                                     <div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
-                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 3MB)</div>
+                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
                                 </div>
                                 <div class="file-selected-info" id="fileSelectedInfo">
                                     <i class="fas fa-file-alt fa-lg"></i>
@@ -980,7 +971,7 @@
            Swal.fire({
                title: 'Tambah Jenis Surat',
                input: 'text',
-               inputPlaceholder: 'Contoh: Surat Tugas',
+               inputPlaceholder: 'Contoh: Surat Undangan',
                showCancelButton: true,
                confirmButtonText: 'Tambah',
                cancelButtonText: 'Batal',
@@ -1196,10 +1187,10 @@
           document.getElementById('nav-' + tabName).classList.add('active');
           
             const titles = {
-              'dashboard': ['Statistik Surat', 'Ringkasan data persuratan terkini.'],
-              'suratMasuk': ['Pencatatan Surat Masuk', 'Daftar seluruh surat yang masuk/diterima.'],
-              'suratKeluar': ['Pencatatan Surat Keluar', 'Daftar seluruh surat yang dikeluarkan.'],
-              'pengaturan': ['Pengaturan Sistem', 'Konfigurasi aplikasi dan data master.']
+              'dashboard': ['Statistik Surat', 'Kounter jumlah Surat Masuk dan Surat Keluar'],
+              'suratMasuk': ['Pencatatan Surat Masuk', 'Daftar surat yang masuk/diterima'],
+              'suratKeluar': ['Pencatatan Surat Keluar', 'Daftar surat yang keluar/diterbitkan'],
+              'pengaturan': ['Pengaturan Sistem', 'Konfigurasi aplikasi']
             };
           document.getElementById('pageTitle').innerText = titles[tabName][0];
           document.getElementById('pageTitle').nextElementSibling.innerText = titles[tabName][1];
@@ -1364,7 +1355,7 @@
 
         function populateDropdown() {
             const sel = document.getElementById('inpJenis');
-          sel.innerHTML = '<option value="">Pilih Jenis...</option>';
+          sel.innerHTML = '<option value="">Pilih ...</option>';
           globalData.jenisSurat.forEach(jenis => {
                let opt = document.createElement('option');
               opt.value = jenis;
@@ -1548,8 +1539,7 @@
            Swal.fire({
                 title: 'Konfirmasi Keamanan',
                 html: `
-                   <p>Anda akan menghapus data ini secara permanen.</p>
-                   <p class="small text-muted mb-3">Hanya user <b>${penginput}</b> yang dapat menghapus data ini.</p>
+                   <p>Anda akan menghapus data ini secara permanen.</p>                   
                    <div class="text-start mb-1 fw-bold small text-muted">Masukkan Password Anda:</div>
                 `,
                 input: 'password',
@@ -1773,4 +1763,3 @@
 </body>
 
 </html>
-
