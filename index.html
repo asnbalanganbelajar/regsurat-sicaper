@@ -20,41 +20,41 @@
     
     <style>
         :root {
-          --primary-bg: #f8fafc;
-          --brand-color: #1e293b; 
-           --text-main: #334155;
-          --text-muted: #64748b;
-          --accent-green: #059669;
-          --accent-orange: #ea580c;
+            --primary-bg: #f8fafc;
+            --brand-color: #1e293b; 
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --accent-green: #059669;
+            --accent-orange: #ea580c;
         }
 
         body {
-          font-family: 'Inter', sans-serif;
-          background-color: var(--primary-bg);
-          background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
-          background-size: 24px 24px;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
             color: var(--text-main);
-           overflow-x: hidden;
+            overflow-x: hidden;
         }
 
         /* --- UI COMPONENTS --- */
         .shadow-soft {
-           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .card-custom {
-           background: white;
+            background: white;
             border: none;
-          border-radius: 12px;
-           box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
 
         /* --- BUTTONS & ICONS --- */
         .btn-circle {
             width: 36px; height: 36px; padding: 0;
             display: inline-flex; justify-content: center; align-items: center;
-          border-radius: 50%; border: none; transition: all 0.2s ease;
-           box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-decoration: none;
+            border-radius: 50%; border: none; transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-decoration: none;
         }
         .btn-circle:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         
@@ -82,7 +82,7 @@
         }
 
         .search-input {
-          border-radius: 50px; border: 1px solid #e2e8f0; padding: 4px 15px;
+            border-radius: 50px; border: 1px solid #e2e8f0; padding: 4px 15px;
             min-width: 200px; height: 34px; font-size: 0.85rem;
         }
         .search-input:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); border-color: #3b82f6; }
@@ -97,10 +97,10 @@
         /* --- LAYOUT --- */
         .app-header {
             position: sticky; top: 0; z-index: 1030;
-          background-color: var(--primary-bg);
-          background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px); 
-          background-size: 24px 24px;
-           box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+            background-color: var(--primary-bg);
+            background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px); 
+            background-size: 24px 24px;
+            box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-main { background-color: var(--brand-color); color: white; padding: 0.75rem 1rem; }
@@ -109,21 +109,21 @@
         .navbar-text-sub { color: #94a3b8; font-size: 0.7rem; font-weight: 500; margin-top: 4px; }
         
         .user-pill {
-           background: rgba(255, 255, 255, 0.1); padding: 5px 15px; border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1); padding: 5px 15px; border-radius: 50px;
             display: flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.05);
         }
         .user-name { color: white; }
         .user-role { color: #cbd5e1; }
 
         .nav-tabs-container {
-          background-color: white; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e8f0;
+            background-color: white; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e8f0;
         }
         .nav-pills .nav-link {
             color: var(--text-muted); font-weight: 500; border-radius: 8px; padding: 8px 16px; margin-right: 5px;
         }
         .nav-pills .nav-link:hover { background-color: #f1f5f9; color: var(--brand-color); }
         .nav-pills .nav-link.active {
-          background-color: var(--brand-color); color: white; box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.3);
+            background-color: var(--brand-color); color: white; box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.3);
         }
 
         .bg-gradient-masuk { background: linear-gradient(135deg, #059669 0%, #34d399 100%); }
@@ -134,17 +134,24 @@
         .stat-card { overflow: hidden; position: relative; color: white; border-radius: 16px; }
         .stat-icon { position: absolute; right: -10px; bottom: -10px; font-size: 6rem; opacity: 0.15; transform: rotate(-10deg); }
 
-        .table-custom th {
-          font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em;
-            color: var(--text-muted); background-color: #f8fafc; border-bottom: 2px solid #e2e8f0; padding: 12px 16px;
-        }
-        .table-custom td { padding: 16px; vertical-align: middle; border-bottom: 1px solid #f1f5f9; }
+		.table-custom th {
+            font-weight: 600; text-transform: uppercase; font-size: 0.7rem; /* Sedikit diperkecil */
+            letter-spacing: 0.05em;
+            color: var(--text-muted); background-color: #f8fafc; border-bottom: 2px solid #e2e8f0; 
+            padding: 10px 10px; /* Padding header diperkecil */
+		}
+		.table-custom td { 
+            padding: 8px 10px; /* Padding baris diperkecil drastis dari 16px ke 8px vertikal */
+            font-size: 0.85rem; /* Ukuran font isi tabel diperkecil */
+            vertical-align: middle; border-bottom: 1px solid #f1f5f9; 
+		}
+
         .table-custom tr:hover td { background-color: #f8fafc; }
 
         /* --- PAGINATION STYLES --- */
         .pagination-container {
             display: flex; justify-content: space-between; align-items: center; padding: 1rem;
-           border-top: 1px solid #e2e8f0; font-size: 0.85rem; color: var(--text-muted);
+            border-top: 1px solid #e2e8f0; font-size: 0.85rem; color: var(--text-muted);
         }
         .page-link {
             border: none; color: var(--text-muted); padding: 5px 10px; border-radius: 6px; margin: 0 2px;
@@ -169,8 +176,8 @@
         /* --- DRAG & DROP --- */
         .drop-zone {
             border: 2px dashed #cbd5e1; border-radius: 12px; padding: 25px;
-           text-align: center; cursor: pointer; transition: all 0.2s ease;
-           background: #f8fafc; color: #64748b;
+            text-align: center; cursor: pointer; transition: all 0.2s ease;
+            background: #f8fafc; color: #64748b;
         }
         .drop-zone:hover, .drop-zone.dragover { border-color: #3b82f6; background: #eff6ff; color: #3b82f6; }
         .file-selected-info { display: none; align-items: center; justify-content: center; gap: 10px; color: #1e293b; font-weight: 600; }
@@ -426,225 +433,225 @@
         
         <header class="app-header">
             <nav class="navbar navbar-expand-lg navbar-main">
-               <div class="container">
-                 <a class="navbar-brand d-flex align-items-center" href="#">
-                     <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo">
-                     <div class="ms-2">
-                         <div class="navbar-text-main">S I C A P E R</div>
-                         <div class="navbar-text-sub">Sistem Informasi dan Catatan Persuratan</div>
-                     </div>
-                 </a>
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo">
+                        <div class="ms-2">
+                            <div class="navbar-text-main">S I C A P E R</div>
+                            <div class="navbar-text-sub">Sistem Informasi dan Catatan Persuratan</div>
+                        </div>
+                    </a>
                    
-                 <div class="d-flex align-items-center gap-3">
-                     <div class="user-pill d-none d-md-flex">
-                         <div class="pe-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="user-pill d-none d-md-flex">
+                            <div class="pe-2">
                                 <div class="user-name small fw-bold" id="userNama">User</div>
                                 <div class="user-role small" style="font-size: 0.7rem; margin-top: -2px;" id="userRole">Admin</div>
-                         </div>
-                     </div>
-                     <button class="btn-logout" onclick="logout()" title="Keluar Aplikasi">
-                         <i class="fas fa-power-off"></i>
-                     </button>
-                 </div>
-               </div>
-           </nav>
+                            </div>
+                        </div>
+                        <button class="btn-logout" onclick="logout()" title="Keluar Aplikasi">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
 
             <div class="nav-tabs-container">
-               <div class="container">
-                 <ul class="nav nav-pills" id="mainTab">
-                     <li class="nav-item">
-                         <a class="nav-link active" href="#" id="nav-dashboard" onclick="showTab('dashboard')">
+                <div class="container">
+                    <ul class="nav nav-pills" id="mainTab">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" id="nav-dashboard" onclick="showTab('dashboard')">
                                 <i class="fas fa-chart-pie me-1"></i> Dashboard
-                         </a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="#" id="nav-suratMasuk" onclick="showTab('suratMasuk')">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-suratMasuk" onclick="showTab('suratMasuk')">
                                 <i class="fas fa-envelope-open-text me-1"></i> Surat Masuk
-                         </a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="#" id="nav-suratKeluar" onclick="showTab('suratKeluar')">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-suratKeluar" onclick="showTab('suratKeluar')">
                                 <i class="fas fa-paper-plane me-1"></i> Surat Keluar
-                         </a>
-                     </li>
-                     <li class="nav-item" id="menuPengaturan">
-                         <a class="nav-link" href="#" id="nav-pengaturan" onclick="showTab('pengaturan')">
+                            </a>
+                        </li>
+                        <li class="nav-item" id="menuPengaturan">
+                            <a class="nav-link" href="#" id="nav-pengaturan" onclick="showTab('pengaturan')">
                                 <i class="fas fa-sliders-h me-1"></i> Pengaturan
-                         </a>
-                     </li>
-                 </ul>
-               </div>
-           </div>
-       </header>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
 
         <!-- MAIN CONTAINER -->
         <div class="container pb-5 mt-4" style="min-height: 100vh;">
             
             <div class="d-flex justify-content-between align-items-end mb-4 px-1">
-               <div>
-                   <h4 id="pageTitle" class="fw-bold text-dark mb-0">Statistik Surat</h4>
-                   <p class="text-muted small mb-0">Kounter jumlah Surat Masuk dan Surat Keluar</p>
-               </div>
-           </div>
+                <div>
+                    <h4 id="pageTitle" class="fw-bold text-dark mb-0">Statistik Surat</h4>
+                    <p class="text-muted small mb-0">Kounter jumlah Surat Masuk dan Surat Keluar</p>
+                </div>
+            </div>
 
             <!-- TAB: DASHBOARD -->
             <div id="tab-dashboard" class="content-tab">
-               <div class="row g-4">
-                 <div class="col-md-6">
-                     <div class="card stat-card bg-gradient-masuk h-100 p-4 shadow-soft">
-                         <div class="position-relative z-1">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card stat-card bg-gradient-masuk h-100 p-4 shadow-soft">
+                            <div class="position-relative z-1">
                                 <h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Surat Masuk</h6>
                                 <h1 id="countMasuk" class="display-3 fw-bold mb-0">0</h1>
                                 <p class="text-white-50 mb-0 mt-2"><i class="fas fa-check-circle me-1"></i> Data Terverifikasi</p>
-                         </div>
-                         <i class="fas fa-inbox stat-icon"></i>
-                     </div>
-                 </div>
-                 <div class="col-md-6">
-                     <div class="card stat-card bg-gradient-keluar h-100 p-4 shadow-soft">
-                         <div class="position-relative z-1">
+                            </div>
+                            <i class="fas fa-inbox stat-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card stat-card bg-gradient-keluar h-100 p-4 shadow-soft">
+                            <div class="position-relative z-1">
                                 <h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Surat Keluar</h6>
                                 <h1 id="countKeluar" class="display-3 fw-bold mb-0">0</h1>
                                 <p class="text-white-50 mb-0 mt-2"><i class="fas fa-check-circle me-1"></i> Data Terverifikasi</p>
-                         </div>
-                         <i class="fas fa-paper-plane stat-icon"></i>
-                     </div>
-                 </div>
-               </div>
-           </div>
+                            </div>
+                            <i class="fas fa-paper-plane stat-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- TAB: SURAT MASUK -->
             <div id="tab-suratMasuk" class="content-tab d-none">
-               <div class="card card-custom shadow-sm overflow-hidden">
-                 <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
-                     <h6 class="fw-bold m-0"><i class="fas fa-table me-2 text-muted"></i>Data Surat Masuk</h6>
-                     <div class="d-flex gap-2">
-                         <input type="text" id="searchMasuk" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('masuk'); renderTables()">
-                         
-                         <button class="btn btn-masuk btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openModal('masuk')">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-table me-2 text-muted"></i>Data Surat Masuk</h6>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="searchMasuk" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('masuk'); renderTables()">
+                            
+                            <button class="btn btn-masuk btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openModal('masuk')">
                                 <i class="fas fa-plus me-1"></i> Tambah Baru
-                         </button>
-                         
-                         <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_masuk')" title="Unduh Excel">
+                            </button>
+                            
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_masuk')" title="Unduh Excel">
                                 <i class="fas fa-file-excel me-1"></i> Unduh Rekap
-                         </button>
-                     </div>
-                 </div>
-                 <div class="table-responsive">
-                     <table class="table table-custom mb-0" id="tableMasuk">
-                         <thead>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0" id="tableMasuk">
+                            <thead>
                                 <tr>
-                                    <th style="width: 22%">Nomor Surat</th>
-                                    <th style="width: 25%">Jenis & Perihal</th>
-                                    <th style="width: 20%">Pengirim</th>
-                                    <th style="width: 16%">Keterangan</th>
+                                    <th style="width: 20%">Nomor Surat</th>
+                                    <th style="width: 20%">Jenis & Perihal</th>
+                                    <th style="width: 18%">Pengirim</th>
+									<th style="width: 15%">Diteruskan ke</th>
+									<th style="width: 15%">Keterangan</th>
                                     <th style="width: 12%" class="text-center">Aksi</th>
                                 </tr>
-                         </thead>
-                         <tbody></tbody>
-                     </table>
-                 </div>
-                 <div class="pagination-container" id="paginationMasuk"></div>
-               </div>
-           </div>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="paginationMasuk"></div>
+                </div>
+            </div>
 
             <!-- TAB: SURAT KELUAR -->
             <div id="tab-suratKeluar" class="content-tab d-none">
-               <div class="card card-custom shadow-sm overflow-hidden">
-                 <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
-                     <h6 class="fw-bold m-0"><i class="fas fa-table me-2 text-muted"></i>Data Surat Keluar</h6>
-                     <div class="d-flex gap-2">
-                         <input type="text" id="searchKeluar" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('keluar'); renderTables()">
-                         
-                         <button class="btn btn-keluar btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openModal('keluar')">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-table me-2 text-muted"></i>Data Surat Keluar</h6>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="searchKeluar" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('keluar'); renderTables()">
+                            
+                            <button class="btn btn-keluar btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openModal('keluar')">
                                 <i class="fas fa-plus me-1"></i> Tambah Baru
-                         </button>
-                         
-                         <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_keluar')" title="Unduh Excel">
+                            </button>
+                            
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_keluar')" title="Unduh Excel">
                                 <i class="fas fa-file-excel me-1"></i> Unduh Rekap
-                         </button>
-                     </div>
-                 </div>
-                 <div class="table-responsive">
-                     <table class="table table-custom mb-0" id="tableKeluar">
-                         <thead>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0" id="tableKeluar">
+                            <thead>
                                 <tr>
-                                    <th style="width: 22%">Nomor Surat</th>
-                                    <th style="width: 25%">Jenis & Perihal</th>
-                                    <th style="width: 20%">Tujuan</th>
-                                    <th style="width: 16%">Keterangan</th>
-                                    <th style="width: 12%" class="text-center">Aksi</th>
+									<th style="width: 20%">Nomor Surat</th>
+									<th style="width: 20%">Jenis & Perihal</th>
+									<th style="width: 18%">Tujuan</th>
+									<th style="width: 15%">Asal Naskah</th> 
+									<th style="width: 15%">Keterangan</th>
+									<th style="width: 12%" class="text-center">Aksi</th>
                                 </tr>
-                         </thead>
-                         <tbody></tbody>
-                     </table>
-                 </div>
-                 <div class="pagination-container" id="paginationKeluar"></div>
-               </div>
-           </div>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="paginationKeluar"></div>
+                </div>
+            </div>
 
             <!-- TAB: PENGATURAN -->
             <div id="tab-pengaturan" class="content-tab d-none">
-               <div class="card card-custom p-4 border-start border-4 border-warning mb-4">
-                 <div class="d-flex">
-                     <i class="fas fa-lock fa-2x text-warning me-3"></i>
-                     <div>
-                         <h5 class="fw-bold">Area Terbatas</h5>
-                         <p class="text-muted mb-0">Halaman ini hanya dapat diakses oleh Super Admin untuk konfigurasi sistem.</p>
-                     </div>
-                 </div>
-               </div>
-               
-               <div class="row">
-                  <!-- Kolom Kiri: Manajemen User -->
-                  <div class="col-md-7 mb-4">
-                      <div class="card card-custom shadow-sm overflow-hidden h-100">
-                         <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
+                <div class="card card-custom p-4 border-start border-4 border-warning mb-4">
+                    <div class="d-flex">
+                        <i class="fas fa-lock fa-2x text-warning me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Area Terbatas</h5>
+                            <p class="text-muted mb-0">Halaman ini hanya dapat diakses oleh Super Admin untuk konfigurasi sistem.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- Kolom Kiri: Manajemen User -->
+                    <div class="col-md-7 mb-4">
+                        <div class="card card-custom shadow-sm overflow-hidden h-100">
+                            <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
                                 <h6 class="fw-bold m-0"><i class="fas fa-users-cog me-2 text-muted"></i>Manajemen User</h6>
                                 <button class="btn btn-dark btn-sm rounded-pill fw-bold px-3" onclick="openUserModal()">
                                     <i class="fas fa-user-plus me-1"></i> Tambah
                                 </button>
-                         </div>
-                         <div class="table-responsive">
+                            </div>
+                            <div class="table-responsive">
                                 <table class="table table-custom mb-0" id="tableUsers">
                                     <thead>
-                                       <tr>
-                                           <th>Username</th>
-                                           <th>Nama</th>
-                                           <th>Role</th>
-                                           <th class="text-center">Aksi</th>
-                                       </tr>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Nama</th>
+                                            <th>Role</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
-                         </div>
-                      </div>
-                  </div>
+                            </div>
+                        </div>
+                    </div>
 
-                  <!-- Kolom Kanan: Manajemen Jenis Surat -->
-                  <div class="col-md-5 mb-4">
-                      <div class="card card-custom shadow-sm overflow-hidden h-100">
-                          <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
+                    <!-- Kolom Kanan: Manajemen Jenis Surat -->
+                    <div class="col-md-5 mb-4">
+                        <div class="card card-custom shadow-sm overflow-hidden h-100">
+                            <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
                                 <h6 class="fw-bold m-0"><i class="fas fa-list-ul me-2 text-muted"></i>Jenis Surat</h6>
                                 <button class="btn btn-dark btn-sm rounded-pill fw-bold px-3" onclick="addJenisSurat()">
                                     <i class="fas fa-plus me-1"></i> Tambah
                                 </button>
-                          </div>
-                          <div class="card-body bg-light">
-                               <div class="alert alert-info py-2 small mb-2"><i class="fas fa-info-circle me-1"></i> Drag untuk atur urutan.</div>
-                               <ul class="list-group shadow-sm" id="listJenisSurat">
-                                   <!-- Items will be here -->
-                               </ul>
-                               <button class="btn btn-primary w-100 mt-3 fw-bold" onclick="saveJenisSurat()">
-                                   <i class="fas fa-save me-1"></i> Simpan Urutan
-                               </button>
-                          </div>
-                      </div>
-                  </div>
-               </div>
-
-           </div>
-
+                            </div>
+                            <div class="card-body bg-light">
+                                <div class="alert alert-info py-2 small mb-2"><i class="fas fa-info-circle me-1"></i> Drag untuk atur urutan.</div>
+                                <ul class="list-group shadow-sm" id="listJenisSurat">
+                                    <!-- Items will be here -->
+                                </ul>
+                                <button class="btn btn-primary w-100 mt-3 fw-bold" onclick="saveJenisSurat()">
+                                    <i class="fas fa-save me-1"></i> Simpan Urutan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -652,74 +659,131 @@
     <div class="modal fade" id="modalSurat" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
             <div class="modal-content">
-               <div class="modal-header" id="modalHeaderBg">
-                 <h6 class="modal-title fw-bold" id="modalTitle">Tambah Surat</h6>
-                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-               </div>
-               <div class="modal-body">
-                 <form id="formSurat">
-                     <input type="hidden" id="kategoriSurat">
-                     <!-- GANTI: Simpan rowNumber asli -->
-                     <input type="hidden" id="realRowNumber">
-                     <input type="hidden" id="isEditMode" value="false">
-                     <input type="hidden" id="existingFileUrl">
+                <div class="modal-header" id="modalHeaderBg">
+                    <h6 class="modal-title fw-bold" id="modalTitle">Tambah Surat</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+					<form id="formSurat">
+						<input type="hidden" id="kategoriSurat">
+						<input type="hidden" id="realRowNumber">
+						<input type="hidden" id="isEditMode" value="false">
+						<input type="hidden" id="existingFileUrl">
 
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Tanggal Surat</label>
-                         <input type="date" class="form-control" id="inpTanggal" required>
-                     </div>
+						<div class="mb-3">
+							<label class="form-label small fw-bold text-muted">Tanggal Surat<span class="text-danger">*</span></label>
+							<input type="date" class="form-control" id="inpTanggal" required>
+						</div>
 
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Nomor Surat</label>
-                         <input type="text" class="form-control" id="inpNomor" required placeholder="......./......./.................../.......">
-                     </div>
+						<div id="blockMasuk">
+							<div class="mb-3">
+								<label class="form-label small fw-bold text-muted">Nomor Surat<span class="text-danger">*</span></label>
+								<input type="text" class="form-control" id="inpNomorMasuk" placeholder="Nomor surat lengkap">
+							</div>
+							<div class="mb-3">
+								<label class="form-label small fw-bold text-muted">Asal / Pengirim<span class="text-danger">*</span></label>
+								<input type="text" class="form-control" id="inpPengirim" placeholder="Lembaga / perorangan / dll">
+							</div>
+							<div class="mb-3">
+								<label class="form-label small fw-bold text-muted">Diteruskan ke</label>
+								<select class="form-select" id="inpDiteruskan">
+									<option value="">Pilih</option>
+									<option value="Semua">Semua</option>
+									<option value="Sekretariat">Sekretariat</option>
+									<option value="Sekretariat: Umpeg">Sekretariat: Umpeg</option>
+									<option value="Sekretariat: Renkeu">Sekretariat: Renkeu</option>
+									<option value="Bidang PSDM">Bidang PSDM</option>
+									<option value="Bidang PPIK">Bidang PPIK</option>
+									<option value="Bidang MPK">Bidang MPK</option>
+								</select>
+							</div>
+						</div>
 
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Jenis Surat</label>
-                         <select class="form-select form-control" id="inpJenis" required>
-                                <option value="">Pilih...</option>
-                         </select>
-                     </div>
+						<div id="blockKeluar" class="d-none">
+							<div class="row g-2 mb-3">
+								<div class="col-md-6">
+									<label class="form-label small fw-bold text-muted">Kode Klasifikasi<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="inpKode" placeholder="Cth: 800.1.3.1">
+								</div>
+								<div class="col-md-6">
+									<label class="form-label small fw-bold text-muted">Nomor Urut<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="inpNoUrut" placeholder="Cth: 001">
+								</div>
+								<div class="col-md-6">
+									<label class="form-label small fw-bold text-muted">Kode Lanjutan<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="inpKodeLanjutan" value="BKPSDM-BLG">
+								</div>
+								<div class="col-md-6">
+									<label class="form-label small fw-bold text-muted">Tahun<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="inpTahun" value="2026">
+								</div>
+								<div class="col-12">
+									<div class="form-text small text-primary">
+										<i class="fas fa-info-circle me-1"></i> Preview: <span id="previewNoSurat" class="fw-bold">-</span>
+									</div>
+								</div>
+							</div>
 
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Perihal / Deskripsi</label>
-                         <textarea class="form-control" id="inpPerihal" rows="3" required placeholder="Perihal surat / deskripsi isi surat ..."></textarea>
-                     </div>
+							<div class="mb-3">
+								<label class="form-label small fw-bold text-muted">Tujuan / Penerima<span class="text-danger">*</span></label>
+								<input type="text" class="form-control" id="inpTujuan" placeholder="Lembaga / perorangan / dll">
+							</div>
 
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted" id="labelRelasi">Tujuan / Penerima</label>
-                         <input type="text" class="form-control" id="inpRelasi" required placeholder="............">
-                     </div>
+							<div class="mb-3">
+								<label class="form-label small fw-bold text-muted">Asal Naskah<span class="text-danger">*</span></label>
+								<select class="form-select" id="inpAsalNaskah">
+									<option value="">Pilih</option>
+									<option value="Sekretariat">Sekretariat</option>
+									<option value="Sekretariat: Umpeg">Sekretariat: Umpeg</option>
+									<option value="Sekretariat: Renkeu">Sekretariat: Renkeu</option>
+									<option value="Bidang PSDM">Bidang PSDM</option>
+									<option value="Bidang PPIK">Bidang PPIK</option>
+									<option value="Bidang MPK">Bidang MPK</option>
+								</select>
+							</div>
+						</div>
 
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Keterangan</label>
-                         <textarea class="form-control" id="inpKeterangan" rows="2" placeholder="Catatan tambahan ..."></textarea>
-                     </div>
+						<div class="mb-3">
+							<label class="form-label small fw-bold text-muted">Jenis Surat<span class="text-danger">*</span></label>
+							<select class="form-select form-control" id="inpJenis" required>
+								<option value="">Pilih</option>
+							</select>
+						</div>
 
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">File</label>
-                         <input type="file" class="d-none" id="inpFile" accept=".pdf,.jpg,.jpeg,.png">
-                         
-                         <div class="drop-zone" id="dropZoneArea">
-                                <div class="drop-zone-text" id="dropZoneText">
-                                    <i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
-                                    <div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
-                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
-                                </div>
-                                <div class="file-selected-info" id="fileSelectedInfo">
-                                    <i class="fas fa-file-alt fa-lg"></i>
-                                    <span id="fileNameDisplay" class="text-truncate" style="max-width: 200px;">nama_file.pdf</span>
-                                    <i class="fas fa-check-circle text-success ms-1"></i>
-                                </div>
-                         </div>
-                         <div class="form-text small mt-2" id="fileHelpText"></div>
-                     </div>
-                 </form>
-               </div>
-               <div class="modal-footer bg-light border-0">
-                 <button type="button" class="btn btn-secondary text-white text-decoration-none" data-bs-dismiss="modal">Batal</button>
-                 <button type="button" class="btn btn-dark fw-bold px-4 rounded-3" onclick="simpanData()" id="btnSimpan">Simpan Data</button>
-               </div>
+						<div class="mb-3">
+							<label class="form-label small fw-bold text-muted">Perihal / Deskripsi<span class="text-danger">*</span></label>
+							<textarea class="form-control" id="inpPerihal" rows="3" required placeholder="Perihal / deskripsi surat"></textarea>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label small fw-bold text-muted">Keterangan</label>
+							<textarea class="form-control" id="inpKeterangan" rows="2" placeholder="Catatan tambahan"></textarea>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label small fw-bold text-muted">File</label>
+							<input type="file" class="d-none" id="inpFile" accept=".pdf,.jpg,.jpeg,.png">
+							
+							<div class="drop-zone" id="dropZoneArea">
+								<div class="drop-zone-text" id="dropZoneText">
+									<i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
+									<div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
+									<div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
+								</div>
+								<div class="file-selected-info" id="fileSelectedInfo">
+									<i class="fas fa-file-alt fa-lg"></i>
+									<span id="fileNameDisplay" class="text-truncate" style="max-width: 200px;">nama_file.pdf</span>
+									<i class="fas fa-check-circle text-success ms-1"></i>
+								</div>
+							</div>
+							<div class="form-text small mt-2" id="fileHelpText"></div>
+						</div>
+					</form>
+                </div>
+                <div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-secondary text-white text-decoration-none" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark fw-bold px-4 rounded-3" onclick="simpanData()" id="btnSimpan">Simpan Data</button>
+                </div>
             </div>
         </div>
     </div>
@@ -728,31 +792,31 @@
     <div class="modal fade" id="modalDownload" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm"> 
             <div class="modal-content">
-               <div class="modal-header bg-header-download text-white">
-                 <h6 class="modal-title fw-bold"><i class="fas fa-file-download me-2"></i>Unduh Rekap</h6>
-                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-               </div>
-               <div class="modal-body">
-                 <form id="formDownload">
-                     <input type="hidden" id="downloadKategori">
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Tanggal Awal</label>
-                         <input type="date" class="form-control" id="dlStartDate" required>
-                     </div>
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Tanggal Akhir</label>
-                         <input type="date" class="form-control" id="dlEndDate" required>
-                     </div>
-                     <div class="alert alert-info py-2 px-3 small mb-0">
-                         <i class="fas fa-info-circle me-1"></i> File akan diunduh dalam format <b>.xlsx</b> (Excel).
-                     </div>
-                 </form>
-               </div>
-               <div class="modal-footer bg-light border-0 p-2 justify-content-center">
-                 <button type="button" class="btn btn-dark w-100 fw-bold rounded-3" onclick="processDownload()">
-                     <i class="fas fa-download me-2"></i>Unduh Sekarang
-                 </button>
-               </div>
+                <div class="modal-header bg-header-download text-white">
+                    <h6 class="modal-title fw-bold"><i class="fas fa-file-download me-2"></i>Unduh Rekap</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDownload">
+                        <input type="hidden" id="downloadKategori">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Tanggal Awal</label>
+                            <input type="date" class="form-control" id="dlStartDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Tanggal Akhir</label>
+                            <input type="date" class="form-control" id="dlEndDate" required>
+                        </div>
+                        <div class="alert alert-info py-2 px-3 small mb-0">
+                            <i class="fas fa-info-circle me-1"></i> File akan diunduh dalam format <b>.xlsx</b> (Excel).
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light border-0 p-2 justify-content-center">
+                    <button type="button" class="btn btn-dark w-100 fw-bold rounded-3" onclick="processDownload()">
+                        <i class="fas fa-download me-2"></i>Unduh Sekarang
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -761,40 +825,40 @@
     <div class="modal fade" id="modalUser" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered"> 
             <div class="modal-content">
-               <div class="modal-header bg-header-user text-white">
-                 <h6 class="modal-title fw-bold" id="modalUserTitle">Kelola User</h6>
-                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-               </div>
-               <div class="modal-body">
-                 <form id="formUser">
-                     <input type="hidden" id="isUserEdit" value="false">
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Username</label>
-                         <input type="text" class="form-control" id="uUsername" required>
-                         <div class="form-text small" id="uUsernameHelp">Username unik untuk login.</div>
-                     </div>
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Password</label>
-                         <input type="text" class="form-control" id="uPassword" placeholder="Masukkan password">
-                         <div class="form-text small" id="uPasswordHelp">Biarkan kosong jika tidak ingin mengubah password.</div>
-                     </div>
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Nama Lengkap</label>
-                         <input type="text" class="form-control" id="uNama" required>
-                     </div>
-                     <div class="mb-3">
-                         <label class="form-label small fw-bold text-muted">Role</label>
-                         <select class="form-select" id="uRole" required>
-                             <option value="Admin">Admin</option>
-                             <option value="Super Admin">Super Admin</option>
-                         </select>
-                     </div>
-                 </form>
-               </div>
-               <div class="modal-footer bg-light border-0">
-                 <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Batal</button>
-                 <button type="button" class="btn btn-dark fw-bold" onclick="saveUser()">Simpan User</button>
-               </div>
+                <div class="modal-header bg-header-user text-white">
+                    <h6 class="modal-title fw-bold" id="modalUserTitle">Kelola User</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formUser">
+                        <input type="hidden" id="isUserEdit" value="false">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Username</label>
+                            <input type="text" class="form-control" id="uUsername" required>
+                            <div class="form-text small" id="uUsernameHelp">Username unik untuk login.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Password</label>
+                            <input type="text" class="form-control" id="uPassword" placeholder="Masukkan password">
+                            <div class="form-text small" id="uPasswordHelp">Biarkan kosong jika tidak ingin mengubah password.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="uNama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Role</label>
+                            <select class="form-select" id="uRole" required>
+                                <option value="Admin">Admin</option>
+                                <option value="Super Admin">Super Admin</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark fw-bold" onclick="saveUser()">Simpan User</button>
+                </div>
             </div>
         </div>
     </div>
@@ -808,9 +872,9 @@
 
         // State Aplikasi
         let globalData = {
-           jenisSurat: [],
-           suratMasuk: [],
-          suratKeluar: []
+            jenisSurat: [],
+            suratMasuk: [],
+            suratKeluar: []
         };
         let userList = [];
         let currentUser = null;
@@ -821,125 +885,151 @@
         let currentPageKeluar = 1;
         let rowsPerPageKeluar = 5;
 
-        // Force hide loading
-       window.addEventListener('load', function() {
-          showLoading(false);
-          setupDragAndDrop();
+        // --- FUNGSI HELPER (Boleh diletakkan di sini) ---
+        function updatePreviewNomor() {
+            // Cek apakah elemen ada untuk menghindari error jika modal belum siap
+            const elKode = document.getElementById('inpKode');
+            if(!elKode) return; 
+
+            const k = elKode.value;
+            const n = document.getElementById('inpNoUrut').value;
+            const kl = document.getElementById('inpKodeLanjutan').value;
+            const t = document.getElementById('inpTahun').value;
+            
+            // Logic penggabungan: Kode/NoUrut/KodeLanjutan/Tahun
+            document.getElementById('previewNoSurat').innerText = `${k}/${n}/${kl}/${t}`;
+        }
+
+        // --- MAIN LISTENER ---
+        // Force hide loading & Setup Listener saat halaman selesai dimuat
+        window.addEventListener('load', function() {
+            showLoading(false);
+            setupDragAndDrop();
+
+            // PINDAHKAN LISTENER KE SINI (LEBIH AMAN)
+            // Listener untuk auto-preview Nomor Surat Keluar
+            const ids = ['inpKode', 'inpNoUrut', 'inpKodeLanjutan', 'inpTahun'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.addEventListener('input', updatePreviewNomor);
+                }
+            });
         });
 
         // === FUNGSI UTAMA ===
 
-       document.getElementById('formLogin').addEventListener('submit', function(e) {
-          e.preventDefault();
+        document.getElementById('formLogin').addEventListener('submit', function(e) {
+            e.preventDefault();
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
-          showLoading(true);
-          
-          fetch(GAS_API_URL, {
-               method: 'POST',
-               body: JSON.stringify({ action: 'login', username: u, password: p })
+            showLoading(true);
+            
+            fetch(GAS_API_URL, {
+                method: 'POST',
+                body: JSON.stringify({ action: 'login', username: u, password: p })
             })
             .then(res => res.json())
             .then(data => {
-              showLoading(false);
+                showLoading(false);
                 if (data.status === 'success') {
-                  currentUser = data.user;
-                  initApp();
-                  Swal.fire({
-                      icon: 'success',
-                      title: 'Berhasil Login',
-                      text: `Selamat datang, ${currentUser.nama}`,
-                      timer: 2000,
-                      showConfirmButton: false
-                   });
+                    currentUser = data.user;
+                    initApp();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Login',
+                        text: `Selamat datang, ${currentUser.nama}`,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
                 } else {
-                  Swal.fire({
-                      icon: 'error',
-                      title: 'Login Gagal',
-                      text: data.message
-                   });
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Gagal',
+                        text: data.message
+                    });
                 }
             })
             .catch(err => {
-              showLoading(false);
-              Swal.fire({ icon: 'error', title: 'Error', text: "Koneksi Error: " + err });
+                showLoading(false);
+                Swal.fire({ icon: 'error', title: 'Error', text: "Koneksi Error: " + err });
             });
         });
 
         function initApp() {
-          document.getElementById('loginPanel').classList.add('d-none');
-          document.getElementById('appPanel').classList.remove('d-none');
-          
-          document.getElementById('userNama').innerText = currentUser.nama;
-          document.getElementById('userRole').innerText = currentUser.role;
-          
+            document.getElementById('loginPanel').classList.add('d-none');
+            document.getElementById('appPanel').classList.remove('d-none');
+            
+            document.getElementById('userNama').innerText = currentUser.nama;
+            document.getElementById('userRole').innerText = currentUser.role;
+            
             if (currentUser.role !== 'Super Admin') {
-              document.getElementById('menuPengaturan').classList.add('d-none');
+                document.getElementById('menuPengaturan').classList.add('d-none');
             } else {
-               loadUsers();
-               renderJenisSuratSettings();
+                loadUsers();
+                renderJenisSuratSettings();
             }
-           loadData();
+            loadData();
 
-          // AUTO REFRESH SETIAP 15 DETIK
-          setInterval(() => {
-               const modalSuratOpen = document.getElementById('modalSurat').classList.contains('show');
-               const modalUserOpen = document.getElementById('modalUser').classList.contains('show');
-               // Hanya refresh jika tidak ada modal yang sedang dibuka user
-               if (!modalSuratOpen && !modalUserOpen) {
-                  loadData(true); // true = mode background
-               }
-           }, 15000);
+            // AUTO REFRESH SETIAP 15 DETIK
+            setInterval(() => {
+                const modalSuratOpen = document.getElementById('modalSurat').classList.contains('show');
+                const modalUserOpen = document.getElementById('modalUser').classList.contains('show');
+                // Hanya refresh jika tidak ada modal yang sedang dibuka user
+                if (!modalSuratOpen && !modalUserOpen) {
+                    loadData(true); // true = mode background
+                }
+            }, 15000);
         }
 
         function loadData(isBackground = false) {
-           if (!isBackground) showLoading(true);
-           
-          fetch(GAS_API_URL + "?action=getData")
+            if (!isBackground) showLoading(true);
+            
+            fetch(GAS_API_URL + "?action=getData")
             .then(res => res.json())
             .then(resp => {
-               if (!isBackground) showLoading(false);
+                if (!isBackground) showLoading(false);
                 if (resp.status === 'success') {
-                  
-                  // FIX AUTO REFRESH BUG
-                  // Jika ini background refresh, JANGAN update jenisSurat
-                  // Agar data lokal yang sedang diedit (tambah jenis) tidak tertimpa
-                  if (isBackground) {
-                      globalData.suratMasuk = resp.data.suratMasuk;
-                      globalData.suratKeluar = resp.data.suratKeluar;
-                      // globalData.jenisSurat dibiarkan apa adanya
-                  } else {
-                      // Jika refresh manual (awal load), update semua
-                      globalData = resp.data;
-                  }
+                    
+                    // FIX AUTO REFRESH BUG
+                    // Jika ini background refresh, JANGAN update jenisSurat
+                    // Agar data lokal yang sedang diedit (tambah jenis) tidak tertimpa
+                    if (isBackground) {
+                        globalData.suratMasuk = resp.data.suratMasuk;
+                        globalData.suratKeluar = resp.data.suratKeluar;
+                        // globalData.jenisSurat dibiarkan apa adanya
+                    } else {
+                        // Jika refresh manual (awal load), update semua
+                        globalData = resp.data;
+                    }
 
-                  renderDashboard();
-                  renderTables();
-                  
-                  // Dropdown & Setting list hanya dirender ulang jika BUKAN background refresh
-                  if (!isBackground) {
-                      populateDropdown();
-                      if(currentUser && currentUser.role === 'Super Admin') {
-                          renderJenisSuratSettings();
-                      }
-                  }
+                    renderDashboard();
+                    renderTables();
+                    
+                    // Dropdown & Setting list hanya dirender ulang jika BUKAN background refresh
+                    if (!isBackground) {
+                        populateDropdown();
+                        if(currentUser && currentUser.role === 'Super Admin') {
+                            renderJenisSuratSettings();
+                        }
+                    }
                 }
             })
             .catch(err => {
-               if (!isBackground) {
-                  showLoading(false);
-                  Swal.fire({ icon: 'error', title: 'Error', text: "Gagal mengambil data." });
-               }
+                if (!isBackground) {
+                    showLoading(false);
+                    Swal.fire({ icon: 'error', title: 'Error', text: "Gagal mengambil data." });
+                }
             });
         }
 
         function loadUsers() {
-           fetch(GAS_API_URL + "?action=getUsers")
+            fetch(GAS_API_URL + "?action=getUsers")
             .then(res => res.json())
             .then(resp => {
                 if (resp.status === 'success') {
-                   userList = resp.data;
-                   renderUserTable();
+                    userList = resp.data;
+                    renderUserTable();
                 }
             });
         }
@@ -948,61 +1038,61 @@
         
         function renderJenisSuratSettings() {
             const listEl = document.getElementById('listJenisSurat');
-           listEl.innerHTML = '';
-           
-           globalData.jenisSurat.forEach((jenis, index) => {
-               const li = document.createElement('li');
-               li.className = 'list-group-item d-flex justify-content-between align-items-center bg-white';
-               li.innerHTML = `
-                   <span><i class="fas fa-bars text-muted me-2"></i> ${jenis}</span>
-                   <button class="btn btn-sm text-danger" onclick="deleteJenisSurat('${jenis}')"><i class="fas fa-times"></i></button>
+            listEl.innerHTML = '';
+            
+            globalData.jenisSurat.forEach((jenis, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center bg-white';
+                li.innerHTML = `
+                    <span><i class="fas fa-bars text-muted me-2"></i> ${jenis}</span>
+                    <button class="btn btn-sm text-danger" onclick="deleteJenisSurat('${jenis}')"><i class="fas fa-times"></i></button>
                 `;
-               li.dataset.value = jenis;
-               listEl.appendChild(li);
+                li.dataset.value = jenis;
+                listEl.appendChild(li);
             });
 
             new Sortable(listEl, {
-               animation: 150,
-               ghostClass: 'sortable-ghost'
+                animation: 150,
+                ghostClass: 'sortable-ghost'
             });
         }
 
         function addJenisSurat() {
-           Swal.fire({
-               title: 'Tambah Jenis Surat',
-               input: 'text',
-               inputPlaceholder: 'Contoh: Surat Undangan',
-               showCancelButton: true,
-               confirmButtonText: 'Tambah',
-               cancelButtonText: 'Batal',
-			   reverseButtons: true    
-           }).then((result) => {
+            Swal.fire({
+                title: 'Tambah Jenis Surat',
+                input: 'text',
+                inputPlaceholder: 'Cth: Surat Undangan',
+                showCancelButton: true,
+                confirmButtonText: 'Tambah',
+                cancelButtonText: 'Batal',
+                reverseButtons: true    
+            }).then((result) => {
                 if (result.isConfirmed && result.value) {
-                   const newValue = result.value.trim();
-                   if(newValue && !globalData.jenisSurat.includes(newValue)) {
-                       globalData.jenisSurat.push(newValue);
-                       renderJenisSuratSettings();
+                    const newValue = result.value.trim();
+                    if(newValue && !globalData.jenisSurat.includes(newValue)) {
+                        globalData.jenisSurat.push(newValue);
+                        renderJenisSuratSettings();
                     } else {
-                       Swal.fire('Info', 'Jenis surat kosong atau sudah ada.', 'info');
+                        Swal.fire('Info', 'Jenis surat kosong atau sudah ada.', 'info');
                     }
                 }
             });
         }
 
         function deleteJenisSurat(val) {
-           Swal.fire({
-               title: 'Hapus?',
-               text: `Hapus "${val}" dari daftar?`,
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#d33',
-               cancelButtonText: 'Batal',
-               confirmButtonText: 'Hapus',
-			   reverseButtons: true
-           }).then((result) => {
+            Swal.fire({
+                title: 'Hapus?',
+                text: `Hapus "${val}" dari daftar?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus',
+                reverseButtons: true
+            }).then((result) => {
                 if (result.isConfirmed) {
-                   globalData.jenisSurat = globalData.jenisSurat.filter(item => item !== val);
-                   renderJenisSuratSettings();
+                    globalData.jenisSurat = globalData.jenisSurat.filter(item => item !== val);
+                    renderJenisSuratSettings();
                 }
             });
         }
@@ -1011,26 +1101,26 @@
             const listEl = document.getElementById('listJenisSurat');
             const items = listEl.querySelectorAll('li');
             const newList = [];
-           items.forEach(item => newList.push(item.dataset.value));
+            items.forEach(item => newList.push(item.dataset.value));
 
-           showLoading(true);
-           
-           fetch(GAS_API_URL, {
-               method: 'POST',
+            showLoading(true);
+            
+            fetch(GAS_API_URL, {
+                method: 'POST',
                 body: JSON.stringify({
-                   action: 'manageJenisSurat',
-                   list: newList
+                    action: 'manageJenisSurat',
+                    list: newList
                 })
             })
             .then(res => res.json())
             .then(resp => {
-               showLoading(false);
+                showLoading(false);
                 if (resp.status === 'success') {
-                   Swal.fire('Tersimpan', resp.message, 'success');
-                   globalData.jenisSurat = newList; 
-                   populateDropdown(); 
+                    Swal.fire('Tersimpan', resp.message, 'success');
+                    globalData.jenisSurat = newList; 
+                    populateDropdown(); 
                 } else {
-                   Swal.fire('Gagal', resp.message, 'error');
+                    Swal.fire('Gagal', resp.message, 'error');
                 }
             });
         }
@@ -1040,46 +1130,46 @@
 
         function renderUserTable() {
             const tbody = document.querySelector('#tableUsers tbody');
-           tbody.innerHTML = '';
-           userList.forEach(u => {
-               tbody.innerHTML += `
-                   <tr>
-                       <td class="fw-bold small">${u.username}</td>
-                       <td class="small">${u.nama}</td>
-                       <td><span class="badge ${u.role === 'Super Admin' ? 'bg-warning text-dark' : 'bg-secondary'}">${u.role}</span></td>
-                       <td class="text-center">
-                           <button class="btn btn-sm btn-outline-dark me-1" onclick="editUser('${u.username}')"><i class="fas fa-pen"></i></button>
-                           <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u.username}')"><i class="fas fa-trash"></i></button>
-                       </td>
-                   </tr>
+            tbody.innerHTML = '';
+            userList.forEach(u => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="fw-bold small">${u.username}</td>
+                        <td class="small">${u.nama}</td>
+                        <td><span class="badge ${u.role === 'Super Admin' ? 'bg-warning text-dark' : 'bg-secondary'}">${u.role}</span></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-dark me-1" onclick="editUser('${u.username}')"><i class="fas fa-pen"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u.username}')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
                 `;
             });
         }
 
         function openUserModal() {
-           document.getElementById('formUser').reset();
-           document.getElementById('isUserEdit').value = "false";
-           document.getElementById('modalUserTitle').innerText = "Tambah User Baru";
-           document.getElementById('uUsername').disabled = false;
-           document.getElementById('uPasswordHelp').innerText = "Password wajib diisi untuk user baru.";
-           modalUser.show();
+            document.getElementById('formUser').reset();
+            document.getElementById('isUserEdit').value = "false";
+            document.getElementById('modalUserTitle').innerText = "Tambah User Baru";
+            document.getElementById('uUsername').disabled = false;
+            document.getElementById('uPasswordHelp').innerText = "Password wajib diisi untuk user baru.";
+            modalUser.show();
         }
 
         function editUser(username) {
             const user = userList.find(u => u.username === username);
             if(!user) return;
 
-           document.getElementById('isUserEdit').value = "true";
-           document.getElementById('modalUserTitle').innerText = "Edit User";
-           
-           document.getElementById('uUsername').value = user.username;
-           document.getElementById('uUsername').disabled = true; 
-           document.getElementById('uNama').value = user.nama;
-           document.getElementById('uRole').value = user.role;
-           document.getElementById('uPassword').value = "";
-           document.getElementById('uPasswordHelp').innerText = "Biarkan kosong jika password tidak berubah.";
-           
-           modalUser.show();
+            document.getElementById('isUserEdit').value = "true";
+            document.getElementById('modalUserTitle').innerText = "Edit User";
+            
+            document.getElementById('uUsername').value = user.username;
+            document.getElementById('uUsername').disabled = true; 
+            document.getElementById('uNama').value = user.nama;
+            document.getElementById('uRole').value = user.role;
+            document.getElementById('uPassword').value = "";
+            document.getElementById('uPasswordHelp').innerText = "Biarkan kosong jika password tidak berubah.";
+            
+            modalUser.show();
         }
 
         function saveUser() {
@@ -1089,90 +1179,90 @@
             const nama = document.getElementById('uNama').value;
             const role = document.getElementById('uRole').value;
 
-           if(!username || !nama) {
-               Swal.fire('Error', 'Username dan Nama wajib diisi', 'error');
-               return;
+            if(!username || !nama) {
+                Swal.fire('Error', 'Username dan Nama wajib diisi', 'error');
+                return;
             }
             if (!isEdit && !password) {
-               Swal.fire('Error', 'Password wajib diisi untuk user baru', 'error');
-               return;
+                Swal.fire('Error', 'Password wajib diisi untuk user baru', 'error');
+                return;
             }
 
             const payload = {
-               action: 'manipulateUser',
+                action: 'manipulateUser',
                 mode: 'simpan',
                 isNew: !isEdit,
-               targetUsername: username,
-               targetPassword: password,
-               targetNama: nama,
-               targetRole: role
+                targetUsername: username,
+                targetPassword: password,
+                targetNama: nama,
+                targetRole: role
             };
 
-           showLoading(true);
-           modalUser.hide();
+            showLoading(true);
+            modalUser.hide();
 
-           fetch(GAS_API_URL, {
-               method: 'POST',
+            fetch(GAS_API_URL, {
+                method: 'POST',
                 body: JSON.stringify(payload)
             })
             .then(res => res.json())
             .then(resp => {
-               showLoading(false);
+                showLoading(false);
                 if (resp.status === 'success') {
-                   Swal.fire('Berhasil', resp.message, 'success');
-                   loadUsers();
+                    Swal.fire('Berhasil', resp.message, 'success');
+                    loadUsers();
                 } else {
-                   Swal.fire('Gagal', resp.message, 'error');
+                    Swal.fire('Gagal', resp.message, 'error');
                 }
             });
         }
 
         function deleteUser(username) {
             if (username === currentUser.username) {
-               Swal.fire('Error', 'Anda tidak bisa menghapus akun sendiri!', 'error');
-               return;
+                Swal.fire('Error', 'Anda tidak bisa menghapus akun sendiri!', 'error');
+                return;
             }
 
-           Swal.fire({
-               title: 'Hapus User?',
-               html: `Anda akan menghapus user <b>${username}</b>.<br>Masukkan password Super Admin Anda untuk konfirmasi:`,
+            Swal.fire({
+                title: 'Hapus User?',
+                html: `Anda akan menghapus user <b>${username}</b>.<br>Masukkan password Super Admin Anda untuk konfirmasi:`,
                 input: 'password',
                 icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#d33',
-               cancelButtonColor: '#6c757d',
-               confirmButtonText: 'Hapus',
-               reverseButtons: true,
-               preConfirm: (pass) => {
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Hapus',
+                reverseButtons: true,
+                preConfirm: (pass) => {
                     if (!pass) {
                         Swal.showValidationMessage('Password wajib diisi');
                         return false;
                     }
-                   return pass;
+                    return pass;
                 }
-           }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                   showLoading(true);
-                   fetch(GAS_API_URL, {
-                       method: 'POST',
-                       body: JSON.stringify({
-                           action: 'manipulateUser',
-                           mode: 'hapus',
-                           targetUsername: username,
-                           adminUsername: currentUser.username,
-                           adminPassword: result.value
-                       })
+                    showLoading(true);
+                    fetch(GAS_API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            action: 'manipulateUser',
+                            mode: 'hapus',
+                            targetUsername: username,
+                            adminUsername: currentUser.username,
+                            adminPassword: result.value
+                        })
                     })
-                   .then(res => res.json())
-                   .then(resp => {
-                       showLoading(false);
-                       if(resp.status === 'success') {
-                           Swal.fire('Terhapus', resp.message, 'success');
-                           loadUsers();
-                       } else {
-                           Swal.fire('Gagal', resp.message, 'error');
-                       }
-                   });
+                    .then(res => res.json())
+                    .then(resp => {
+                        showLoading(false);
+                        if(resp.status === 'success') {
+                            Swal.fire('Terhapus', resp.message, 'success');
+                            loadUsers();
+                        } else {
+                            Swal.fire('Gagal', resp.message, 'error');
+                        }
+                    });
                 }
             });
         }
@@ -1180,45 +1270,45 @@
         // === RENDERING UI ===
 
         function showTab(tabName) {
-          document.querySelectorAll('.content-tab').forEach(el => el.classList.add('d-none'));
-          document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-          
-          document.getElementById('tab-' + tabName).classList.remove('d-none');
-          document.getElementById('nav-' + tabName).classList.add('active');
-          
+            document.querySelectorAll('.content-tab').forEach(el => el.classList.add('d-none'));
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.remove('d-none');
+            document.getElementById('nav-' + tabName).classList.add('active');
+            
             const titles = {
-              'dashboard': ['Statistik Surat', 'Kounter jumlah Surat Masuk dan Surat Keluar'],
-              'suratMasuk': ['Pencatatan Surat Masuk', 'Daftar surat yang masuk/diterima'],
-              'suratKeluar': ['Pencatatan Surat Keluar', 'Daftar surat yang keluar/diterbitkan'],
-              'pengaturan': ['Pengaturan Sistem', 'Konfigurasi aplikasi']
+                'dashboard': ['Statistik Surat', 'Kounter jumlah Surat Masuk dan Surat Keluar'],
+                'suratMasuk': ['Pencatatan Surat Masuk', 'Daftar surat yang masuk/diterima'],
+                'suratKeluar': ['Pencatatan Surat Keluar', 'Daftar surat yang keluar/diterbitkan'],
+                'pengaturan': ['Pengaturan Sistem', 'Konfigurasi aplikasi']
             };
-          document.getElementById('pageTitle').innerText = titles[tabName][0];
-          document.getElementById('pageTitle').nextElementSibling.innerText = titles[tabName][1];
-          
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('pageTitle').innerText = titles[tabName][0];
+            document.getElementById('pageTitle').nextElementSibling.innerText = titles[tabName][1];
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function renderDashboard() {
-          document.getElementById('countMasuk').innerText = globalData.suratMasuk.length;
-          document.getElementById('countKeluar').innerText = globalData.suratKeluar.length;
+            document.getElementById('countMasuk').innerText = globalData.suratMasuk.length;
+            document.getElementById('countKeluar').innerText = globalData.suratKeluar.length;
         }
 
         // --- PAGINATION LOGIC ---
         function changeRowsPerPage(type, value) {
             if (type === 'masuk') {
-              rowsPerPageMasuk = value === 'all' ? globalData.suratMasuk.length : parseInt(value);
-              currentPageMasuk = 1;
+                rowsPerPageMasuk = value === 'all' ? globalData.suratMasuk.length : parseInt(value);
+                currentPageMasuk = 1;
             } else {
-              rowsPerPageKeluar = value === 'all' ? globalData.suratKeluar.length : parseInt(value);
-              currentPageKeluar = 1;
+                rowsPerPageKeluar = value === 'all' ? globalData.suratKeluar.length : parseInt(value);
+                currentPageKeluar = 1;
             }
-          renderTables();
+            renderTables();
         }
 
         function changePage(type, page) {
             if (type === 'masuk') currentPageMasuk = page;
             else currentPageKeluar = page;
-          renderTables();
+            renderTables();
         }
 
         function resetPagination(type) {
@@ -1235,48 +1325,48 @@
             const endItem = Math.min(currentPage * rowsPerPage, totalItems);
 
             let controls = `
-               <div class="rows-per-page d-flex align-items-center">
-                 Tampilkan 
-                 <select class="mx-2" onchange="changeRowsPerPage('${type}', this.value)">
-                     <option value="5" ${rowsPerPage === 5 ? 'selected' : ''}>5</option>
-                     <option value="10" ${rowsPerPage === 10 ? 'selected' : ''}>10</option>
-                     <option value="25" ${rowsPerPage === 25 ? 'selected' : ''}>25</option>
-                     <option value="50" ${rowsPerPage === 50 ? 'selected' : ''}>50</option>
-                     <option value="all" ${rowsPerPage > 50 ? 'selected' : ''}>All</option>
-                 </select>
-                  data
-               </div>
-               <div class="d-flex align-items-center">
-                 <span class="me-3">Menampilkan ${startItem}-${endItem} dari ${totalItems}</span>
-                 <nav>
-                     <ul class="pagination pagination-sm mb-0">
-                         <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <div class="rows-per-page d-flex align-items-center">
+                    Tampilkan 
+                    <select class="mx-2" onchange="changeRowsPerPage('${type}', this.value)">
+                        <option value="5" ${rowsPerPage === 5 ? 'selected' : ''}>5</option>
+                        <option value="10" ${rowsPerPage === 10 ? 'selected' : ''}>10</option>
+                        <option value="25" ${rowsPerPage === 25 ? 'selected' : ''}>25</option>
+                        <option value="50" ${rowsPerPage === 50 ? 'selected' : ''}>50</option>
+                        <option value="all" ${rowsPerPage > 50 ? 'selected' : ''}>All</option>
+                    </select>
+                    data
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="me-3">Menampilkan ${startItem}-${endItem} dari ${totalItems}</span>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
                                 <button class="page-link" onclick="changePage('${type}', ${currentPage - 1})"><i class="fas fa-chevron-left"></i></button>
-                         </li>
+                            </li>
             `;
 
             for (let i = 1; i <= totalPages; i++) {
-              if(totalPages <= 7 || i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-                 controls += `
-                     <li class="page-item ${i === currentPage ? 'active' : ''}">
-                         <button class="page-link" onclick="changePage('${type}', ${i})">${i}</button>
-                     </li>
+                if(totalPages <= 7 || i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    controls += `
+                        <li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <button class="page-link" onclick="changePage('${type}', ${i})">${i}</button>
+                        </li>
                     `;
-                 } else if (i === currentPage - 2 || i === currentPage + 2) {
-                  controls += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
-                 }
+                    } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    controls += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                    }
             }
 
             controls += `
-                         <li class="page-item ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}">
+                            <li class="page-item ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}">
                                 <button class="page-link" onclick="changePage('${type}', ${currentPage + 1})"><i class="fas fa-chevron-right"></i></button>
-                         </li>
-                     </ul>
-                 </nav>
-               </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             `;
-           
-          container.innerHTML = controls;
+            
+            container.innerHTML = controls;
         }
 
         function renderTables() {
@@ -1296,71 +1386,101 @@
             const paginatedKeluar = filteredKeluar.slice(startKeluar, startKeluar + rowsPerPageKeluar);
 
             // -- RENDER ROWS HELPER --
-            const createRow = (rowObj, type) => {
-                // rowObj adalah { rowNumber: int, values: [...] }
-                const row = rowObj.values;
-                const realRow = rowObj.rowNumber;
 
-                // Tampilkan data menggunakan row (array values)
-                let btnFile = row[7] ? 
-                 `<a href="${row[7]}" target="_blank" class="btn-circle btn-circle-primary" title="Lihat File"><i class="fas fa-file-alt"></i></a>` : 
-                 `<button class="btn-circle btn-circle-disabled" disabled title="Tidak ada file"><i class="fas fa-file-excel"></i></button>`;
-                
-                let tgl = new Date(row[1]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
-                const badgeClass = type === 'masuk' ? 'badge-masuk' : 'badge-keluar';
-                
-                return `
-                 <tr>
-                     <td>
-                         <div class="fw-bold text-dark small">${row[2]}</div>
-                         <small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
-                     </td>
-                     <td>
-                         <span class="badge ${badgeClass} mb-1">${row[3]}</span>
-                         <div class="small text-dark text-wrap" style="line-height: 1.3;">${row[5]}</div>
-                     </td>
-                     <td><div class="small">${row[4]}</div></td>
-                     <td><small class="text-muted text-wrap">${row[6]}</small></td>
-                     <td class="text-center">
-                         <div class="d-flex justify-content-center gap-2">
-                                ${btnFile}
-                                <button class="btn-circle btn-circle-warning" onclick="editData('${type}', ${realRow})" title="Edit"><i class="fas fa-pen"></i></button>
-                                <button class="btn-circle btn-circle-danger" onclick="hapusData('${type}', ${realRow})" title="Hapus"><i class="fas fa-trash-alt"></i></button>
-                         </div>
-                     </td>
-                 </tr>
-                `;
-            };
+			const createRow = (rowObj, type) => {
+				const row = rowObj.values;
+				const realRow = rowObj.rowNumber;
+				
+				// Tentukan index URL File
+				// Masuk: URL ada di index 8. Keluar: URL ada di index 10.
+				const idxUrl = type === 'masuk' ? 8 : 10;
+				
+				let btnFile = row[idxUrl] ? 
+					`<a href="${row[idxUrl]}" target="_blank" class="btn-circle btn-circle-primary" title="Lihat File"><i class="fas fa-file-alt"></i></a>` : 
+					`<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-file-excel"></i></button>`;
+				
+				let tgl = new Date(row[1]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
+				const badgeClass = type === 'masuk' ? 'badge-masuk' : 'badge-keluar';
+
+				if (type === 'masuk') {
+					// TABLE ROW SURAT MASUK
+					// 2:No, 3:Jenis, 4:Perihal, 5:Pengirim, 6:Diteruskan
+					return `
+						<tr>
+							<td>
+								<div class="fw-bold text-dark small">${row[2]}</div>
+								<small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
+							</td>
+							<td>
+								<span class="badge ${badgeClass} mb-1">${row[3]}</span>
+								<div class="small text-dark text-wrap">${row[4]}</div>
+							</td>
+							<td><div class="small">${row[5]}</div></td>
+							<td><span class="badge bg-light text-dark border">${row[6]}</span></td> <td><small class="text-muted text-wrap">${row[7]}</small></td>
+							<td class="text-center">
+								<div class="d-flex justify-content-center gap-2">
+									${btnFile}
+									<button class="btn-circle btn-circle-warning" onclick="editData('${type}', ${realRow})"><i class="fas fa-pen"></i></button>
+									<button class="btn-circle btn-circle-danger" onclick="hapusData('${type}', ${realRow})"><i class="fas fa-trash-alt"></i></button>
+								</div>
+							</td>
+						</tr>
+					`;
+				} else {
+					// TABLE ROW SURAT KELUAR
+					// 4:NoLengkap, 5:Jenis, 6:Perihal, 7:Tujuan, 8:AsalNaskah
+					return `
+						<tr>
+							<td>
+								<div class="fw-bold text-dark small">${row[4]}</div> <small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
+							</td>
+							<td>
+								<span class="badge ${badgeClass} mb-1">${row[5]}</span>
+								<div class="small text-dark text-wrap">${row[6]}</div>
+							</td>
+							<td><div class="small">${row[7]}</div></td>
+							<td><div class="small fw-bold text-secondary">${row[8]}</div></td> <td><small class="text-muted text-wrap">${row[9]}</small></td>
+							<td class="text-center">
+								<div class="d-flex justify-content-center gap-2">
+									${btnFile}
+									<button class="btn-circle btn-circle-warning" onclick="editData('${type}', ${realRow})"><i class="fas fa-pen"></i></button>
+									<button class="btn-circle btn-circle-danger" onclick="hapusData('${type}', ${realRow})"><i class="fas fa-trash-alt"></i></button>
+								</div>
+							</td>
+						</tr>
+					`;
+				}
+			};
 
             // Render Masuk
             const tbodyMasuk = document.querySelector('#tableMasuk tbody');
-          tbodyMasuk.innerHTML = '';
+            tbodyMasuk.innerHTML = '';
             if (paginatedMasuk.length === 0) {
-              tbodyMasuk.innerHTML = '<tr><td colspan="5" class="text-center py-5 text-muted"><i class="fas fa-search fa-3x mb-3 d-block opacity-25"></i>Data tidak ditemukan</td></tr>';
+                tbodyMasuk.innerHTML = '<tr><td colspan="5" class="text-center py-5 text-muted"><i class="fas fa-search fa-3x mb-3 d-block opacity-25"></i>Data tidak ditemukan</td></tr>';
             } else {
-              paginatedMasuk.forEach(rowObj => tbodyMasuk.innerHTML += createRow(rowObj, 'masuk'));
+                paginatedMasuk.forEach(rowObj => tbodyMasuk.innerHTML += createRow(rowObj, 'masuk'));
             }
-          renderPaginationControls(filteredMasuk.length, currentPageMasuk, rowsPerPageMasuk, 'masuk', 'paginationMasuk');
+            renderPaginationControls(filteredMasuk.length, currentPageMasuk, rowsPerPageMasuk, 'masuk', 'paginationMasuk');
 
             // Render Keluar
             const tbodyKeluar = document.querySelector('#tableKeluar tbody');
-          tbodyKeluar.innerHTML = '';
+            tbodyKeluar.innerHTML = '';
             if (paginatedKeluar.length === 0) {
-              tbodyKeluar.innerHTML = '<tr><td colspan="5" class="text-center py-5 text-muted"><i class="fas fa-search fa-3x mb-3 d-block opacity-25"></i>Data tidak ditemukan</td></tr>';
+                tbodyKeluar.innerHTML = '<tr><td colspan="5" class="text-center py-5 text-muted"><i class="fas fa-search fa-3x mb-3 d-block opacity-25"></i>Data tidak ditemukan</td></tr>';
             } else {
-              paginatedKeluar.forEach(rowObj => tbodyKeluar.innerHTML += createRow(rowObj, 'keluar'));
+                paginatedKeluar.forEach(rowObj => tbodyKeluar.innerHTML += createRow(rowObj, 'keluar'));
             }
-          renderPaginationControls(filteredKeluar.length, currentPageKeluar, rowsPerPageKeluar, 'keluar', 'paginationKeluar');
+            renderPaginationControls(filteredKeluar.length, currentPageKeluar, rowsPerPageKeluar, 'keluar', 'paginationKeluar');
         }
 
         function populateDropdown() {
             const sel = document.getElementById('inpJenis');
-          sel.innerHTML = '<option value="">Pilih ...</option>';
-          globalData.jenisSurat.forEach(jenis => {
-               let opt = document.createElement('option');
-              opt.value = jenis;
-              opt.innerText = jenis;
-              sel.appendChild(opt);
+            sel.innerHTML = '<option value="">Pilih</option>';
+            globalData.jenisSurat.forEach(jenis => {
+                let opt = document.createElement('option');
+                opt.value = jenis;
+                opt.innerText = jenis;
+                sel.appendChild(opt);
             });
         }
 
@@ -1368,43 +1488,43 @@
         function setupDragAndDrop() {
             const dropZone = document.getElementById('dropZoneArea');
             const fileInput = document.getElementById('inpFile');
-           
-          dropZone.addEventListener('click', () => fileInput.click());
-           
-          fileInput.addEventListener('change', () => {
+            
+            dropZone.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', () => {
                 if (fileInput.files.length > 0) updateDropZoneUI(fileInput.files[0].name);
             });
 
-          ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-              dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
             });
 
-          ['dragenter', 'dragover'].forEach(eventName => {
-              dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
             });
 
-          ['dragleave', 'drop'].forEach(eventName => {
-              dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
             });
 
-          dropZone.addEventListener('drop', (e) => {
+            dropZone.addEventListener('drop', (e) => {
                 if (e.dataTransfer.files.length > 0) {
-                  fileInput.files = e.dataTransfer.files;
-                  updateDropZoneUI(fileInput.files[0].name);
+                    fileInput.files = e.dataTransfer.files;
+                    updateDropZoneUI(fileInput.files[0].name);
                 }
             });
 
             function updateDropZoneUI(fileName) {
-              document.getElementById('dropZoneText').style.display = 'none';
-              document.getElementById('fileSelectedInfo').style.display = 'flex';
-              document.getElementById('fileNameDisplay').innerText = fileName;
+                document.getElementById('dropZoneText').style.display = 'none';
+                document.getElementById('fileSelectedInfo').style.display = 'flex';
+                document.getElementById('fileNameDisplay').innerText = fileName;
             }
         }
 
         function resetDropZone() {
-          document.getElementById('dropZoneText').style.display = 'block';
-          document.getElementById('fileSelectedInfo').style.display = 'none';
-          document.getElementById('inpFile').value = "";
+            document.getElementById('dropZoneText').style.display = 'block';
+            document.getElementById('fileSelectedInfo').style.display = 'none';
+            document.getElementById('inpFile').value = "";
         }
 
         // === MODAL & CRUD ===
@@ -1413,264 +1533,333 @@
 
         function updateModalHeaderColor(type) {
             const header = document.getElementById('modalHeaderBg');
-          header.classList.remove('bg-header-masuk', 'bg-header-keluar');
+            header.classList.remove('bg-header-masuk', 'bg-header-keluar');
             if (type === 'masuk') header.classList.add('bg-header-masuk');
             else header.classList.add('bg-header-keluar');
         }
 
-        function openModal(type) {
-          document.getElementById('formSurat').reset();
-          resetDropZone();
-          updateModalHeaderColor(type); 
-          
-          document.getElementById('isEditMode').value = "false";
-          document.getElementById('realRowNumber').value = "";
-          document.getElementById('existingFileUrl').value = "";
-          document.getElementById('btnSimpan').innerText = "Simpan Data";
-          document.getElementById('fileHelpText').innerHTML = "";
+		function openModal(type) {
+			document.getElementById('formSurat').reset();
+			resetDropZone();
+			updateModalHeaderColor(type);
+			
+			document.getElementById('isEditMode').value = "false";
+			document.getElementById('realRowNumber').value = "";
+			document.getElementById('existingFileUrl').value = "";
+			document.getElementById('btnSimpan').innerText = "Simpan Data";
+			document.getElementById('fileHelpText').innerHTML = "";
+			document.getElementById('previewNoSurat').innerText = "-";
 
-            const labelRelasi = document.getElementById('labelRelasi');
-            const katInput = document.getElementById('kategoriSurat');
-            const title = document.getElementById('modalTitle');
+			const title = document.getElementById('modalTitle');
+			const katInput = document.getElementById('kategoriSurat');
 
-            if (type === 'masuk') {
-              title.innerHTML = "<i class='fas fa-inbox me-2'></i>Input Surat Masuk";
-              labelRelasi.innerText = "Asal / Pengirim";
-              katInput.value = "surat_masuk";
-            } else {
-              title.innerHTML = "<i class='fas fa-paper-plane me-2'></i>Input Surat Keluar";
-              labelRelasi.innerText = "Tujuan / Penerima";
-              katInput.value = "surat_keluar";
-            }
-          myModal.show();
-        }
+			// Toggle Tampilan Block
+			if (type === 'masuk') {
+				title.innerHTML = "<i class='fas fa-inbox me-2'></i>Input Surat Masuk";
+				katInput.value = "surat_masuk";
+				document.getElementById('blockMasuk').classList.remove('d-none');
+				document.getElementById('blockKeluar').classList.add('d-none');
+				
+				// Reset required state (agar form validasi jalan semestinya)
+				document.getElementById('inpNomorMasuk').setAttribute('required', '');
+				document.getElementById('inpPengirim').setAttribute('required', '');
+				
+				document.getElementById('inpKode').removeAttribute('required');
+				document.getElementById('inpNoUrut').removeAttribute('required');
+			} else {
+				title.innerHTML = "<i class='fas fa-paper-plane me-2'></i>Input Surat Keluar";
+				katInput.value = "surat_keluar";
+				document.getElementById('blockKeluar').classList.remove('d-none');
+				document.getElementById('blockMasuk').classList.add('d-none');
 
-        function editData(type, rowNumber) {
-            // Cari data berdasarkan rowNumber
-            const sourceArray = type === 'masuk' ? globalData.suratMasuk : globalData.suratKeluar;
-            const dataObj = sourceArray.find(item => item.rowNumber === rowNumber);
-            
-            if (!dataObj) {
-                Swal.fire('Error', 'Data tidak ditemukan di memori aplikasi. Silakan refresh.', 'error');
-                return;
-            }
+				// Set Default Values
+				document.getElementById('inpKodeLanjutan').value = "BKPSDM-BLG";
+				document.getElementById('inpTahun').value = "2026";
+				updatePreviewNomor();
 
-            const rowData = dataObj.values;
+				// Validasi
+				document.getElementById('inpKode').setAttribute('required', '');
+				document.getElementById('inpNoUrut').setAttribute('required', '');
+				
+				document.getElementById('inpNomorMasuk').removeAttribute('required');
+				document.getElementById('inpPengirim').removeAttribute('required');
+			}
+			myModal.show();
+		}
 
-            // Ambil info penginput dari rowData[8] (Kolom I)
-            // Handle jika kosong (data lama) maka anggap "-"
-            const penginput = rowData[8] ? rowData[8] : "-";
+		function editData(type, rowNumber) {
+			const sourceArray = type === 'masuk' ? globalData.suratMasuk : globalData.suratKeluar;
+			const dataObj = sourceArray.find(item => item.rowNumber === rowNumber);
+			if (!dataObj) return;
 
-            // PERBAIKAN: Cek Kepemilikan Data untuk Edit
-            // Logic: Jika ada penginputnya, DAN bukan user sekarang, DAN user sekarang bukan Super Admin -> Tolak
-            if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Akses Ditolak',
-                  text: `Data ini diinput oleh user "${penginput}". Hanya penginput asli yang dapat mengeditnya.`,
-                  confirmButtonText: 'Mengerti'
-               });
-               return;
-            }
+			const rowData = dataObj.values;
+			// Cek User Penginput (Masuk: Col 9, Keluar: Col 11) -> Index array mulai 0
+			const idxPenginput = type === 'masuk' ? 9 : 11;
+			const penginput = rowData[idxPenginput] ? rowData[idxPenginput] : "-";
 
-          document.getElementById('formSurat').reset();
-          resetDropZone();
-          updateModalHeaderColor(type);
-          
-          document.getElementById('isEditMode').value = "true";
-          document.getElementById('realRowNumber').value = rowNumber; // Simpan Row Number Asli
-          document.getElementById('btnSimpan').innerText = "Update Data";
-          document.getElementById('modalTitle').innerHTML = type === 'masuk' ? 
-              "<i class='fas fa-pen me-2'></i>Edit Surat Masuk" : "<i class='fas fa-pen me-2'></i>Edit Surat Keluar";
+			if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
+				Swal.fire({icon: 'error', title: 'Akses Ditolak', text: `Hanya user "${penginput}" yang dapat mengedit.`});
+				return;
+			}
 
-            const d = new Date(rowData[1]);
-            const yyyy = d.getFullYear();
-            const mm = String(d.getMonth() + 1).padStart(2, '0');
-            const dd = String(d.getDate()).padStart(2, '0');
-          document.getElementById('inpTanggal').value = `${yyyy}-${mm}-${dd}`;
-          document.getElementById('inpNomor').value = rowData[2];
-          document.getElementById('inpJenis').value = rowData[3];
-          document.getElementById('inpRelasi').value = rowData[4];
-          document.getElementById('inpPerihal').value = rowData[5];
-          document.getElementById('inpKeterangan').value = rowData[6];
-          document.getElementById('existingFileUrl').value = rowData[7];
+			openModal(type); // Buka modal dan reset dulu
+			
+			document.getElementById('isEditMode').value = "true";
+			document.getElementById('realRowNumber').value = rowNumber;
+			document.getElementById('btnSimpan').innerText = "Update Data";
+			document.getElementById('modalTitle').innerHTML = "<i class='fas fa-pen me-2'></i>Edit Data";
 
-            const labelRelasi = document.getElementById('labelRelasi');
-            const katInput = document.getElementById('kategoriSurat');
-           
-            if (type === 'masuk') {
-              labelRelasi.innerText = "Asal / Pengirim";
-              katInput.value = "surat_masuk";
-            } else {
-              labelRelasi.innerText = "Tujuan / Penerima";
-              katInput.value = "surat_keluar";
-            }
+			// Format Tanggal untuk input date (YYYY-MM-DD)
+			const d = new Date(rowData[1]);
+			const yyyy = d.getFullYear();
+			const mm = String(d.getMonth() + 1).padStart(2, '0');
+			const dd = String(d.getDate()).padStart(2, '0');
+			document.getElementById('inpTanggal').value = `${yyyy}-${mm}-${dd}`;
 
-            const fileHelp = document.getElementById('fileHelpText');
-            if (rowData[7]) {
-              fileHelp.innerHTML = `<span class="text-success fw-bold"><i class="fas fa-check-circle"></i> File tersimpan.</span> Upload baru untuk mengganti.`;
-            } else {
-              fileHelp.innerText = "Belum ada file. Upload untuk menambahkan.";
-            }
+			if (type === 'masuk') {
+				// MAPPING MASUK: [Time, Tgl, No, Jenis, Perihal, Asal, Diteruskan, Ket, URL, User]
+				document.getElementById('inpNomorMasuk').value = rowData[2];
+				document.getElementById('inpJenis').value = rowData[3];
+				document.getElementById('inpPerihal').value = rowData[4];
+				document.getElementById('inpPengirim').value = rowData[5];
+				document.getElementById('inpDiteruskan').value = rowData[6]; // Baru
+				document.getElementById('inpKeterangan').value = rowData[7];
+				document.getElementById('existingFileUrl').value = rowData[8];
+				checkFileStatus(rowData[8]);
 
-          myModal.show();
-        }
+			} else {
+				// MAPPING KELUAR: [Time, Tgl, Kode, NoUrut, NoLengkap, Jenis, Perihal, Tujuan, AsalNaskah, Ket, URL, User]
+				
+				// Populate Field Pecahan
+				document.getElementById('inpKode').value = rowData[2];
+				document.getElementById('inpNoUrut').value = rowData[3];
+				
+				// Parsing No Lengkap (Index 4) untuk ambil KodeLanjutan dan Tahun
+				// Format: Kode/NoUrut/KodeLanjutan/Tahun
+				const noLengkap = rowData[4] || "";
+				const parts = noLengkap.split('/');
+				if (parts.length >= 4) {
+					document.getElementById('inpKodeLanjutan').value = parts[2];
+					document.getElementById('inpTahun').value = parts[3];
+				}
+
+				document.getElementById('inpJenis').value = rowData[5];
+				document.getElementById('inpPerihal').value = rowData[6];
+				document.getElementById('inpTujuan').value = rowData[7];
+				document.getElementById('inpAsalNaskah').value = rowData[8]; // Baru
+				document.getElementById('inpKeterangan').value = rowData[9];
+				document.getElementById('existingFileUrl').value = rowData[10];
+				checkFileStatus(rowData[10]);
+				
+				updatePreviewNomor();
+			}
+		}
+
+		function checkFileStatus(url) {
+			const fileHelp = document.getElementById('fileHelpText');
+			if (url) {
+				fileHelp.innerHTML = `<span class="text-success fw-bold"><i class="fas fa-check-circle"></i> File tersimpan.</span> Upload baru untuk mengganti.`;
+			} else {
+				fileHelp.innerText = "Belum ada file. Upload untuk menambahkan.";
+			}
+		}
 
         // UPDATE: HAPUS DATA DENGAN KONFIRMASI KEPEMILIKAN & UI UPDATE
         function hapusData(type, rowNumber) {
-           const sourceArray = type === 'masuk' ? globalData.suratMasuk : globalData.suratKeluar;
-           const dataObj = sourceArray.find(item => item.rowNumber === rowNumber);
-           
-           if (!dataObj) return;
-           const rowData = dataObj.values;
+            const sourceArray = type === 'masuk' ? globalData.suratMasuk : globalData.suratKeluar;
+            const dataObj = sourceArray.find(item => item.rowNumber === rowNumber);
+            
+            if (!dataObj) return;
+            const rowData = dataObj.values;
 
-           const penginput = rowData[8] ? rowData[8] : "-";
+            const penginput = rowData[8] ? rowData[8] : "-";
 
-           if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Akses Ditolak',
-                  text: `Data ini diinput oleh user "${penginput}". Hanya penginput asli yang dapat menghapusnya.`,
-                  confirmButtonText: 'Mengerti'
-               });
-               return;
-           }
+            if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Akses Ditolak',
+                    text: `Data ini diinput oleh user "${penginput}". Hanya penginput asli yang dapat menghapusnya.`,
+                    confirmButtonText: 'Mengerti'
+                });
+                return;
+            }
 
-           Swal.fire({
+            Swal.fire({
                 title: 'Konfirmasi Keamanan',
                 html: `
-                   <p>Anda akan menghapus data ini secara permanen.</p>                   
-                   <div class="text-start mb-1 fw-bold small text-muted">Masukkan Password Anda:</div>
+                    <p>Anda akan menghapus data ini secara permanen.</p>                   
+                    <div class="text-start mb-1 fw-bold small text-muted">Masukkan Password Anda:</div>
                 `,
                 input: 'password',
-               inputAttributes: {
-                   autocapitalize: 'off',
-                   placeholder: 'Password Login'
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    placeholder: 'Password Login'
                 },
                 icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#d33',
-               cancelButtonColor: '#6c757d', 
-               confirmButtonText: 'Ya, Hapus!',
-               cancelButtonText: 'Batal',
-               reverseButtons: true, 
-               showLoaderOnConfirm: true,
-               preConfirm: (password) => {
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d', 
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true, 
+                showLoaderOnConfirm: true,
+                preConfirm: (password) => {
                     if (!password) {
                         Swal.showValidationMessage('Password wajib diisi!');
                         return false; // Prevent closing
                     }
-                   return password;
+                    return password;
                 }
-           }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                   const userPassword = result.value;
-                   const payload = {
-                       action: 'hapusSurat',
-                       kategori: type === 'masuk' ? 'surat_masuk' : 'surat_keluar',
-                       rowNumber: rowNumber, // Gunakan RowNumber
-                       username: currentUser.username, 
-                       password: userPassword
-                   };
-                   kirimKeGAS(payload);
+                    const userPassword = result.value;
+                    const payload = {
+                        action: 'hapusSurat',
+                        kategori: type === 'masuk' ? 'surat_masuk' : 'surat_keluar',
+                        rowNumber: rowNumber, // Gunakan RowNumber
+                        username: currentUser.username, 
+                        password: userPassword
+                    };
+                    kirimKeGAS(payload);
                 }
-           });
+            });
         }
 
-        function simpanData() {
-            const fileInput = document.getElementById('inpFile');
-            const kategori = document.getElementById('kategoriSurat').value;
-            const isEdit = document.getElementById('isEditMode').value === "true";
-           
-            const payload = {
-               action: isEdit ? 'updateSurat' : 'simpanSurat',
-              kategori: kategori,
-               // Kirim rowNumber jika edit
-               rowNumber: document.getElementById('realRowNumber').value,
-              tanggalSurat: document.getElementById('inpTanggal').value,
-              nomorSurat: document.getElementById('inpNomor').value,
-              jenisSurat: document.getElementById('inpJenis').value,
-               relasi: document.getElementById('inpRelasi').value,
-              perihal: document.getElementById('inpPerihal').value,
-              keterangan: document.getElementById('inpKeterangan').value,
-              existingFile: document.getElementById('existingFileUrl').value,
-              username: currentUser.username, 
-              fileName: "",
-              fileMime: "",
-              fileData: ""
-            };
+		function simpanData() {
+			const fileInput = document.getElementById('inpFile');
+			const kategori = document.getElementById('kategoriSurat').value;
+			const isEdit = document.getElementById('isEditMode').value === "true";
+			
+			// 1. SIAPKAN PAYLOAD DASAR (Common Fields)
+			const payload = {
+				action: isEdit ? 'updateSurat' : 'simpanSurat',
+				kategori: kategori,
+				rowNumber: document.getElementById('realRowNumber').value,
+				tanggalSurat: document.getElementById('inpTanggal').value,
+				jenisSurat: document.getElementById('inpJenis').value,
+				perihal: document.getElementById('inpPerihal').value,
+				keterangan: document.getElementById('inpKeterangan').value,
+				existingFile: document.getElementById('existingFileUrl').value,
+				username: currentUser.username, 
+				fileName: "", fileMime: "", fileData: ""
+			};
 
-            if (!payload.tanggalSurat || !payload.nomorSurat || !payload.jenisSurat) {
-              Swal.fire('Perhatian', 'Mohon lengkapi Tanggal, Nomor, dan Jenis Surat.', 'warning');
-               return;
-            }
+			// Array untuk menampung nama field yang kosong
+			let emptyFields = [];
 
-          showLoading(true);
-          myModal.hide();
+			// 2. VALIDASI FIELD UMUM (Wajib untuk Keduanya)
+			if (!payload.tanggalSurat) emptyFields.push("Tanggal Surat");
+			if (!payload.jenisSurat) emptyFields.push("Jenis Surat");
+			if (!payload.perihal) emptyFields.push("Perihal / Deskripsi");
 
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                if (file.size > 5 * 1024 * 1024) {
-                  Swal.fire('Error', 'Ukuran file terlalu besar (Max 5MB)', 'error');
-                  showLoading(false);
-                  return;
-                }
-                const reader = new FileReader();
-              reader.onload = function(e) {
-                  payload.fileName = file.name;
-                  payload.fileMime = file.type;
-                  payload.fileData = e.target.result.split(',')[1];
-                  kirimKeGAS(payload);
-               };
-              reader.readAsDataURL(file);
-            } else {
-              kirimKeGAS(payload);
-            }
-        }
+			// 3. LOGIKA PER KATEGORI
+			if (kategori === 'surat_masuk') {
+				// --- SURAT MASUK ---
+				payload.nomorSurat = document.getElementById('inpNomorMasuk').value;
+				payload.asal = document.getElementById('inpPengirim').value;
+				payload.diteruskan = document.getElementById('inpDiteruskan').value; // Opsional
+				
+				// Validasi Khusus Surat Masuk
+				if (!payload.nomorSurat) emptyFields.push("Nomor Surat");
+				if (!payload.asal) emptyFields.push("Asal / Pengirim");
+
+			} else {
+				// --- SURAT KELUAR ---
+				const k = document.getElementById('inpKode').value;
+				const n = document.getElementById('inpNoUrut').value;
+				const kl = document.getElementById('inpKodeLanjutan').value;
+				const t = document.getElementById('inpTahun').value;
+				
+				payload.kodeKlasifikasi = k;
+				payload.noUrut = n;
+				payload.noLengkap = `${k}/${n}/${kl}/${t}`; 
+				payload.tujuan = document.getElementById('inpTujuan').value;
+				payload.asalNaskah = document.getElementById('inpAsalNaskah').value;
+
+				// Validasi Khusus Surat Keluar
+				if (!k) emptyFields.push("Kode Klasifikasi");
+				if (!n) emptyFields.push("Nomor Urut");
+				if (!payload.tujuan) emptyFields.push("Tujuan / Penerima");
+				if (!payload.asalNaskah) emptyFields.push("Asal Naskah");
+			}
+
+			// 4. CEK APAKAH ADA YANG KOSONG?
+			if (emptyFields.length > 0) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Data Belum Lengkap',
+					html: `Mohon lengkapi field berikut:<br/><b>${emptyFields.join(', ')}</b>`
+				});
+				return; // Stop, jangan kirim data
+			}
+
+			// 5. PROSES UPLOAD & KIRIM
+			showLoading(true);
+			myModal.hide();
+
+			if (fileInput.files.length > 0) {
+				const file = fileInput.files[0];
+				// Validasi Ukuran File (Max 5MB)
+				if (file.size > 5 * 1024 * 1024) {
+					Swal.fire('Error', 'Ukuran file terlalu besar (Max 5MB)', 'error');
+					showLoading(false); return;
+				}
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					payload.fileName = file.name;
+					payload.fileMime = file.type;
+					payload.fileData = e.target.result.split(',')[1];
+					kirimKeGAS(payload);
+				};
+				reader.readAsDataURL(file);
+			} else {
+				kirimKeGAS(payload);
+			}
+		}
 
         function kirimKeGAS(payload) {
-          fetch(GAS_API_URL, {
-               method: 'POST',
+            fetch(GAS_API_URL, {
+                method: 'POST',
                 body: JSON.stringify(payload)
             })
             .then(res => res.json())
             .then(resp => {
-               if(payload.action !== 'hapusSurat') showLoading(false); 
-               
+                if(payload.action !== 'hapusSurat') showLoading(false); 
+                
                 if (resp.status === 'success') {
-                  Swal.fire({
-                      icon: 'success',
-                      title: 'Berhasil',
-                      text: resp.message,
-                      timer: 1500,
-                      showConfirmButton: false
-                   });
-                  loadData();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: resp.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    loadData();
                 } else {
-                  if(payload.action === 'hapusSurat') {
-                       Swal.fire({
-                           icon: 'error',
-                           title: 'Gagal',
-                           text: resp.message
-                       });
-                   } else {
-                       showLoading(false);
-                       Swal.fire('Gagal', resp.message, 'error');
-                   }
+                    if(payload.action === 'hapusSurat') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: resp.message
+                        });
+                    } else {
+                        showLoading(false);
+                        Swal.fire('Gagal', resp.message, 'error');
+                    }
                 }
             })
             .catch(err => {
-              showLoading(false);
-              Swal.fire('Error', "Error Network: " + err, 'error');
+                showLoading(false);
+                Swal.fire('Error', "Error Network: " + err, 'error');
             });
         }
 
         // === FUNGSI DOWNLOAD ===
         function openDownloadModal(kategori) {
-          document.getElementById('downloadKategori').value = kategori;
-          document.getElementById('dlStartDate').value = "";
-          document.getElementById('dlEndDate').value = "";
-          dlModal.show();
+            document.getElementById('downloadKategori').value = kategori;
+            document.getElementById('dlStartDate').value = "";
+            document.getElementById('dlEndDate').value = "";
+            dlModal.show();
         }
 
         function processDownload() {
@@ -1679,37 +1868,37 @@
             const kategori = document.getElementById('downloadKategori').value;
 
             if (!start || !end) {
-              Swal.fire('Info', 'Mohon lengkapi Tanggal Awal dan Akhir', 'info');
-               return;
+                Swal.fire('Info', 'Mohon lengkapi Tanggal Awal dan Akhir', 'info');
+                return;
             }
 
-          showLoading(true);
-          dlModal.hide();
+            showLoading(true);
+            dlModal.hide();
 
             const payload = {
-               action: 'downloadRekap',
-              kategori: kategori,
-              startDate: start,
-              endDate: end
+                action: 'downloadRekap',
+                kategori: kategori,
+                startDate: start,
+                endDate: end
             };
 
-          fetch(GAS_API_URL, {
-               method: 'POST',
+            fetch(GAS_API_URL, {
+                method: 'POST',
                 body: JSON.stringify(payload)
             })
             .then(res => res.json())
             .then(resp => {
-              showLoading(false);
+                showLoading(false);
                 if (resp.status === 'success') {
-                  generateExcel(resp.data, resp.fileName, kategori);
-                  Swal.fire({ icon: 'success', title: 'Unduhan Dimulai', text: 'File Excel telah diunduh.', timer: 2000, showConfirmButton: false });
+                    generateExcel(resp.data, resp.fileName, kategori);
+                    Swal.fire({ icon: 'success', title: 'Unduhan Dimulai', text: 'File Excel telah diunduh.', timer: 2000, showConfirmButton: false });
                 } else {
-                  Swal.fire('Gagal', resp.message, 'error');
+                    Swal.fire('Gagal', resp.message, 'error');
                 }
             })
             .catch(err => {
-              showLoading(false);
-              Swal.fire('Error', "Gagal mengunduh: " + err, 'error');
+                showLoading(false);
+                Swal.fire('Error', "Gagal mengunduh: " + err, 'error');
             });
         }
 
@@ -1726,13 +1915,13 @@
                 {wch: 30}, // Keterangan
                 {wch: 15}  // Penginput (NEW)
             ];
-          worksheet['!cols'] = wscols;
+            worksheet['!cols'] = wscols;
 
             const workbook = XLSX.utils.book_new();
             const sheetName = kategori === 'surat_masuk' ? 'Surat Masuk' : 'Surat Keluar';
-          XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
-          
-          XLSX.writeFile(workbook, fileName);
+            XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+            
+            XLSX.writeFile(workbook, fileName);
         }
 
         function showLoading(show) {
@@ -1742,20 +1931,20 @@
         }
 
         function logout() {
-           Swal.fire({
+            Swal.fire({
                 title: 'Konfirmasi',
                 text: "Anda yakin ingin keluar dari aplikasi?",
                 icon: 'question',
-               showCancelButton: true,
-               confirmButtonText: 'Ya, Keluar',
-               cancelButtonText: 'Batal',
-               reverseButtons: true 
-           }).then((result) => {
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Keluar',
+                cancelButtonText: 'Batal',
+                reverseButtons: true 
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  currentUser = null;
-                  document.getElementById('appPanel').classList.add('d-none');
-                  document.getElementById('loginPanel').classList.remove('d-none');
-                  document.getElementById('formLogin').reset();
+                    currentUser = null;
+                    document.getElementById('appPanel').classList.add('d-none');
+                    document.getElementById('loginPanel').classList.remove('d-none');
+                    document.getElementById('formLogin').reset();
                 }
             });
         }
