@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- SweetAlert2 CSS -->
@@ -119,7 +120,7 @@
             background-color: white; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e8f0;
         }
         .nav-pills .nav-link {
-            color: var(--text-muted); font-weight: 500; border-radius: 8px; padding: 8px 16px; margin-right: 5px;
+            color: var(--text-muted); font-weight: 600; font-size: 0.9rem; border-radius: 8px; padding: 8px 16px; margin-right: 5px;
         }
         .nav-pills .nav-link:hover { background-color: #f1f5f9; color: var(--brand-color); }
         .nav-pills .nav-link.active {
@@ -258,8 +259,8 @@
         }
 
         .brand-logo-img {
-            width: 100px; 
-            margin-bottom: 20px;
+            width: 120px; 
+            margin-bottom: 25px;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
             position: relative; z-index: 2;
         }
@@ -377,7 +378,7 @@
 
     <!-- Loading Overlay -->
     <div id="loading" class="loading-overlay d-none">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo" class="loading-logo">
+        <img src="https://lh3.googleusercontent.com/pw/AP1GczN7ufulI_rQtJKcpRoa3XLkYc72vg-cmZVNYqM730nWdWONDhiwlrxlTmIbtTNUtZHP-oAC0flAjxc9b06ROnL9GCtKWCuCyYKk43h-408xvaQ1_HL39x_CFu8J3ENQ6DbHB4BEp1onZYi3FVPbLn4p=w500-h500-s-no-gm?authuser=0" alt="Logo" class="loading-logo">
         <div class="loading-text">Memuat Data ...</div>
     </div>
 
@@ -389,7 +390,7 @@
                 <div class="login-decoration-1"></div>
                 <div class="login-decoration-2"></div>
                 
-                <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo BKPSDM" class="brand-logo-img">
+                <img src="https://lh3.googleusercontent.com/pw/AP1GczM_UPrepfWkWp7jie4Km8sQ31_CG_kAWBdf0n1pqo_DxxM_rdZrJuI88Bl3rS36MIAwqtcBFcJbv2P2Rqrvy59MbD_OkSroCvOZJv9EXIgwgU5JNYSOKU7E05N0UP_SiBF_yfYLKj1RmFyfE-BGJV9N=w500-h500-s-no-gm?authuser=0" alt="Logo BKPSDM" class="brand-logo-img">
                 <div class="brand-title">SICAPER</div>
                 <div class="brand-divider"></div>
                 <div class="brand-subtitle">
@@ -400,7 +401,7 @@
 
             <div class="login-form-side">
                 <div class="login-header">
-                    <h5>Selamat Datang</h5>
+                    <h5>Selamat Datang!</h5>
                     <p>Silakan masukkan kredensial untuk melanjutkan.</p>
                 </div>
 
@@ -435,7 +436,7 @@
             <nav class="navbar navbar-expand-lg navbar-main">
                 <div class="container">
                     <a class="navbar-brand d-flex align-items-center" href="#">
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMRHLxxeYyh-Jdg8eqMc91BuiDmmH0AsaPdkD21UbvodoF7W2BDpHpbIa45mfQ_iT8gPn8VNY_JI80sgvLD5eZE5kQgSw-gz-Ix5HbRj8Uni4-0oFqjBKPDVeiUH62893VGTUtEyw5XQLp2QMa-6NkF=w100-h110-s-no-gm?authuser=0" alt="Logo">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN7ufulI_rQtJKcpRoa3XLkYc72vg-cmZVNYqM730nWdWONDhiwlrxlTmIbtTNUtZHP-oAC0flAjxc9b06ROnL9GCtKWCuCyYKk43h-408xvaQ1_HL39x_CFu8J3ENQ6DbHB4BEp1onZYi3FVPbLn4p=w500-h500-s-no-gm?authuser=0" alt="Logo">
                         <div class="ms-2">
                             <div class="navbar-text-main">S I C A P E R</div>
                             <div class="navbar-text-sub">Sistem Informasi dan Catatan Persuratan</div>
@@ -495,30 +496,101 @@
             </div>
 
             <!-- TAB: DASHBOARD -->
-            <div id="tab-dashboard" class="content-tab">
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="card stat-card bg-gradient-masuk h-100 p-4 shadow-soft">
-                            <div class="position-relative z-1">
-                                <h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Surat Masuk</h6>
-                                <h1 id="countMasuk" class="display-3 fw-bold mb-0">0</h1>
-                                <p class="text-white-50 mb-0 mt-2"><i class="fas fa-check-circle me-1"></i> Data Terverifikasi</p>
-                            </div>
-                            <i class="fas fa-inbox stat-icon"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card stat-card bg-gradient-keluar h-100 p-4 shadow-soft">
-                            <div class="position-relative z-1">
-                                <h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Surat Keluar</h6>
-                                <h1 id="countKeluar" class="display-3 fw-bold mb-0">0</h1>
-                                <p class="text-white-50 mb-0 mt-2"><i class="fas fa-check-circle me-1"></i> Data Terverifikasi</p>
-                            </div>
-                            <i class="fas fa-paper-plane stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div id="tab-dashboard" class="content-tab">
+				
+				<div class="row g-4 mb-4">
+					<div class="col-md-6">
+						<div class="card stat-card bg-gradient-masuk h-100 p-4 shadow-soft">
+							<div class="position-relative z-1 d-flex justify-content-between align-items-center">
+								<div>
+									<h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Total Surat Masuk</h6>
+									<h1 id="countMasuk" class="display-4 fw-bold mb-0">0</h1>
+									<p class="text-white-50 mb-0 mt-2 small">
+										<i class="fas fa-calendar-alt me-1"></i> Bulan ini: <span id="countMasukMonth" class="fw-bold text-white">0</span>
+									</p>
+								</div>
+								<div class="text-end opacity-50">
+									<i class="fas fa-inbox fa-4x"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card stat-card bg-gradient-keluar h-100 p-4 shadow-soft">
+							<div class="position-relative z-1 d-flex justify-content-between align-items-center">
+								<div>
+									<h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Total Surat Keluar</h6>
+									<h1 id="countKeluar" class="display-4 fw-bold mb-0">0</h1>
+									<p class="text-white-50 mb-0 mt-2 small">
+										<i class="fas fa-calendar-alt me-1"></i> Bulan ini: <span id="countKeluarMonth" class="fw-bold text-white">0</span>
+									</p>
+								</div>
+								<div class="text-end opacity-50">
+									<i class="fas fa-paper-plane fa-4x"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-4 mb-4">
+					<div class="col-md-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3">
+								<h6 class="fw-bold m-0 text-dark"><i class="fas fa-chart-pie me-2 text-success"></i>Statistik Surat Masuk</h6>
+							</div>
+							<div class="card-body">
+								<canvas id="chartMasuk" style="max-height: 250px;"></canvas>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3">
+								<h6 class="fw-bold m-0 text-dark"><i class="fas fa-chart-pie me-2 text-warning"></i>Statistik Surat Keluar</h6>
+							</div>
+							<div class="card-body">
+								<canvas id="chartKeluar" style="max-height: 250px;"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-4">
+					<div class="col-lg-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+								<h6 class="fw-bold m-0 text-success">5 Surat Masuk Terakhir</h6>
+								<button class="btn btn-sm btn-light rounded-pill" onclick="showTab('suratMasuk')">Lihat Semua</button>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover table-sm mb-0" style="font-size: 0.8rem;">
+									<thead class="table-light">
+										<tr><th>Tgl Surat</th><th>Pengirim</th><th>Perihal</th></tr>
+									</thead>
+									<tbody id="listRecentMasuk"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+								<h6 class="fw-bold m-0 text-warning">5 Surat Keluar Terakhir</h6>
+								<button class="btn btn-sm btn-light rounded-pill" onclick="showTab('suratKeluar')">Lihat Semua</button>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover table-sm mb-0" style="font-size: 0.8rem;">
+									<thead class="table-light">
+										<tr><th>Tgl Surat</th><th>Tujuan</th><th>Perihal</th></tr>
+									</thead>
+									<tbody id="listRecentKeluar"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
             <!-- TAB: SURAT MASUK -->
             <div id="tab-suratMasuk" class="content-tab d-none">
@@ -541,7 +613,7 @@
                         <table class="table table-custom mb-0" id="tableMasuk">
                             <thead>
                                 <tr>
-                                    <th style="width: 20%">Nomor Surat</th>
+                                    <th style="width: 20%">Nomor & Tanggal Surat</th>
                                     <th style="width: 20%">Jenis & Perihal</th>
                                     <th style="width: 18%">Pengirim</th>
 									<th style="width: 15%">Diteruskan ke</th>
@@ -577,7 +649,7 @@
                         <table class="table table-custom mb-0" id="tableKeluar">
                             <thead>
                                 <tr>
-									<th style="width: 20%">Nomor Surat</th>
+									<th style="width: 20%">Nomor & Tanggal Surat</th>
 									<th style="width: 20%">Jenis & Perihal</th>
 									<th style="width: 18%">Tujuan</th>
 									<th style="width: 15%">Asal Naskah</th> 
@@ -644,9 +716,6 @@
                                 <ul class="list-group shadow-sm" id="listJenisSurat">
                                     <!-- Items will be here -->
                                 </ul>
-                                <button class="btn btn-primary w-100 mt-3 fw-bold" onclick="saveJenisSurat()">
-                                    <i class="fas fa-save me-1"></i> Simpan Urutan
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -799,6 +868,15 @@
                 <div class="modal-body">
                     <form id="formDownload">
                         <input type="hidden" id="downloadKategori">
+						
+						<div class="mb-3">
+							<label class="form-label small fw-bold text-muted">Format Laporan</label>
+							<select class="form-select" id="dlFormat">
+								<option value="xlsx">Excel (.xlsx)</option>
+								<option value="pdf">Dokumen PDF (.pdf)</option>
+							</select>
+						</div>								
+						
                         <div class="mb-3">
                             <label class="form-label small fw-bold text-muted">Tanggal Awal</label>
                             <input type="date" class="form-control" id="dlStartDate" required>
@@ -862,6 +940,24 @@
             </div>
         </div>
     </div>
+
+	<div class="modal fade" id="modalPreview" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-xl"> 
+			<div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+				<div class="modal-header bg-dark text-white py-2">
+					<h6 class="modal-title fw-bold small"><i class="fas fa-eye me-2"></i>Pratinjau Dokumen</h6>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body p-0" style="height: 85vh; background: #333;">
+					<iframe id="framePreview" src="" width="100%" height="100%" style="border:none;"></iframe>
+				</div>
+				</div>
+		</div>
+	</div>
+
+
+
+
 
     <!-- JAVASCRIPT LOGIC -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -982,7 +1078,7 @@
             }, 15000);
         }
 
-        function loadData(isBackground = false) {
+		function loadData(isBackground = false) {
             if (!isBackground) showLoading(true);
             
             fetch(GAS_API_URL + "?action=getData")
@@ -991,22 +1087,32 @@
                 if (!isBackground) showLoading(false);
                 if (resp.status === 'success') {
                     
-                    // FIX AUTO REFRESH BUG
-                    // Jika ini background refresh, JANGAN update jenisSurat
-                    // Agar data lokal yang sedang diedit (tambah jenis) tidak tertimpa
+                    // === LOGIKA SORTING DI SISI CLIENT (Aplikasi) ===
+                    
+                    // 1. Surat Masuk: Sort by Tanggal Surat (Index 1) DESCENDING (Terbaru di atas)
+                    let sortedMasuk = resp.data.suratMasuk.sort((a, b) => {
+                        return new Date(b.values[1]) - new Date(a.values[1]);
+                    });
+
+                    // 2. Surat Keluar: Sort by No Urut (Index 3) DESCENDING (Terbesar di atas)
+                    let sortedKeluar = resp.data.suratKeluar.sort((a, b) => {
+                        const numA = parseInt(a.values[3]) || 0;
+                        const numB = parseInt(b.values[3]) || 0;
+                        return numB - numA;
+                    });
+                    
                     if (isBackground) {
-                        globalData.suratMasuk = resp.data.suratMasuk;
-                        globalData.suratKeluar = resp.data.suratKeluar;
-                        // globalData.jenisSurat dibiarkan apa adanya
+                        globalData.suratMasuk = sortedMasuk;
+                        globalData.suratKeluar = sortedKeluar;
                     } else {
-                        // Jika refresh manual (awal load), update semua
-                        globalData = resp.data;
+                        globalData.suratMasuk = sortedMasuk;
+                        globalData.suratKeluar = sortedKeluar;
+                        globalData.jenisSurat = resp.data.jenisSurat;
                     }
 
                     renderDashboard();
                     renderTables();
                     
-                    // Dropdown & Setting list hanya dirender ulang jika BUKAN background refresh
                     if (!isBackground) {
                         populateDropdown();
                         if(currentUser && currentUser.role === 'Super Admin') {
@@ -1033,97 +1139,174 @@
                 }
             });
         }
+ 
+		// === KONFIGURASI TOAST (NOTIFIKASI OTOMATIS) ===
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 2000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		});
 
-        // === JENIS SURAT MANAGEMENT ===
-        
-        function renderJenisSuratSettings() {
-            const listEl = document.getElementById('listJenisSurat');
-            listEl.innerHTML = '';
-            
-            globalData.jenisSurat.forEach((jenis, index) => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center bg-white';
-                li.innerHTML = `
-                    <span><i class="fas fa-bars text-muted me-2"></i> ${jenis}</span>
-                    <button class="btn btn-sm text-danger" onclick="deleteJenisSurat('${jenis}')"><i class="fas fa-times"></i></button>
-                `;
-                li.dataset.value = jenis;
-                listEl.appendChild(li);
-            });
+		// === FUNGSI UTAMA: RENDER LIST ===
+		function renderJenisSuratSettings() {
+			const listEl = document.getElementById('listJenisSurat');
+			listEl.innerHTML = '';
+			
+			if (globalData.jenisSurat.length === 0) {
+				listEl.innerHTML = `
+					<div class="text-center py-4 text-muted">
+						<i class="fas fa-inbox fa-3x mb-3 opacity-25"></i>
+						<p class="small m-0">Belum ada jenis surat.<br>Klik tombol <b>+ Tambah</b> di atas.</p>
+					</div>`;
+				return;
+			}
 
-            new Sortable(listEl, {
-                animation: 150,
-                ghostClass: 'sortable-ghost'
-            });
-        }
+			globalData.jenisSurat.forEach((jenis) => {
+				const li = document.createElement('li');
+				// UPDATE: Font size diperkecil (fs-6 atau style manual)
+				li.className = 'list-group-item border-0 shadow-sm mb-2 rounded-3 d-flex justify-content-between align-items-center bg-white';
+				li.style.fontSize = "0.9rem"; // <-- UKURAN HURUF DIPERKECIL
+				
+				li.innerHTML = `
+					<div class="d-flex align-items-center gap-3">
+						<div class="text-muted cursor-move px-2" style="cursor: grab;">
+							<i class="fas fa-grip-vertical"></i>
+						</div>
+						<div class="fw-bold text-dark">${jenis}</div>
+					</div>
+					<div class="d-flex gap-1">
+						<button class="btn btn-sm btn-light text-primary border" onclick="editJenisSurat('${jenis}')">
+							<i class="fas fa-pen fa-xs"></i>
+						</button>
+						<button class="btn btn-sm btn-light text-danger border" onclick="deleteJenisSurat('${jenis}')">
+							<i class="fas fa-trash-alt fa-xs"></i>
+						</button>
+					</div>
+				`;
+				li.dataset.value = jenis;
+				listEl.appendChild(li);
+			});
 
-        function addJenisSurat() {
-            Swal.fire({
-                title: 'Tambah Jenis Surat',
-                input: 'text',
-                inputPlaceholder: 'Cth: Surat Undangan',
-                showCancelButton: true,
-                confirmButtonText: 'Tambah',
-                cancelButtonText: 'Batal',
-                reverseButtons: true    
-            }).then((result) => {
-                if (result.isConfirmed && result.value) {
-                    const newValue = result.value.trim();
-                    if(newValue && !globalData.jenisSurat.includes(newValue)) {
-                        globalData.jenisSurat.push(newValue);
-                        renderJenisSuratSettings();
-                    } else {
-                        Swal.fire('Info', 'Jenis surat kosong atau sudah ada.', 'info');
-                    }
-                }
-            });
-        }
+			// === INTEGRASI SORTABLE JS DENGAN AUTO SAVE ===
+			new Sortable(listEl, {
+				animation: 150,
+				handle: '.cursor-move',
+				ghostClass: 'bg-light',
+				onEnd: function (evt) {
+					// Saat drag selesai, update urutan data lokal dan simpan ke server
+					syncLocalDataFromDOM(); 
+					pushAutoSave('Urutan diperbarui');
+				}
+			});
+		}
 
-        function deleteJenisSurat(val) {
-            Swal.fire({
-                title: 'Hapus?',
-                text: `Hapus "${val}" dari daftar?`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonText: 'Batal',
-                confirmButtonText: 'Hapus',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    globalData.jenisSurat = globalData.jenisSurat.filter(item => item !== val);
-                    renderJenisSuratSettings();
-                }
-            });
-        }
+		// === FUNGSI BANTUAN: SINKRONISASI DOM KE DATA ===
+		function syncLocalDataFromDOM() {
+			const listEl = document.getElementById('listJenisSurat');
+			const items = listEl.querySelectorAll('li');
+			const newList = [];
+			items.forEach(item => newList.push(item.dataset.value));
+			globalData.jenisSurat = newList;
+		}
 
-        function saveJenisSurat() {
-            const listEl = document.getElementById('listJenisSurat');
-            const items = listEl.querySelectorAll('li');
-            const newList = [];
-            items.forEach(item => newList.push(item.dataset.value));
+		// === FUNGSI AUTO SAVE KE SERVER (BACKGROUND) ===
+		function pushAutoSave(message) {
+			// Tampilkan indikator "Menyimpan..." kecil (opsional, tapi Toast sudah cukup)
+			
+			fetch(GAS_API_URL, {
+				method: 'POST',
+				body: JSON.stringify({
+					action: 'manageJenisSurat',
+					list: globalData.jenisSurat
+				})
+			})
+			.then(res => res.json())
+			.then(resp => {
+				if (resp.status === 'success') {
+					Toast.fire({ icon: 'success', title: message });
+					// Update dropdown di form input surat agar sinkron
+					populateDropdown(); 
+				}
+			})
+			.catch(err => {
+				Toast.fire({ icon: 'error', title: 'Gagal menyimpan perubahan koneksi' });
+			});
+		}
 
-            showLoading(true);
-            
-            fetch(GAS_API_URL, {
-                method: 'POST',
-                body: JSON.stringify({
-                    action: 'manageJenisSurat',
-                    list: newList
-                })
-            })
-            .then(res => res.json())
-            .then(resp => {
-                showLoading(false);
-                if (resp.status === 'success') {
-                    Swal.fire('Tersimpan', resp.message, 'success');
-                    globalData.jenisSurat = newList; 
-                    populateDropdown(); 
-                } else {
-                    Swal.fire('Gagal', resp.message, 'error');
-                }
-            });
-        }
+		// === CRUD OPERATION (DENGAN AUTO SAVE) ===
+
+		function addJenisSurat() {
+			Swal.fire({
+				title: 'Tambah Jenis Surat',
+				input: 'text',
+				inputPlaceholder: 'Cth: Surat Undangan',
+				showCancelButton: true,
+				confirmButtonText: 'Simpan',
+				cancelButtonText: 'Batal',
+				reverseButtons: true    
+			}).then((result) => {
+				if (result.isConfirmed && result.value) {
+					const newValue = result.value.trim();
+					if(newValue && !globalData.jenisSurat.includes(newValue)) {
+						globalData.jenisSurat.push(newValue);
+						renderJenisSuratSettings();
+						pushAutoSave('Jenis surat ditambahkan'); // Auto Save
+					} else {
+						Swal.fire('Info', 'Jenis surat kosong atau sudah ada.', 'info');
+					}
+				}
+			});
+		}
+
+		function editJenisSurat(oldVal) {
+			Swal.fire({
+				title: 'Ubah Nama',
+				input: 'text',
+				inputValue: oldVal,
+				showCancelButton: true,
+				confirmButtonText: 'Simpan',
+				reverseButtons: true,
+				inputValidator: (value) => {
+					if (!value) return 'Tidak boleh kosong!';
+					if (value !== oldVal && globalData.jenisSurat.includes(value)) return 'Sudah ada!';
+				}
+			}).then((result) => {
+				if (result.isConfirmed && result.value) {
+					const index = globalData.jenisSurat.indexOf(oldVal);
+					if (index !== -1) {
+						globalData.jenisSurat[index] = result.value.trim();
+						renderJenisSuratSettings();
+						pushAutoSave('Nama diperbarui'); // Auto Save
+					}
+				}
+			});
+		}
+
+		function deleteJenisSurat(val) {
+			Swal.fire({
+				title: 'Hapus?',
+				text: `Hapus "${val}"?`,
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				confirmButtonText: 'Ya, Hapus',
+				cancelButtonText: 'Batal',
+				reverseButtons: true
+			}).then((result) => {
+				if (result.isConfirmed) {
+					globalData.jenisSurat = globalData.jenisSurat.filter(item => item !== val);
+					renderJenisSuratSettings();
+					pushAutoSave('Jenis surat dihapus'); // Auto Save
+				}
+			});
+		}
+
 
         // === USER MANAGEMENT LOGIC ===
         const modalUser = new bootstrap.Modal(document.getElementById('modalUser'));
@@ -1139,7 +1322,7 @@
                         <td><span class="badge ${u.role === 'Super Admin' ? 'bg-warning text-dark' : 'bg-secondary'}">${u.role}</span></td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-outline-dark me-1" onclick="editUser('${u.username}')"><i class="fas fa-pen"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u.username}')"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u.username}')"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                 `;
@@ -1288,10 +1471,135 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function renderDashboard() {
-            document.getElementById('countMasuk').innerText = globalData.suratMasuk.length;
-            document.getElementById('countKeluar').innerText = globalData.suratKeluar.length;
-        }
+		// Variable Global untuk Chart agar bisa di-update
+		let chartInstanceMasuk = null;
+		let chartInstanceKeluar = null;
+
+		function renderDashboard() {
+			// 1. UPDATE KARTU STATISTIK (TOTAL & BULANAN)
+			const now = new Date();
+			const currentMonth = now.getMonth();
+			const currentYear = now.getFullYear();
+
+			// Hitung Masuk
+			const totalMasuk = globalData.suratMasuk.length;
+			const bulanMasuk = globalData.suratMasuk.filter(row => {
+				const d = new Date(row.values[1]); // Kolom Tanggal index 1
+				return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+			}).length;
+
+			// Hitung Keluar
+			const totalKeluar = globalData.suratKeluar.length;
+			const bulanKeluar = globalData.suratKeluar.filter(row => {
+				const d = new Date(row.values[1]); // Kolom Tanggal index 1
+				return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+			}).length;
+
+			document.getElementById('countMasuk').innerText = totalMasuk;
+			document.getElementById('countMasukMonth').innerText = bulanMasuk;
+			document.getElementById('countKeluar').innerText = totalKeluar;
+			document.getElementById('countKeluarMonth').innerText = bulanKeluar;
+
+			// 2. UPDATE TABEL TERBARU (5 DATA TERAKHIR)
+			// Ambil 5 data teratas (karena data sudah di-reverse/terbaru di atas dari server)
+			const recentMasuk = globalData.suratMasuk.slice(0, 5);
+			const recentKeluar = globalData.suratKeluar.slice(0, 5);
+
+			const tbodyMasuk = document.getElementById('listRecentMasuk');
+			tbodyMasuk.innerHTML = '';
+			if(recentMasuk.length === 0) {
+				tbodyMasuk.innerHTML = '<tr><td colspan="3" class="text-center text-muted py-3">Belum ada data</td></tr>';
+			} else {
+				recentMasuk.forEach(item => {
+					const r = item.values;
+					const tgl = new Date(r[1]).toLocaleDateString('id-ID', {day:'numeric', month:'short'});
+					tbodyMasuk.innerHTML += `
+						<tr>
+							<td class="text-nowrap">${tgl}</td>
+							<td class="fw-bold text-truncate" style="max-width: 100px;">${r[5]}</td> <td class="text-truncate" style="max-width: 150px;">${r[4]}</td> </tr>`;
+				});
+			}
+
+			const tbodyKeluar = document.getElementById('listRecentKeluar');
+			tbodyKeluar.innerHTML = '';
+			if(recentKeluar.length === 0) {
+				tbodyKeluar.innerHTML = '<tr><td colspan="3" class="text-center text-muted py-3">Belum ada data</td></tr>';
+			} else {
+				recentKeluar.forEach(item => {
+					const r = item.values;
+					const tgl = new Date(r[1]).toLocaleDateString('id-ID', {day:'numeric', month:'short'});
+					tbodyKeluar.innerHTML += `
+						<tr>
+							<td class="text-nowrap">${tgl}</td>
+							<td class="fw-bold text-truncate" style="max-width: 100px;">${r[7]}</td> <td class="text-truncate" style="max-width: 150px;">${r[6]}</td> </tr>`;
+				});
+			}
+
+			// 3. RENDER / UPDATE CHART
+			renderChartJS();
+		}
+
+		function renderChartJS() {
+			// Helper: Hitung frekuensi per jenis surat
+			const getStatsByJenis = (dataArray, colIndex) => {
+				const counts = {};
+				dataArray.forEach(item => {
+					const jenis = item.values[colIndex]; 
+					counts[jenis] = (counts[jenis] || 0) + 1;
+				});
+				return counts;
+			};
+
+			// Masuk (Jenis ada di index 3), Keluar (Jenis ada di index 5)
+			const statsMasuk = getStatsByJenis(globalData.suratMasuk, 3);
+			const statsKeluar = getStatsByJenis(globalData.suratKeluar, 5);
+
+			// Fungsi bikin chart
+			const createOrUpdateChart = (canvasId, chartInstance, label, dataObj, colorBase) => {
+				const ctx = document.getElementById(canvasId).getContext('2d');
+				const labels = Object.keys(dataObj);
+				const data = Object.values(dataObj);
+				
+				// Warna dinamis
+				const bgColors = labels.map((_, i) => i % 2 === 0 ? colorBase : adjustColor(colorBase, -20));
+
+				if (chartInstance) {
+					chartInstance.data.labels = labels;
+					chartInstance.data.datasets[0].data = data;
+					chartInstance.update();
+					return chartInstance;
+				} else {
+					return new Chart(ctx, {
+						type: 'doughnut', // Bisa ganti 'bar', 'pie', dll
+						data: {
+							labels: labels,
+							datasets: [{
+								label: 'Jumlah',
+								data: data,
+								backgroundColor: [
+									'#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'
+								],
+								borderWidth: 0
+							}]
+						},
+						options: {
+							responsive: true,
+							maintainAspectRatio: false,
+							plugins: {
+								legend: { position: 'right', labels: { boxWidth: 12, font: {size: 10} } }
+							}
+						}
+					});
+				}
+			};
+
+			// Helper warna (dummy function agar tidak error, atau hapus logika warna custom di atas)
+			const adjustColor = (col, amt) => { return col; } 
+
+			// Render Chart Masuk & Keluar
+			chartInstanceMasuk = createOrUpdateChart('chartMasuk', chartInstanceMasuk, 'Surat Masuk', statsMasuk, '#10b981');
+			chartInstanceKeluar = createOrUpdateChart('chartKeluar', chartInstanceKeluar, 'Surat Keluar', statsKeluar, '#f59e0b');
+		}
 
         // --- PAGINATION LOGIC ---
         function changeRowsPerPage(type, value) {
@@ -1370,13 +1678,35 @@
         }
 
         function renderTables() {
-            // -- SEARCH --
-            const termMasuk = document.getElementById('searchMasuk') ? document.getElementById('searchMasuk').value.toLowerCase() : '';
-            const termKeluar = document.getElementById('searchKeluar') ? document.getElementById('searchKeluar').value.toLowerCase() : '';
+			// -- SEARCH --
+			const termMasuk = document.getElementById('searchMasuk') ? document.getElementById('searchMasuk').value.toLowerCase() : '';
+			const termKeluar = document.getElementById('searchKeluar') ? document.getElementById('searchKeluar').value.toLowerCase() : '';
 
-            // Note: row.values[Index] karena struktur baru { rowNumber: X, values: [...] }
-            const filteredMasuk = globalData.suratMasuk.filter(row => (row.values[3] + " " + row.values[4] + " " + row.values[5]).toLowerCase().includes(termMasuk));
-            const filteredKeluar = globalData.suratKeluar.filter(row => (row.values[3] + " " + row.values[4] + " " + row.values[5]).toLowerCase().includes(termKeluar));
+			// LOGIKA PENCARIAN BARU (DIPERLUAS)
+
+			// Surat Masuk: Cek Nomor(2), Jenis(3), Perihal(4), Pengirim(5), Diteruskan(6)
+			const filteredMasuk = globalData.suratMasuk.filter(row => {
+				const textData = (
+					(row.values[2] || "") + " " + // Nomor Surat
+					(row.values[3] || "") + " " + // Jenis
+					(row.values[4] || "") + " " + // Perihal
+					(row.values[5] || "") + " " + // Pengirim (Asal)
+					(row.values[6] || "")         // Diteruskan ke
+				).toLowerCase();
+				return textData.includes(termMasuk);
+			});
+
+			// Surat Keluar: Cek No Lengkap(4), Jenis(5), Perihal(6), Tujuan(7), Asal Naskah(8)
+			const filteredKeluar = globalData.suratKeluar.filter(row => {
+				const textData = (
+					(row.values[4] || "") + " " + // No Surat Lengkap
+					(row.values[5] || "") + " " + // Jenis
+					(row.values[6] || "") + " " + // Perihal
+					(row.values[7] || "") + " " + // Tujuan
+					(row.values[8] || "")         // Asal Naskah
+				).toLowerCase();
+				return textData.includes(termKeluar);
+			});
 
             // -- PAGINATION SLICE --
             const startMasuk = (currentPageMasuk - 1) * rowsPerPageMasuk;
@@ -1396,8 +1726,8 @@
 				const idxUrl = type === 'masuk' ? 8 : 10;
 				
 				let btnFile = row[idxUrl] ? 
-					`<a href="${row[idxUrl]}" target="_blank" class="btn-circle btn-circle-primary" title="Lihat File"><i class="fas fa-file-alt"></i></a>` : 
-					`<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-file-excel"></i></button>`;
+					`<button class="btn-circle btn-circle-primary" onclick="previewFile('${row[idxUrl]}')" title="Pratinjau File"><i class="fas fa-eye"></i></button>` : 
+					`<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-eye-slash"></i></button>`;
 				
 				let tgl = new Date(row[1]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
 				const badgeClass = type === 'masuk' ? 'badge-masuk' : 'badge-keluar';
@@ -1439,7 +1769,10 @@
 								<div class="small text-dark text-wrap">${row[6]}</div>
 							</td>
 							<td><div class="small">${row[7]}</div></td>
-							<td><div class="small fw-bold text-secondary">${row[8]}</div></td> <td><small class="text-muted text-wrap">${row[9]}</small></td>
+							<td><span class="badge bg-light text-dark border">${row[8]}</span></td> 
+							<td><small class="text-muted text-wrap">${row[9]}</small></td>
+							
+							</small></td>
 							<td class="text-center">
 								<div class="d-flex justify-content-center gap-2">
 									${btnFile}
@@ -1484,42 +1817,70 @@
             });
         }
 
-        // === DRAG & DROP ZONE LOGIC ===
-        function setupDragAndDrop() {
-            const dropZone = document.getElementById('dropZoneArea');
-            const fileInput = document.getElementById('inpFile');
-            
-            dropZone.addEventListener('click', () => fileInput.click());
-            
-            fileInput.addEventListener('change', () => {
-                if (fileInput.files.length > 0) updateDropZoneUI(fileInput.files[0].name);
-            });
+		// === DRAG & DROP ZONE LOGIC (UPDATED) ===
+		function setupDragAndDrop() {
+			const dropZone = document.getElementById('dropZoneArea');
+			const fileInput = document.getElementById('inpFile');
+			
+			// Helper: Validasi Ukuran File (Maks 2MB)
+			const validateFileSize = (file) => {
+				const maxSize = 2 * 1024 * 1024; // 2 MB
+				if (file.size > maxSize) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal Upload',
+						text: 'Ukuran file terlalu besar (lebih dari 2 MB). Silakan dikompres terlebih dahulu.'
+					});
+					fileInput.value = ""; // Reset input
+					resetDropZone();      // Kembalikan tampilan ke awal
+					return false;
+				}
+				return true;
+			};
+			
+			dropZone.addEventListener('click', () => fileInput.click());
+			
+			// Saat file dipilih lewat tombol browse
+			fileInput.addEventListener('change', () => {
+				if (fileInput.files.length > 0) {
+					const file = fileInput.files[0];
+					if (validateFileSize(file)) {
+						updateDropZoneUI(file.name);
+					}
+				}
+			});
 
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
-            });
+			// Event Drag & Drop standar
+			['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+				dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+			});
 
-            ['dragenter', 'dragover'].forEach(eventName => {
-                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
-            });
+			['dragenter', 'dragover'].forEach(eventName => {
+				dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+			});
 
-            ['dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
-            });
+			['dragleave', 'drop'].forEach(eventName => {
+				dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+			});
 
-            dropZone.addEventListener('drop', (e) => {
-                if (e.dataTransfer.files.length > 0) {
-                    fileInput.files = e.dataTransfer.files;
-                    updateDropZoneUI(fileInput.files[0].name);
-                }
-            });
+			// Saat file di-drop
+			dropZone.addEventListener('drop', (e) => {
+				if (e.dataTransfer.files.length > 0) {
+					const file = e.dataTransfer.files[0];
+					// Validasi dulu sebelum diterima
+					if (validateFileSize(file)) {
+						fileInput.files = e.dataTransfer.files; // Assign file ke input
+						updateDropZoneUI(file.name);
+					}
+				}
+			});
 
-            function updateDropZoneUI(fileName) {
-                document.getElementById('dropZoneText').style.display = 'none';
-                document.getElementById('fileSelectedInfo').style.display = 'flex';
-                document.getElementById('fileNameDisplay').innerText = fileName;
-            }
-        }
+			function updateDropZoneUI(fileName) {
+				document.getElementById('dropZoneText').style.display = 'none';
+				document.getElementById('fileSelectedInfo').style.display = 'flex';
+				document.getElementById('fileNameDisplay').innerText = fileName;
+			}
+		}
 
         function resetDropZone() {
             document.getElementById('dropZoneText').style.display = 'block';
@@ -1799,11 +2160,18 @@
 
 			if (fileInput.files.length > 0) {
 				const file = fileInput.files[0];
-				// Validasi Ukuran File (Max 5MB)
-				if (file.size > 5 * 1024 * 1024) {
-					Swal.fire('Error', 'Ukuran file terlalu besar (Max 5MB)', 'error');
-					showLoading(false); return;
+				
+				// Validasi Ukuran File (Max 2MB) - UPDATED
+				if (file.size > 2 * 1024 * 1024) { 
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal', 
+						text: 'Ukuran file terlalu besar (lebih dari 2 MB). Silakan dikompres terlebih dahulu.'
+					});
+					showLoading(false); 
+					return;
 				}
+				
 				const reader = new FileReader();
 				reader.onload = function(e) {
 					payload.fileName = file.name;
@@ -1862,45 +2230,76 @@
             dlModal.show();
         }
 
-        function processDownload() {
-            const start = document.getElementById('dlStartDate').value;
-            const end = document.getElementById('dlEndDate').value;
-            const kategori = document.getElementById('downloadKategori').value;
+		function processDownload() {
+			const start = document.getElementById('dlStartDate').value;
+			const end = document.getElementById('dlEndDate').value;
+			const kategori = document.getElementById('downloadKategori').value;
+			const format = document.getElementById('dlFormat').value; // Ambil nilai format
 
-            if (!start || !end) {
-                Swal.fire('Info', 'Mohon lengkapi Tanggal Awal dan Akhir', 'info');
-                return;
-            }
+			if (!start || !end) {
+				Swal.fire('Info', 'Mohon lengkapi Tanggal Awal dan Akhir', 'info');
+				return;
+			}
 
-            showLoading(true);
-            dlModal.hide();
+			showLoading(true);
+			dlModal.hide();
 
-            const payload = {
-                action: 'downloadRekap',
-                kategori: kategori,
-                startDate: start,
-                endDate: end
-            };
+			const payload = {
+				action: 'downloadRekap',
+				kategori: kategori,
+				startDate: start,
+				endDate: end,
+				format: format // Kirim format ke backend
+			};
 
-            fetch(GAS_API_URL, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(resp => {
-                showLoading(false);
-                if (resp.status === 'success') {
-                    generateExcel(resp.data, resp.fileName, kategori);
-                    Swal.fire({ icon: 'success', title: 'Unduhan Dimulai', text: 'File Excel telah diunduh.', timer: 2000, showConfirmButton: false });
-                } else {
-                    Swal.fire('Gagal', resp.message, 'error');
-                }
-            })
-            .catch(err => {
-                showLoading(false);
-                Swal.fire('Error', "Gagal mengunduh: " + err, 'error');
-            });
-        }
+			fetch(GAS_API_URL, {
+				method: 'POST',
+				body: JSON.stringify(payload)
+			})
+			.then(res => res.json())
+			.then(resp => {
+				showLoading(false);
+				if (resp.status === 'success') {
+					
+					if (resp.format === 'pdf') {
+						// --- HANDLE PDF ---
+						// Buat link download virtual dari data Base64
+						const link = document.createElement('a');
+						link.href = 'data:application/pdf;base64,' + resp.fileData;
+						link.download = resp.fileName;
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						
+						Swal.fire({ 
+							icon: 'success', 
+							title: 'Berhasil', 
+							text: 'Laporan PDF berhasil diunduh.', 
+							timer: 2000, 
+							showConfirmButton: false 
+						});
+
+					} else {
+						// --- HANDLE EXCEL ---
+						generateExcel(resp.data, resp.fileName, kategori);
+						Swal.fire({ 
+							icon: 'success', 
+							title: 'Berhasil', 
+							text: 'File Excel telah diunduh.', 
+							timer: 2000, 
+							showConfirmButton: false 
+						});
+					}
+
+				} else {
+					Swal.fire('Gagal', resp.message, 'error');
+				}
+			})
+			.catch(err => {
+				showLoading(false);
+				Swal.fire('Error', "Gagal mengunduh: " + err, 'error');
+			});
+		}
 
         function generateExcel(jsonData, fileName, kategori) {
             const worksheet = XLSX.utils.json_to_sheet(jsonData);
@@ -1948,6 +2347,33 @@
                 }
             });
         }
+		
+		// === LOGIKA PREVIEW FILE ===
+		const myPreviewModal = new bootstrap.Modal(document.getElementById('modalPreview'));
+
+		function previewFile(url) {
+			if (!url) return;
+
+			// Trik: Ubah '/view' menjadi '/preview' agar embed Google Drive lebih rapi (tanpa toolbar atas)
+			let embedUrl = url;
+			if (url.includes('drive.google.com') && url.includes('/view')) {
+				embedUrl = url.replace('/view', '/preview');
+			}
+
+			// Set URL ke iframe
+			document.getElementById('framePreview').src = embedUrl;
+			
+			// Baris pengaturan tombol download dihapus karena tombolnya sudah tidak ada
+			
+			myPreviewModal.show();
+		}
+
+		// Bersihkan iframe saat modal ditutup
+		document.getElementById('modalPreview').addEventListener('hidden.bs.modal', function () {
+			document.getElementById('framePreview').src = "";
+		});		
+				
+		
     </script>
 </body>
 
