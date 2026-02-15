@@ -2051,7 +2051,7 @@
                     <p>Anda akan menghapus data ini secara permanen.</p>                   
                     <div class="text-start mb-1 fw-bold small text-muted">Masukkan Password Anda:</div>
                 `,
-                input: 'password',
+                input: 'password',				
                 inputAttributes: {
                     autocapitalize: 'off',
                     placeholder: 'Password Login'
@@ -2067,17 +2067,21 @@
                 preConfirm: (password) => {
                     if (!password) {
                         Swal.showValidationMessage('Password wajib diisi!');
-                        return false; // Prevent closing
+                        return false;
                     }
                     return password;
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // --- TAMBAHKAN BARIS INI ---
+                    showLoading(true); // Munculkan animasi loading
+                    // ---------------------------
+
                     const userPassword = result.value;
                     const payload = {
                         action: 'hapusSurat',
                         kategori: type === 'masuk' ? 'surat_masuk' : 'surat_keluar',
-                        rowNumber: rowNumber, // Gunakan RowNumber
+                        rowNumber: rowNumber,
                         username: currentUser.username, 
                         password: userPassword
                     };
@@ -2118,9 +2122,8 @@
 				// --- SURAT MASUK ---
 				payload.nomorSurat = document.getElementById('inpNomorMasuk').value;
 				payload.asal = document.getElementById('inpPengirim').value;
-				payload.diteruskan = document.getElementById('inpDiteruskan').value; // Opsional
+				payload.diteruskan = document.getElementById('inpDiteruskan').value; 
 				
-				// Validasi Khusus Surat Masuk
 				if (!payload.nomorSurat) emptyFields.push("Nomor Surat");
 				if (!payload.asal) emptyFields.push("Asal / Pengirim");
 
@@ -2137,7 +2140,6 @@
 				payload.tujuan = document.getElementById('inpTujuan').value;
 				payload.asalNaskah = document.getElementById('inpAsalNaskah').value;
 
-				// Validasi Khusus Surat Keluar
 				if (!k) emptyFields.push("Kode Klasifikasi");
 				if (!n) emptyFields.push("Nomor Urut");
 				if (!payload.tujuan) emptyFields.push("Tujuan / Penerima");
@@ -2151,23 +2153,64 @@
 					title: 'Data Belum Lengkap',
 					html: `Mohon lengkapi field berikut:<br/><b>${emptyFields.join(', ')}</b>`
 				});
-				return; // Stop, jangan kirim data
+				return; 
 			}
 
-			// 5. PROSES UPLOAD & KIRIM
-			showLoading(true);
-			myModal.hide();
+			// --- LOGIKA BARU DI SINI ---
+			
+			// 4.5. KHUSUS SURAT KELUAR: CEK DUPLIKASI NOMOR URUT
+			if (kategori === 'surat_keluar' && !isEdit) { 
+				const inputNoUrut = payload.noUrut;
+				const inputTahun = document.getElementById('inpTahun').value;
 
+				// Cek di Global Data (Client Side)
+				const isDuplicate = globalData.suratKeluar.some(item => {
+					const dbNoUrut = String(item.values[3]); // Index 3: No Urut
+					const dbNoLengkap = String(item.values[4]); // Index 4: No Lengkap (berisi tahun)
+					
+					// Cek kesamaan No Urut DAN Tahun
+					return (dbNoUrut === inputNoUrut && dbNoLengkap.includes(inputTahun));
+				});
+
+				if (isDuplicate) {
+					Swal.fire({
+						title: 'Nomor Sudah Digunakan!',
+						html: `Nomor Urut <b>${inputNoUrut}</b> di tahun <b>${inputTahun}</b> sudah terdaftar.<br><br>Apakah Anda yakin tetap ingin menggunakan nomor ini (duplikasi)?`,
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#ea580c', 
+						cancelButtonColor: '#334155',
+						confirmButtonText: 'Ya, Tetap Pakai',
+						cancelButtonText: 'Batal / Perbaiki',
+						reverseButtons: true
+					}).then((result) => {
+						if (result.isConfirmed) {
+							// Jika user memaksa lanjut
+							executeSimpan(fileInput, payload);
+						}
+					});
+					return; // Stop dulu, tunggu konfirmasi user
+				}
+			}
+
+			// Jika tidak ada duplikasi, langsung eksekusi simpan
+			executeSimpan(fileInput, payload);
+		}
+
+		// FUNGSI PEMBANTU: EKSEKUSI SIMPAN / UPLOAD FINAL
+		function executeSimpan(fileInput, payload) {
+			showLoading(true);
+			// Tutup modal jika masih terbuka
+			const modalEl = document.getElementById('modalSurat');
+			const modalInstance = bootstrap.Modal.getInstance(modalEl);
+			if (modalInstance) modalInstance.hide();
+
+			// 5. PROSES UPLOAD & KIRIM (Logic dipindah ke sini)
 			if (fileInput.files.length > 0) {
 				const file = fileInput.files[0];
-				
-				// Validasi Ukuran File (Max 2MB) - UPDATED
+				// Validasi Ukuran File (Max 2MB)
 				if (file.size > 2 * 1024 * 1024) { 
-					Swal.fire({
-						icon: 'error',
-						title: 'Gagal', 
-						text: 'Ukuran file terlalu besar (lebih dari 2 MB). Silakan dikompres terlebih dahulu.'
-					});
+					Swal.fire('Error', 'Ukuran file terlalu besar (lebih dari 2 MB). Silakan dikompres terlebih dahulu.', 'error');
 					showLoading(false); 
 					return;
 				}
@@ -2185,13 +2228,14 @@
 			}
 		}
 
-        function kirimKeGAS(payload) {
+		function kirimKeGAS(payload) {
             fetch(GAS_API_URL, {
                 method: 'POST',
                 body: JSON.stringify(payload)
             })
             .then(res => res.json())
             .then(resp => {
+                // Biarkan logika ini (loading mati kecuali hapusSurat, karena hapusSurat lanjut ke loadData)
                 if(payload.action !== 'hapusSurat') showLoading(false); 
                 
                 if (resp.status === 'success') {
@@ -2202,9 +2246,11 @@
                         timer: 1500,
                         showConfirmButton: false
                     });
-                    loadData();
+                    loadData(); // loadData akan mematikan loading secara otomatis setelah selesai refresh
                 } else {
+                    // --- UPDATE BAGIAN INI ---
                     if(payload.action === 'hapusSurat') {
+                        showLoading(false); // Pastikan loading mati jika Gagal Hapus (misal password salah)
                         Swal.fire({
                             icon: 'error',
                             title: 'Gagal',
@@ -2214,6 +2260,7 @@
                         showLoading(false);
                         Swal.fire('Gagal', resp.message, 'error');
                     }
+                    // -------------------------
                 }
             })
             .catch(err => {
