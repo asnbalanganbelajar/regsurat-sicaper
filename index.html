@@ -116,21 +116,58 @@
         .user-name { color: white; }
         .user-role { color: #cbd5e1; }
 
-        .nav-tabs-container {
-            background-color: white; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e8f0;
-        }
-        .nav-pills .nav-link {
-            color: var(--text-muted); font-weight: 600; font-size: 0.9rem; border-radius: 8px; padding: 8px 16px; margin-right: 5px;
-        }
-        .nav-pills .nav-link:hover { background-color: #f1f5f9; color: var(--brand-color); }
-        .nav-pills .nav-link.active {
-            background-color: var(--brand-color); color: white; box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.3);
-        }
+		/* --- NAVIGASI TAB (UPDATED: Scrollable di HP) --- */
+		.nav-tabs-container {
+			background-color: white; 
+			border-bottom: 1px solid #e2e8f0;
+			
+			/* Update: Padding sedikit dirapatkan & Scroll Horizontal */
+			padding: 0.5rem 1rem; 
+			overflow-x: auto;
+			white-space: nowrap;
+			-webkit-overflow-scrolling: touch; /* Smooth scroll di iOS */
+		}
+
+		/* Hilangkan scrollbar agar cantik */
+		.nav-tabs-container::-webkit-scrollbar { display: none; }
+
+		.nav-pills { 
+			/* Update: Mencegah tombol turun ke bawah (stacking) */
+			flex-wrap: nowrap; 
+			gap: 5px; 
+		}
+
+		.nav-pills .nav-link {
+			color: var(--text-muted); 
+			font-weight: 600; 
+			font-size: 0.85rem; /* Update: Ukuran font sedikit disesuaikan */
+			border-radius: 8px; 
+			padding: 8px 16px; 
+			margin-right: 5px;
+			white-space: nowrap; /* Update: Teks tidak turan baris */
+		}
+
+		.nav-pills .nav-link:hover { 
+			background-color: #f1f5f9; 
+			color: var(--brand-color); 
+		}
+
+		.nav-pills .nav-link.active {
+			background-color: var(--brand-color); 
+			color: white; 
+			box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.3);
+		}
 
         .bg-gradient-masuk { background: linear-gradient(135deg, #059669 0%, #34d399 100%); }
         .bg-gradient-keluar { background: linear-gradient(135deg, #ea580c 0%, #fb923c 100%); }
         .badge-masuk { background-color: #059669; color: white; font-weight: 500; }
         .badge-keluar { background-color: #ea580c; color: white; font-weight: 500; }
+
+		/* --- BADGE WARNA PASTEL (PERJADIN) --- */
+        .badge-hijau-muda { background-color: #d1fae5; color: #047857; border: 1px solid #6ee7b7; }  /* Dalam Daerah */
+        .badge-biru-muda  { background-color: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }  /* Dalam Provinsi */
+        .badge-ungu-muda  { background-color: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }  /* Luar Provinsi */
+        .badge-coklat-muda{ background-color: #ffedd5; color: #c2410c; border: 1px solid #fdba74; }  /* Luar Negeri */
 
         .stat-card { overflow: hidden; position: relative; color: white; border-radius: 16px; }
         .stat-icon { position: absolute; right: -10px; bottom: -10px; font-size: 6rem; opacity: 0.15; transform: rotate(-10deg); }
@@ -329,16 +366,6 @@
         }
         .login-footer-text span { color: #64748b; font-weight: 600; }
 
-        /* RESPONSIVE: Balik jadi susun bawah di HP */
-        @media (max-width: 768px) {
-            .login-container { flex-direction: column; min-height: auto; max-width: 400px; }
-            .login-brand-side { padding: 40px 20px; }
-            .brand-title { font-size: 2rem; }
-            .login-form-side { padding: 40px 30px; }
-            .brand-logo-img { width: 80px; }
-        }
-        
-        /* --- LOADING OVERLAY (IMPROVED) --- */
 		/* --- LOADING OVERLAY (UPDATED THEME) --- */
         .loading-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -372,6 +399,418 @@
         .swal2-container {
             z-index: 10000 !important;
         }
+		
+		/* FLOATING ACTION BUTTON (FAB) */
+		.fab-btn {
+			position: fixed; bottom: 25px; right: 25px;
+			width: 55px; height: 55px;
+			background: var(--brand-color); color: white;
+			border-radius: 50%;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+			z-index: 1040;
+			display: none; /* Default hidden, muncul lewat JS */
+			align-items: center; justify-content: center;
+			font-size: 1.5rem; transition: transform 0.2s;
+			border: none;
+		}
+		.fab-btn:active { transform: scale(0.9); }
+		.fab-btn i { margin-top: 2px; }		
+
+		/* --- STYLE KHUSUS PERJADIN --- */
+        .personil-row {
+            padding: 10px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex; align-items: center; gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+        .personil-row:hover { background-color: #f8fafc; }
+        
+        .inp-sppd { width: 15%; font-family: monospace; font-weight: bold; text-align: center; color: var(--accent-orange); }
+        .inp-nama { width: 80%; }
+        
+        .search-result-box {
+            position: absolute; z-index: 2000; width: 100%;
+            max-height: 200px; overflow-y: auto;
+            background: white; border: 1px solid #e2e8f0; border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: none;
+        }
+        .search-result-item { padding: 8px 12px; cursor: pointer; border-bottom: 1px solid #f8fafc; font-size: 0.85rem; }
+        .search-result-item:hover { background-color: #f1f5f9; color: var(--brand-color); }
+        .search-result-item strong { color: var(--brand-color); display: block; }
+        .search-result-item span { font-size: 0.75rem; color: #94a3b8; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+
+		/* =========================================
+		   MEDIA QUERIES (RESPONSIVE)
+		   ========================================= */
+
+		/* --- 1. TAMPILAN MOBILE (HP) --- */
+		@media (max-width: 768px) {
+
+			/* A. BAGIAN LOGIN (Kode Lama Anda) */
+			.login-container { flex-direction: column; min-height: auto; max-width: 400px; }
+			.login-brand-side { padding: 40px 20px; }
+			.brand-title { font-size: 2rem; }
+			.login-form-side { padding: 40px 30px; }
+			.brand-logo-img { width: 80px; }
+
+			/* B. HEADER APLIKASI: Logo Kiri, Logout Kanan (Sejajar) */
+			.navbar-main .container {
+				display: flex !important;
+				flex-direction: row !important;
+				justify-content: space-between !important;
+				flex-wrap: nowrap !important;
+			}
+			
+			.navbar-brand {
+				max-width: 85%; 
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			
+			.navbar-text-main { font-size: 1rem; }
+			.navbar-text-sub { display: none; } /* Sembunyikan sub-judul panjang */
+
+			/* C. NAVIGASI TAB: Susun ke Bawah (List Menu) */
+			.nav-tabs-container {
+				padding: 10px 15px;
+				overflow: visible; /* Matikan scroll samping */
+				height: auto;
+			}
+			
+			.nav-pills {
+				flex-direction: column; /* Susun vertikal */
+				width: 100%;
+				gap: 8px;
+			}
+			
+			.nav-pills .nav-link {
+				width: 100%;
+				text-align: center;
+				padding: 10px;
+				margin: 0;
+				border: 1px solid #e2e8f0;
+			}
+
+			/* D. HEADER TABEL (Pencarian & Tombol) */
+			.card-header .d-flex.gap-2 {
+				width: 100%;
+				flex-direction: column; /* Susun ke bawah */
+				margin-top: 10px;
+			}
+			.search-input { width: 100%; height: 40px; }
+			.btn-header { width: 100%; height: 40px; }
+			
+			/* Sembunyikan tombol Tambah Desktop (karena ada FAB) */
+			.btn-tambah-desktop { display: none !important; }
+			
+			.card-header h6 { font-size: 0.9rem; }
+
+			/* E. PAGINASI: Susun Vertikal & Rapi */
+			.pagination-container {
+				flex-direction: column;
+				gap: 15px;
+				text-align: center;
+				padding: 1.5rem 1rem;
+			}
+			
+			.rows-per-page {
+				margin-bottom: 5px;
+				justify-content: center;
+				width: 100%;
+			}
+			
+			.pagination-container .d-flex {
+				flex-direction: column;
+				gap: 10px;
+			}
+			
+			/* Sembunyikan angka halaman (1,2,3) di HP agar muat */
+			.pagination .page-item:not(:first-child):not(:last-child) {
+				display: none; 
+			}
+			/* Kecuali halaman yang sedang aktif */
+			.pagination .page-item.active {
+				display: block;
+			}
+			
+			/* --- UPDATE: Masukkan ini ke dalam @media (max-width: 768px) --- */
+
+			/* F. HEADER TIDAK STICKY DI HP (Agar tidak makan tempat) */
+			.app-header {
+				position: relative !important; /* Ubah dari sticky ke relative */
+				box-shadow: none; /* Opsional: Hilangkan bayangan agar lebih flat */
+			}
+
+			/* Opsional: Beri sedikit jarak antara menu dan konten */
+			.container.pb-5.mt-4 {
+				margin-top: 1rem !important; 
+			}			
+
+			/* --- G. OPTIMASI TAB PENGATURAN (CARD VIEW) --- */
+			
+			/* 1. Ringkas Alert "Area Terbatas" */
+			.border-warning .fa-2x { display: none; } /* Sembunyikan ikon gembok besar */
+			.border-warning .d-flex { align-items: center; }
+			.border-warning h5 { font-size: 1rem; margin-bottom: 2px; }
+			.border-warning p { font-size: 0.75rem; line-height: 1.2; }
+			.card.border-warning { padding: 1rem !important; margin-bottom: 1rem !important; }
+
+			/* 2. Ubah TABEL USER Menjadi Tampilan KARTU */
+			#tableUsers thead { display: none; } /* Sembunyikan header tabel */
+			
+			#tableUsers tbody tr {
+				display: block;
+				background: white;
+				border: 1px solid #e2e8f0;
+				border-radius: 12px;
+				margin-bottom: 12px;
+				padding: 15px;
+				position: relative;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+			}
+
+			#tableUsers tbody td {
+				display: block;
+				border: none;
+				padding: 0;
+			}
+
+			/* Kolom 2 (Nama) jadi Judul Besar */
+			#tableUsers tbody td:nth-child(2) {
+				font-weight: 700;
+				font-size: 1rem;
+				color: var(--brand-color);
+				margin-bottom: 2px;
+				padding-right: 80px; /* Beri ruang untuk badge Role di kanan */
+			}
+
+			/* Kolom 1 (Username) jadi sub-text kecil */
+			#tableUsers tbody td:nth-child(1) {
+				font-size: 0.85rem;
+				color: #64748b;
+				margin-bottom: 15px;
+				font-family: monospace;
+			}
+			#tableUsers tbody td:nth-child(1)::before { content: "@"; color: #cbd5e1; }
+
+			/* Kolom 3 (Role) Melayang di Pojok Kanan Atas */
+			#tableUsers tbody td:nth-child(3) {
+				position: absolute;
+				top: 15px;
+				right: 15px;
+			}
+
+			/* Kolom 4 (Aksi) Tombol Full Width */
+			#tableUsers tbody td:nth-child(4) {
+				border-top: 1px dashed #e2e8f0;
+				padding-top: 12px;
+				display: flex;
+				gap: 10px;
+			}
+			#tableUsers tbody td:nth-child(4) button {
+				flex: 1; /* Tombol melebar rata */
+				padding: 8px;
+				border-radius: 6px;
+			}
+
+			/* 3. LIST JENIS SURAT (Area Sentuh Lebih Besar) */
+			#listJenisSurat .list-group-item {
+				padding: 12px 15px; /* Perbesar padding */
+				margin-bottom: 10px;
+			}
+			#listJenisSurat .cursor-move {
+				padding: 10px; /* Area drag lebih luas */
+				margin-left: -10px; /* Kompensasi margin */
+				color: #cbd5e1;
+			}
+
+			/* --- H. TRANSFORMASI TABEL SURAT MENJADI KARTU (CARD VIEW) --- */
+			
+			/* 1. Sembunyikan Header Tabel */
+			#tableMasuk thead, #tableKeluar thead { display: none; }
+			
+			/* 2. Ubah Baris (TR) Menjadi Kartu */
+			#tableMasuk tbody tr, #tableKeluar tbody tr {
+				display: block;
+				background: #fff;
+				border-radius: 12px;
+				box-shadow: 0 2px 6px rgba(0,0,0,0.03); /* Bayangan halus */
+				border: 1px solid #f1f5f9;
+				margin-bottom: 15px; /* Jarak antar kartu */
+				padding: 15px;
+				position: relative;
+			}
+
+			/* 3. Atur Sel (TD) agar Rapi */
+			#tableMasuk tbody td, #tableKeluar tbody td {
+				display: block;
+				padding: 4px 0; /* Rapatkan jarak vertikal */
+				border: none;
+			}
+
+			/* --- KUSTOMISASI KONTEN KARTU --- */
+
+			/* A. BAGIAN ATAS: Jenis Surat (Badge) & Tanggal */
+			/* Kita ambil Kolom 2 (Jenis & Perihal) tapi kita manipulasi visualnya */
+			#tableMasuk tbody td:nth-child(2), #tableKeluar tbody td:nth-child(2) {
+				display: flex;
+				flex-direction: column-reverse; /* Putar balik: Perihal di bawah, Badge di atas */
+				margin-bottom: 8px;
+			}
+			/* Badge Jenis Surat */
+			#tableMasuk tbody td:nth-child(2) .badge, #tableKeluar tbody td:nth-child(2) .badge {
+				align-self: flex-start; /* Badge rata kiri */
+				font-size: 0.7rem;
+				padding: 4px 8px;
+				margin-bottom: 5px !important;
+			}
+			/* Perihal Surat (Judul Utama Kartu) */
+			#tableMasuk tbody td:nth-child(2) div, #tableKeluar tbody td:nth-child(2) div {
+				font-size: 1rem !important;
+				font-weight: 700;
+				color: var(--brand-color);
+				line-height: 1.4;
+			}
+
+			/* B. BAGIAN TENGAH: Info Meta (Nomor, Pengirim, dll) */
+			/* Kolom 1: Nomor & Tanggal */
+			#tableMasuk tbody td:nth-child(1), #tableKeluar tbody td:nth-child(1) {
+				border-bottom: 1px dashed #e2e8f0;
+				padding-bottom: 8px;
+				margin-bottom: 8px;
+			}
+			/* Tanggal ditaruh di pojok kanan atas (Absolute) */
+			#tableMasuk tbody td:nth-child(1) small, #tableKeluar tbody td:nth-child(1) small {
+				position: absolute;
+				top: 15px;
+				right: 15px;
+				font-weight: 600;
+				color: #64748b;
+				background: #f8fafc;
+				padding: 2px 6px;
+				border-radius: 4px;
+			}
+			/* Nomor Surat */
+			#tableMasuk tbody td:nth-child(1) div, #tableKeluar tbody td:nth-child(1) div {
+				font-size: 0.85rem;
+				color: #475569;
+				font-family: monospace; /* Font ala kode biar keren */
+			}
+
+			/* Kolom 3 & 4 (Pengirim/Tujuan & Asal Naskah) */
+			#tableMasuk tbody td:nth-child(3), #tableKeluar tbody td:nth-child(3),
+			#tableMasuk tbody td:nth-child(4), #tableKeluar tbody td:nth-child(4) {
+				font-size: 0.85rem;
+				color: #334155;
+				padding-left: 20px; /* Indentasi untuk ikon */
+				position: relative;
+			}
+			/* Tambahkan ikon semu (pseudo-element) biar cantik */
+			#tableMasuk tbody td:nth-child(3)::before { content: "\f1ad"; /* Ikon Building */ }
+			#tableKeluar tbody td:nth-child(3)::before { content: "\f1d8"; /* Ikon Paper Plane */ }
+			
+			#tableMasuk tbody td:nth-child(3)::before, 
+			#tableKeluar tbody td:nth-child(3)::before,
+			#tableMasuk tbody td:nth-child(4)::before,
+			#tableKeluar tbody td:nth-child(4)::before {
+				font-family: "Font Awesome 6 Free";
+				font-weight: 900;
+				position: absolute; left: 0; top: 5px;
+				color: #cbd5e1; font-size: 0.8rem;
+			}
+
+			/* Kolom 5 (Keterangan) - Sembunyikan jika kosong atau kurang penting di HP */
+			#tableMasuk tbody td:nth-child(5), #tableKeluar tbody td:nth-child(5) {
+				font-size: 0.75rem;
+				color: #94a3b8;
+				font-style: italic;
+				margin-top: 5px;
+			}
+
+			/* C. BAGIAN BAWAH: Tombol Aksi */
+			#tableMasuk tbody td:last-child, #tableKeluar tbody td:last-child {
+				margin-top: 10px;
+				padding-top: 10px;
+				border-top: 1px solid #f1f5f9;
+				display: flex;
+				justify-content: flex-end; /* Tombol rata kanan */
+			}
+			/* Perbesar tombol sedikit biar enak dipencet */
+			#tableMasuk .btn-circle, #tableKeluar .btn-circle {
+				width: 40px; height: 40px;
+				font-size: 1rem;
+			}
+
+		}
+
+		/* --- 2. TAMPILAN DESKTOP (Layar Besar) --- */
+		@media (min-width: 769px) {
+			/* Sembunyikan tombol FAB di Desktop */
+			.fab-btn {
+				display: none !important;
+			}
+		}
+
+		/* --- KUSTOMISASI PLACEHOLDER --- */
+        
+        /* Untuk Browser Standar (Chrome, Firefox, Edge) */
+		/* --- 1. FIX PLACEHOLDER (Update kode sebelumnya) --- */
+        .form-control::placeholder {
+            font-size: 0.85rem !important; 
+            color: #cbd5e1 !important;     
+            opacity: 1;                    
+        }
+		
+        /* Khusus untuk Input Search di Header (biar lebih pas) */
+        .search-input::placeholder {
+            font-size: 0.8rem !important;
+            font-style: italic;
+        }
+
+		/* FIX: Matikan placeholder pada Form Floating (Login) agar tidak bentrok/berbayang */
+        .form-floating .form-control::placeholder {
+            opacity: 0 !important; 
+        }
+
+		/* --- 2. STYLE BARU: INPUT GROUP LOGIN DENGAN IKON --- */
+        .login-input-group {
+            border-bottom: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        
+        /* Saat input difokuskan, garis bawah berubah warna */
+        .login-input-group:focus-within {
+            border-color: #1e293b; 
+        }
+
+        /* Ikon di sebelah kiri */
+        .login-input-group .input-group-text {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding-left: 0;
+            padding-right: 10px;
+        }
+        
+        /* Input field-nya */
+        .login-input-group .form-control {
+            border: none !important; /* Hapus border bawaan */
+            background: transparent;
+            padding-left: 0;
+            box-shadow: none !important; /* Hapus glow biru bawaan */
+        }
+        
+        /* Label floating (supaya pas posisinya setelah ada ikon) */
+        .login-input-group .form-floating label {
+            padding-left: 0;
+            color: #94a3b8;
+        }
+		
     </style>
 </head>
 <body>
@@ -405,15 +844,25 @@
                     <p>Silakan masukkan kredensial untuk melanjutkan.</p>
                 </div>
 
-                <form id="formLogin">
-                    <div class="form-floating mb-4 form-floating-custom">
-                        <input type="text" class="form-control" id="username" placeholder="Username" required>
-                        <label for="username">Username</label>
+				<form id="formLogin">
+                    <div class="input-group login-input-group mb-4">
+                        <span class="input-group-text">
+                            <i class="fas fa-user fa-lg"></i>
+                        </span>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="username" placeholder="Username" required>
+                            <label for="username">Username</label>
+                        </div>
                     </div>
                     
-                    <div class="form-floating mb-5 form-floating-custom">
-                        <input type="password" class="form-control" id="password" placeholder="Password" required>
-                        <label for="password">Password</label>
+                    <div class="input-group login-input-group mb-5">
+                        <span class="input-group-text">
+                            <i class="fas fa-lock fa-lg"></i>
+                        </span>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            <label for="password">Password</label>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-login-custom w-100 mb-4">
@@ -439,7 +888,7 @@
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczN7ufulI_rQtJKcpRoa3XLkYc72vg-cmZVNYqM730nWdWONDhiwlrxlTmIbtTNUtZHP-oAC0flAjxc9b06ROnL9GCtKWCuCyYKk43h-408xvaQ1_HL39x_CFu8J3ENQ6DbHB4BEp1onZYi3FVPbLn4p=w500-h500-s-no-gm?authuser=0" alt="Logo">
                         <div class="ms-2">
                             <div class="navbar-text-main">S I C A P E R</div>
-                            <div class="navbar-text-sub">Sistem Informasi dan Catatan Persuratan</div>
+                            <div class="navbar-text-sub">Sistem Informasi & Catatan Persuratan</div>
                         </div>
                     </a>
                    
@@ -475,6 +924,13 @@
                                 <i class="fas fa-paper-plane me-1"></i> Surat Keluar
                             </a>
                         </li>
+						
+						<li class="nav-item">
+							<a class="nav-link" href="#" id="nav-perjadin" onclick="showTab('perjadin')">
+								<i class="fas fa-plane-departure me-1"></i> Perjadin
+							</a>
+						</li>						
+						
                         <li class="nav-item" id="menuPengaturan">
                             <a class="nav-link" href="#" id="nav-pengaturan" onclick="showTab('pengaturan')">
                                 <i class="fas fa-sliders-h me-1"></i> Pengaturan
@@ -600,8 +1056,8 @@
                         <div class="d-flex gap-2">
                             <input type="text" id="searchMasuk" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('masuk'); renderTables()">
                             
-                            <button class="btn btn-masuk btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openModal('masuk')">
-                                <i class="fas fa-plus me-1"></i> Tambah Baru
+                            <button class="btn btn-masuk btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModal('masuk')">
+                                <i class="fas fa-plus me-1"></i> Tambah
                             </button>
                             
                             <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_masuk')" title="Unduh Excel">
@@ -636,8 +1092,8 @@
                         <div class="d-flex gap-2">
                             <input type="text" id="searchKeluar" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('keluar'); renderTables()">
                             
-                            <button class="btn btn-keluar btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openModal('keluar')">
-                                <i class="fas fa-plus me-1"></i> Tambah Baru
+                            <button class="btn btn-keluar btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModal('keluar')">
+                                <i class="fas fa-plus me-1"></i> Tambah
                             </button>
                             
                             <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_keluar')" title="Unduh Excel">
@@ -661,6 +1117,39 @@
                         </table>
                     </div>
                     <div class="pagination-container" id="paginationKeluar"></div>
+                </div>
+            </div>
+
+			<!-- TAB: PERJADIN -->
+			<div id="tab-perjadin" class="content-tab d-none">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-plane-departure me-2 text-muted"></i>Data Perjalanan Dinas</h6>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="searchPerjadin" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Kegiatan/Pelaksana" onkeyup="resetPagination('perjadin'); renderTables()">
+                            
+                            <button class="btn btn-primary btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" style="background-color: #3b82f6; border-color: #3b82f6;" onclick="openModalPerjadin()">
+                                <i class="fas fa-plus me-1"></i> Tambah
+                            </button>
+                            
+                            </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0" id="tablePerjadin">
+                            <thead>
+                                <tr>
+                                    <th style="width: 18%">Tanggal</th>
+                                    <th style="width: 22%">Kegiatan & Tujuan</th>
+                                    <th style="width: 20%">Nomor TS & SPT</th>
+                                    <th style="width: 20%">Nomor SPPD & Pelaksana</th>
+                                    <th style="width: 10%">Asal Naskah</th>
+                                    <th style="width: 10%" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="paginationPerjadin"></div>
                 </div>
             </div>
 
@@ -753,19 +1242,24 @@
 								<label class="form-label small fw-bold text-muted">Asal / Pengirim<span class="text-danger">*</span></label>
 								<input type="text" class="form-control" id="inpPengirim" placeholder="Lembaga / perorangan / dll">
 							</div>
+							
 							<div class="mb-3">
 								<label class="form-label small fw-bold text-muted">Diteruskan ke</label>
-								<select class="form-select" id="inpDiteruskan">
-									<option value="">Pilih</option>
-									<option value="Semua">Semua</option>
-									<option value="Sekretariat">Sekretariat</option>
-									<option value="Sekretariat: Umpeg">Sekretariat: Umpeg</option>
-									<option value="Sekretariat: Renkeu">Sekretariat: Renkeu</option>
-									<option value="Bidang PSDM">Bidang PSDM</option>
-									<option value="Bidang PPIK">Bidang PPIK</option>
-									<option value="Bidang MPK">Bidang MPK</option>
-								</select>
+								
+								<input class="form-control" list="listOpsiTujuan" id="inpDiteruskan" placeholder="Pilih unit atau ketik nama personal">
+								
+								<datalist id="listOpsiTujuan">
+									<option value="Semua">
+									<option value="Sekretariat">
+									<option value="Sekretariat: Umpeg">
+									<option value="Sekretariat: Renkeu">
+									<option value="Bidang PSDM">
+									<option value="Bidang PPIK">
+									<option value="Bidang MPK">
+								</datalist>
+								
 							</div>
+							
 						</div>
 
 						<div id="blockKeluar" class="d-none">
@@ -776,7 +1270,7 @@
 								</div>
 								<div class="col-md-6">
 									<label class="form-label small fw-bold text-muted">Nomor Urut<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="inpNoUrut" placeholder="Cth: 001">
+									<input type="text" class="form-control" id="inpNoUrut" placeholder="Cth: 001" onblur="formatAutoPad(this)">
 								</div>
 								<div class="col-md-6">
 									<label class="form-label small fw-bold text-muted">Kode Lanjutan<span class="text-danger">*</span></label>
@@ -852,6 +1346,205 @@
                 <div class="modal-footer bg-light border-0">
                     <button type="button" class="btn btn-secondary text-white text-decoration-none" data-bs-dismiss="modal">Batal</button>
                     <button type="button" class="btn btn-dark fw-bold px-4 rounded-3" onclick="simpanData()" id="btnSimpan">Simpan Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- MODAL FORM PERJADIN -->
+	<div class="modal fade" id="modalPerjadin" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"> 
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h6 class="modal-title fw-bold" id="modalPerjadinTitle"><i class="fas fa-plane-departure me-2"></i>Input Perjalanan Dinas</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body bg-light">
+					<form id="formPerjadin">
+                        <input type="hidden" id="pId"> 
+                        <input type="hidden" id="pRowNumber">
+                        <input type="hidden" id="pIsEdit" value="false">
+                        <input type="hidden" id="pExistingFile">
+
+                        <div class="row g-3">
+                            
+                            <div class="col-lg-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-white fw-bold text-primary small">A. INFORMASI KEGIATAN</div>
+                                    <div class="card-body">
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Jenis Perjadin<span class="text-danger">*</span></label>
+                                            <select class="form-select" id="pJenis" onchange="toggleTanggalSelesai()" required>
+                                                <option value="">Pilih</option> <option value="Dalam Daerah">Dalam Daerah</option>
+                                                <option value="Dalam Provinsi">Dalam Provinsi</option>
+                                                <option value="Luar Provinsi">Luar Provinsi</option>
+                                                <option value="Luar Negeri">Luar Negeri</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Tgl Mulai<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="pTglMulai" required>
+                                        </div>
+                                        
+                                        <div class="mb-3" id="divTglSelesai" style="display:none;">
+                                            <label class="form-label small fw-bold text-muted">Tgl Selesai<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="pTglSelesai">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Maksud / Kegiatan<span class="text-danger">*</span></label>
+                                            <textarea class="form-control" id="pMaksud" rows="4" placeholder="Uraian kegiatan" required style="resize: none;"></textarea>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold text-muted">Tujuan<span class="text-danger">*</span></label>
+                                            <div class="input-group mb-2">
+                                                <span class="input-group-text bg-light"><i class="fas fa-building"></i></span>
+                                                <input type="text" class="form-control" id="pTempat" placeholder="Nama Tempat/Kantor" required>
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light"><i class="fas fa-map-marker-alt"></i></span>
+                                                <input type="text" class="form-control" id="pDaerah" placeholder="Nama Lokasi/Daerah" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-white fw-bold text-primary small">B. DOKUMEN DASAR (PENOMORAN)</div>
+                                    <div class="card-body">
+
+										<div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Asal Naskah<span class="text-danger">*</span></label>
+                                            <select class="form-select" id="pAsalNaskah" required onchange="toggleAsalNaskahLainnya()">
+                                                <option value="">Pilih</option> 
+                                                <option value="Sekretariat">Sekretariat</option>
+                                                <option value="Bidang PSDM">Bidang PSDM</option>
+                                                <option value="Bidang PPIK">Bidang PPIK</option>
+                                                <option value="Bidang MPK">Bidang MPK</option>
+                                                <option value="Lainnya">Lainnya</option>
+                                            </select>
+                                            
+                                            <input type="text" class="form-control mt-2" id="pAsalNaskahLainnya" placeholder="Tuliskan Asal Naskah..." style="display:none;">
+                                        </div>
+
+                                        <div class="mb-3 p-2 border rounded bg-light">
+                                            <label class="form-label small fw-bold text-dark mb-1">Nomor Telaahan Staf</label>
+                                            <div class="row g-2">
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center" id="tsKode" placeholder="Kode">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center bg-white border-warning fw-bold" id="tsNo" placeholder="000" onblur="formatAutoPad(this)">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center" id="tsSuffix" value="BKPSDM-BLG">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="number" class="form-control form-control-sm text-center" id="tsTahun" value="2026">
+                                                </div>
+                                            </div>
+                                            <div class="form-text small mt-2 text-primary">
+                                                <i class="fas fa-info-circle me-1"></i> Preview: <span id="previewTS" class="fw-bold">-</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 p-2 border rounded bg-light">
+                                            <label class="form-label small fw-bold text-dark mb-1">Nomor Surat Perintah Tugas</label>
+                                            <div class="row g-2">
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center" id="sptKode" placeholder="Kode">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center bg-white border-warning fw-bold" id="sptNo" placeholder="000" onblur="formatAutoPad(this)">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center" id="sptSuffix" value="BKPSDM-BLG">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="number" class="form-control form-control-sm text-center" id="sptTahun" value="2026">
+                                                </div>
+                                            </div>
+                                            <div class="form-text small mt-2 text-primary">
+                                                <i class="fas fa-info-circle me-1"></i> Preview: <span id="previewSPT" class="fw-bold">-</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Keterangan / Status</label>
+                                            <textarea class="form-control" id="pKeterangan" rows="2" placeholder="Catatan tambahan..."></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Upload File</label>
+                                            <input type="file" class="d-none" id="pFile" accept=".pdf,.jpg,.jpeg,.png">
+                                            
+                                            <div class="drop-zone" id="dropZonePerjadin">
+                                                <div class="drop-zone-text" id="dropZoneTextPerjadin">
+                                                    <i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
+                                                    <div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
+                                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
+                                                </div>
+                                                <div class="file-selected-info" id="fileInfoPerjadin" style="display:none;">
+                                                    <i class="fas fa-file-alt fa-lg"></i>
+                                                    <span id="fileNamePerjadin" class="text-truncate" style="max-width: 150px;">nama_file.pdf</span>
+                                                    <i class="fas fa-check-circle text-success ms-1"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-text small mt-2" id="fileHelpPerjadin"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary small">C. PELAKSANA PERJADIN</span>
+                                        <button type="button" class="btn btn-sm btn-success rounded-pill px-3" onclick="addPersonilRow()">
+                                            <i class="fas fa-plus me-1"></i> Tambah
+                                        </button>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="bg-light border-bottom py-2 px-3 d-flex small fw-bold text-muted">
+                                            <div style="width: 15%;">No SPPD</div>
+                                            <div style="width: 80%;">Nama Pegawai / Pelaksana</div>
+                                            <div style="width: 5%;"></div>
+                                        </div>
+                                        
+                                        <div id="personilContainer" style="max-height: 500px; overflow-y: auto;">
+                                            </div>
+                                        
+                                        <datalist id="listOpsiASN"></datalist>  
+
+                                        <div id="personilEmptyState" class="text-center py-5 text-muted">
+                                            <i class="fas fa-users fa-3x mb-3 opacity-25"></i>
+                                            <p class="small">Belum ada pelaksana ditambahkan.<br>Klik tombol <b>+ Tambah</b>.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-white p-3">
+                                        <div class="alert alert-info small mb-0 d-flex align-items-center">
+                                            <i class="fas fa-lightbulb fa-lg me-3"></i>
+                                            <div>
+                                                <b>Tips:</b> Ketik nama pegawai, sistem otomatis melengkapi NIP. 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+			<div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-secondary text-white text-decoration-none" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark fw-bold px-4 rounded-3" onclick="simpanPerjadin()">Simpan</button>
                 </div>
             </div>
         </div>
@@ -955,9 +1648,9 @@
 		</div>
 	</div>
 
-
-
-
+	<button id="fabTambah" class="fab-btn" onclick="handleFabClick()">
+		<i class="fas fa-plus"></i>
+	</button>
 
     <!-- JAVASCRIPT LOGIC -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -970,8 +1663,12 @@
         let globalData = {
             jenisSurat: [],
             suratMasuk: [],
-            suratKeluar: []
+            suratKeluar: [],
+			perjadin: [] // <--- TAMBAHAN BARU
         };
+		
+		let globalASN = []; // <--- TEMPAT DATABSE ASN
+		
         let userList = [];
         let currentUser = null;
 
@@ -980,6 +1677,8 @@
         let rowsPerPageMasuk = 5;
         let currentPageKeluar = 1;
         let rowsPerPageKeluar = 5;
+		let currentPagePerjadin = 1; 
+		let rowsPerPagePerjadin = 5; // <--- TAMBAHAN BARU
 
         // --- FUNGSI HELPER (Boleh diletakkan di sini) ---
         function updatePreviewNomor() {
@@ -996,11 +1695,75 @@
             document.getElementById('previewNoSurat').innerText = `${k}/${n}/${kl}/${t}`;
         }
 
+		// --- LOGIKA PENOMORAN PERJADIN ---
+
+        function updatePreviewPerjadin() {
+            // Preview TS
+            const tsK = document.getElementById('tsKode').value;
+            const tsN = document.getElementById('tsNo').value;
+            const tsS = document.getElementById('tsSuffix').value;
+            const tsT = document.getElementById('tsTahun').value;
+            document.getElementById('previewTS').innerText = `${tsK}/${tsN}/${tsS}/${tsT}`;
+
+            // Preview SPT
+            const sptK = document.getElementById('sptKode').value;
+            const sptN = document.getElementById('sptNo').value;
+            const sptS = document.getElementById('sptSuffix').value;
+            const sptT = document.getElementById('sptTahun').value;
+            document.getElementById('previewSPT').innerText = `${sptK}/${sptN}/${sptS}/${sptT}`;
+        }
+
+        function checkDuplicatePerjadin(type) {
+            // type bisa 'TS' atau 'SPT'
+            const isEdit = document.getElementById('pIsEdit').value === "true";
+            if (isEdit) return; // Skip jika sedang edit
+
+            const inputNo = document.getElementById(type === 'TS' ? 'tsNo' : 'sptNo').value;
+            const inputTahun = document.getElementById(type === 'TS' ? 'tsTahun' : 'sptTahun').value;
+            
+            if (!inputNo) return;
+
+            // Loop Data Global Perjadin
+            // TS ada di Index 8, SPT ada di Index 9
+            const colIndex = type === 'TS' ? 8 : 9;
+            const label = type === 'TS' ? 'Telaahan Staf (TS)' : 'Surat Perintah Tugas (SPT)';
+
+            const isDuplicate = globalData.perjadin.some(row => {
+                const rawVal = row.values[colIndex] || ""; 
+                // Format di DB: Kode/No/Suffix/Tahun
+                // Kita cek apakah string tersebut mengandung "/No/" dan "/Tahun"
+                // Cara paling aman: Split dulu
+                const parts = rawVal.split('/');
+                if (parts.length >= 4) {
+                    const dbNo = parts[1];    // Bagian ke-2 adalah Nomor
+                    const dbTahun = parts[3]; // Bagian ke-4 adalah Tahun
+                    return (dbNo === inputNo && dbTahun === inputTahun);
+                }
+                return false;
+            });
+
+            if (isDuplicate) {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: `Duplikasi Nomor ${type}!`,
+                    text: `Nomor Urut ${inputNo} (${inputTahun}) sudah digunakan.`,
+                    timer: 5000
+                });
+                // Optional: Beri warna merah pada input
+                document.getElementById(type === 'TS' ? 'tsNo' : 'sptNo').classList.add('is-invalid');
+            } else {
+                document.getElementById(type === 'TS' ? 'tsNo' : 'sptNo').classList.remove('is-invalid');
+            }
+        }
+
         // --- MAIN LISTENER ---
         // Force hide loading & Setup Listener saat halaman selesai dimuat
         window.addEventListener('load', function() {
             showLoading(false);
             setupDragAndDrop();
+			setupDragAndDropPerjadin(); // <--- TAMBAHKAN BARIS INI (Drag Drop Perjadin)
 
             // PINDAHKAN LISTENER KE SINI (LEBIH AMAN)
             // Listener untuk auto-preview Nomor Surat Keluar
@@ -1011,6 +1774,15 @@
                     el.addEventListener('input', updatePreviewNomor);
                 }
             });
+			
+			// LISTENER PREVIEW PERJADIN (TS & SPT)
+            const idsPerjadin = ['tsKode', 'tsNo', 'tsSuffix', 'tsTahun', 'sptKode', 'sptNo', 'sptSuffix', 'sptTahun'];
+            idsPerjadin.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.addEventListener('input', updatePreviewPerjadin);
+                }
+            });					
         });
 
         // === FUNGSI UTAMA ===
@@ -1066,6 +1838,16 @@
                 renderJenisSuratSettings();
             }
             loadData();
+			
+			// --- TAMBAHAN BARU: LOAD DATABASE ASN ---
+            fetch(GAS_API_URL + "?action=getAsnData")
+                .then(res => res.json())
+                .then(resp => {
+                    if(resp.status === 'success') {
+                        globalASN = resp.data;
+                        console.log("Database ASN dimuat:", globalASN.length, "data");
+                    }
+                });			
 
             // AUTO REFRESH SETIAP 15 DETIK
             setInterval(() => {
@@ -1100,13 +1882,20 @@
                         const numB = parseInt(b.values[3]) || 0;
                         return numB - numA;
                     });
-                    
+
+					// 3. Perjadin: Sort by ID (Index 0) atau Timestamp (Index 1) DESC
+                    let sortedPerjadin = resp.data.perjadin.sort((a, b) => {
+                         return new Date(b.values[1]) - new Date(a.values[1]);
+                    });
+                 
                     if (isBackground) {
                         globalData.suratMasuk = sortedMasuk;
                         globalData.suratKeluar = sortedKeluar;
+						globalData.perjadin = sortedPerjadin; // <--- SIMPAN
                     } else {
                         globalData.suratMasuk = sortedMasuk;
                         globalData.suratKeluar = sortedKeluar;
+						globalData.perjadin = sortedPerjadin; // <--- SIMPAN
                         globalData.jenisSurat = resp.data.jenisSurat;
                     }
 
@@ -1463,11 +2252,25 @@
                 'dashboard': ['Statistik Surat', 'Kounter jumlah Surat Masuk dan Surat Keluar'],
                 'suratMasuk': ['Pencatatan Surat Masuk', 'Daftar surat yang masuk/diterima'],
                 'suratKeluar': ['Pencatatan Surat Keluar', 'Daftar surat yang keluar/diterbitkan'],
-                'pengaturan': ['Pengaturan Sistem', 'Konfigurasi aplikasi']
+                'pengaturan': ['Pengaturan Sistem', 'Konfigurasi aplikasi'],
+				// --- TAMBAHKAN BARIS INI ---
+				'perjadin': ['Data Perjalanan Dinas', 'Pengelolaan TS, SPT, & SPPD']				
             };
             document.getElementById('pageTitle').innerText = titles[tabName][0];
             document.getElementById('pageTitle').nextElementSibling.innerText = titles[tabName][1];
-            
+		
+			// LOGIKA FAB (Floating Action Button)
+			const fab = document.getElementById('fabTambah');
+			if (tabName === 'suratMasuk') {
+				fab.style.display = 'flex';
+				fab.style.backgroundColor = '#059669'; // Hijau
+			} else if (tabName === 'suratKeluar') {
+				fab.style.display = 'flex';
+				fab.style.backgroundColor = '#ea580c'; // Orange
+			} else {
+				fab.style.display = 'none'; // Sembunyikan di Dashboard/Pengaturan
+			}
+								
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1681,6 +2484,7 @@
 			// -- SEARCH --
 			const termMasuk = document.getElementById('searchMasuk') ? document.getElementById('searchMasuk').value.toLowerCase() : '';
 			const termKeluar = document.getElementById('searchKeluar') ? document.getElementById('searchKeluar').value.toLowerCase() : '';
+			const termPerjadin = document.getElementById('searchPerjadin') ? document.getElementById('searchPerjadin').value.toLowerCase() : '';
 
 			// LOGIKA PENCARIAN BARU (DIPERLUAS)
 
@@ -1708,6 +2512,27 @@
 				return textData.includes(termKeluar);
 			});
 
+			// Filter Perjadin: Cek Maksud(5), Tempat(6), Daerah(7), NoSPT(8), Nama Personil (di dalam JSON col 12)
+            const filteredPerjadin = globalData.perjadin.filter(row => {
+                const vals = row.values;
+                // Cek nama di dalam JSON Personil
+                let personilNames = "";
+                try {
+                    const pList = JSON.parse(vals[12]);
+                    personilNames = pList.map(p => p.nama).join(" ");
+                } catch(e) {}
+
+                const textData = (
+                    (vals[5] || "") + " " + // Maksud
+                    (vals[6] || "") + " " + // Tempat
+                    (vals[7] || "") + " " + // Daerah
+                    (vals[8] || "") + " " + // No SPT
+                    personilNames
+                ).toLowerCase();
+                return textData.includes(termPerjadin);
+            });
+
+
             // -- PAGINATION SLICE --
             const startMasuk = (currentPageMasuk - 1) * rowsPerPageMasuk;
             const paginatedMasuk = filteredMasuk.slice(startMasuk, startMasuk + rowsPerPageMasuk);
@@ -1715,22 +2540,37 @@
             const startKeluar = (currentPageKeluar - 1) * rowsPerPageKeluar;
             const paginatedKeluar = filteredKeluar.slice(startKeluar, startKeluar + rowsPerPageKeluar);
 
+			// Pagination Perjadin
+            const startPerjadin = (currentPagePerjadin - 1) * rowsPerPagePerjadin;
+            const paginatedPerjadin = filteredPerjadin.slice(startPerjadin, startPerjadin + rowsPerPagePerjadin);
+
             // -- RENDER ROWS HELPER --
 
 			const createRow = (rowObj, type) => {
 				const row = rowObj.values;
 				const realRow = rowObj.rowNumber;
 				
-				// Tentukan index URL File
-				// Masuk: URL ada di index 8. Keluar: URL ada di index 10.
+				// Tentukan index URL File & Keterangan
+				// Masuk: URL=8, Ket=7. Keluar: URL=10, Ket=9.
 				const idxUrl = type === 'masuk' ? 8 : 10;
+				const idxKet = type === 'masuk' ? 7 : 9;
 				
+				// Tombol Lihat File
 				let btnFile = row[idxUrl] ? 
 					`<button class="btn-circle btn-circle-primary" onclick="previewFile('${row[idxUrl]}')" title="Pratinjau File"><i class="fas fa-eye"></i></button>` : 
 					`<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-eye-slash"></i></button>`;
 				
+				// Format Tanggal
 				let tgl = new Date(row[1]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
 				const badgeClass = type === 'masuk' ? 'badge-masuk' : 'badge-keluar';
+
+				// --- STYLE KETERANGAN (SERAGAM PERJADIN) ---
+				const valKet = row[idxKet];
+				// Jika ada isinya: Merah, Miring, Ikon Info. Jika kosong: strip atau kosong.
+				const ketHtml = valKet ? 
+					`<div class="small text-danger fst-italic text-wrap" style="line-height:1.2;">
+						<i class="fas fa-info-circle me-1"></i>${valKet}
+					</div>` : ""; 
 
 				if (type === 'masuk') {
 					// TABLE ROW SURAT MASUK
@@ -1746,7 +2586,10 @@
 								<div class="small text-dark text-wrap">${row[4]}</div>
 							</td>
 							<td><div class="small">${row[5]}</div></td>
-							<td><span class="badge bg-light text-dark border">${row[6]}</span></td> <td><small class="text-muted text-wrap">${row[7]}</small></td>
+							<td><span class="badge bg-light text-dark border">${row[6]}</span></td> 
+							
+							<td>${ketHtml}</td>
+							
 							<td class="text-center">
 								<div class="d-flex justify-content-center gap-2">
 									${btnFile}
@@ -1762,7 +2605,8 @@
 					return `
 						<tr>
 							<td>
-								<div class="fw-bold text-dark small">${row[4]}</div> <small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
+								<div class="fw-bold text-dark small">${row[4]}</div> 
+								<small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
 							</td>
 							<td>
 								<span class="badge ${badgeClass} mb-1">${row[5]}</span>
@@ -1770,9 +2614,9 @@
 							</td>
 							<td><div class="small">${row[7]}</div></td>
 							<td><span class="badge bg-light text-dark border">${row[8]}</span></td> 
-							<td><small class="text-muted text-wrap">${row[9]}</small></td>
 							
-							</small></td>
+							<td>${ketHtml}</td>
+							
 							<td class="text-center">
 								<div class="d-flex justify-content-center gap-2">
 									${btnFile}
@@ -1784,6 +2628,125 @@
 					`;
 				}
 			};
+
+			// --- UPDATE: FUNGSI RENDER BARIS PERJADIN (VERSI INDEX BARU) ---
+            const createRowPerjadin = (rowObj) => {
+                const r = rowObj.values;
+                const realRow = rowObj.rowNumber;
+                
+                // Format: 20 Feb 26
+                const dateOpts = {day:'numeric', month:'short', year: '2-digit'};
+                
+                let tglStart = new Date(r[3]).toLocaleDateString('id-ID', dateOpts);
+                let tglDisplay = tglStart;
+                let duration = "1 Hari";
+                
+                if (r[2] !== 'Dalam Daerah' && r[4]) { 
+                    const end = new Date(r[4]);
+                    const start = new Date(r[3]);
+                    const diffTime = Math.abs(end - start);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; 
+                    
+                    let tglEnd = end.toLocaleDateString('id-ID', dateOpts);
+                    tglDisplay += ` <br><span class="text-muted" style="font-weight:normal;">s.d.</span><br> ${tglEnd}`;
+                    duration = `${diffDays} Hari`;
+                }
+
+                let badgeClass = "bg-light text-dark border"; 
+                if (r[2] === 'Dalam Daerah') badgeClass = "badge-hijau-muda";
+                else if (r[2] === 'Dalam Provinsi') badgeClass = "badge-biru-muda";
+                else if (r[2] === 'Luar Provinsi') badgeClass = "badge-ungu-muda";
+                else if (r[2] === 'Luar Negeri') badgeClass = "badge-coklat-muda";
+
+                // Index 16: Personil JSON
+                let personilHtml = "";
+                try {
+                    const pList = JSON.parse(r[16]);
+                    pList.forEach(p => {
+                        personilHtml += `
+                            <div class="mb-1 d-flex align-items-center" style="line-height:1.2;">
+                                <span class="badge bg-white text-secondary border me-2" style="font-family:monospace; font-size: 0.7rem;">${p.no}</span>
+                                <div>
+                                    <div class="fw-bold small text-dark">${p.nama}</div>
+                                    <div class="text-muted" style="font-size:0.7rem;">${p.nip}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } catch(e) { personilHtml = "<em class='text-danger'>Error Data Personil</em>"; }
+
+                // Index 14: Asal Naskah
+                const badgeAsal = `<span class="badge bg-light text-dark border">${r[14]}</span>`;
+                
+                // Index 15: Keterangan
+                let statusHtml = r[15] ? `<div class="mt-2 small text-danger fst-italic"><i class="fas fa-info-circle me-1"></i>${r[15]}</div>` : "";
+
+				// Helper: Format angka jadi minimal 3 digit (contoh: 1 -> 001, 1000 -> 1000)
+                const padNo = (num) => {
+                    return num ? String(num).padStart(3, '0') : '';
+                };
+
+                // Dokumen Dasar (Index 9: No Urut TS, Index 12: No Urut SPT)
+                // Kita gunakan No Urut (Col J/M) agar bisa diformat rapi, 
+                // digabung dengan Kode & Tahun dari string lengkap (Col K/N)
+                
+                let displayTS = "";
+                if (r[9]) { // Jika ada No Urut TS
+                    // Ambil Kode dan Tahun dari string lengkap r[10]
+                    const parts = (r[10] || "").split('/'); 
+                    // Asumsi format: Kode/NoUrut/Suffix/Tahun
+                    if(parts.length >= 4) {
+                        displayTS = `${parts[0]}/<span class="text-primary fw-bold">${padNo(r[9])}</span>/${parts[2]}/${parts[3]}`;
+                    } else {
+                        displayTS = r[10]; // Fallback jika format beda
+                    }
+                }
+
+                let displaySPT = "";
+                if (r[12]) { // Jika ada No Urut SPT
+                    const parts = (r[13] || "").split('/');
+                    if(parts.length >= 4) {
+                        displaySPT = `${parts[0]}/<span class="text-primary fw-bold">${padNo(r[12])}</span>/${parts[2]}/${parts[3]}`;
+                    } else {
+                        displaySPT = r[13];
+                    }
+                }
+
+                const docHtml = `
+                    ${displayTS ? `<div class="small text-dark mb-1" style="font-size: 0.75rem;"><span class="fw-bold text-secondary">TS:</span> ${displayTS}</div>` : ''}
+                    <div class="small text-dark" style="font-size: 0.75rem;"><span class="fw-bold text-secondary">SPT:</span> ${displaySPT}</div>
+                `;
+
+                // Index 17: URL File
+                let btnFile = r[17] ? 
+                    `<button class="btn-circle btn-circle-primary" onclick="previewFile('${r[17]}')" title="Lihat File"><i class="fas fa-eye"></i></button>` : 
+                    `<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-eye-slash"></i></button>`;
+
+                return `
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <div class="fw-bold text-dark small" style="font-size: 0.8rem; line-height: 1.4;">${tglDisplay}</div>
+                            <div class="mt-1"><span class="badge bg-light text-secondary border">${duration}</span></div>
+                            <div class="mt-2"><span class="badge ${badgeClass}">${r[2]}</span></div>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="small fw-bold text-primary mb-1 text-wrap">${r[5]}</div>
+                            <div class="small text-muted"><i class="fas fa-map-marker-alt me-1 text-danger"></i> ${r[6]}</div>
+                            <div class="small text-muted ms-3">${r[7]}</div>
+                        </td>
+                        <td style="vertical-align: top;">${docHtml}</td>
+                        <td style="vertical-align: top;">${personilHtml}</td>
+                        <td style="vertical-align: top;">${badgeAsal} ${statusHtml}</td>
+                        <td class="text-center" style="vertical-align: top;">
+                            <div class="d-flex justify-content-center gap-2">
+                                ${btnFile}
+                                <button class="btn-circle btn-circle-warning" onclick="editPerjadin(${realRow})"><i class="fas fa-pen"></i></button>
+                                <button class="btn-circle btn-circle-danger" onclick="hapusPerjadin(${realRow})"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            };
 
             // Render Masuk
             const tbodyMasuk = document.querySelector('#tableMasuk tbody');
@@ -1804,7 +2767,19 @@
                 paginatedKeluar.forEach(rowObj => tbodyKeluar.innerHTML += createRow(rowObj, 'keluar'));
             }
             renderPaginationControls(filteredKeluar.length, currentPageKeluar, rowsPerPageKeluar, 'keluar', 'paginationKeluar');
-        }
+			
+			// Render Perjadin
+            const tbodyPerjadin = document.querySelector('#tablePerjadin tbody');
+            if(tbodyPerjadin) {
+                tbodyPerjadin.innerHTML = '';
+                if (paginatedPerjadin.length === 0) {
+                    tbodyPerjadin.innerHTML = '<tr><td colspan="6" class="text-center py-5 text-muted">Data tidak ditemukan</td></tr>';
+                } else {
+                    paginatedPerjadin.forEach(rowObj => tbodyPerjadin.innerHTML += createRowPerjadin(rowObj));
+                }
+                renderPaginationControls(filteredPerjadin.length, currentPagePerjadin, rowsPerPagePerjadin, 'perjadin', 'paginationPerjadin');
+            }
+        }			
 
         function populateDropdown() {
             const sel = document.getElementById('inpJenis');
@@ -1888,6 +2863,66 @@
             document.getElementById('inpFile').value = "";
         }
 
+		// --- DRAG & DROP KHUSUS PERJADIN ---
+        function setupDragAndDropPerjadin() {
+            const dropZone = document.getElementById('dropZonePerjadin');
+            const fileInput = document.getElementById('pFile'); // ID input file di form Perjadin
+            
+            // Trigger Klik
+            dropZone.addEventListener('click', () => fileInput.click());
+            
+            // Validasi Ukuran (Helper sama dengan yang lama)
+            const validateFileSize = (file) => {
+                if (file.size > 2 * 1024 * 1024) {
+                    Swal.fire({ icon: 'error', title: 'Gagal Upload', text: 'Ukuran file max 2 MB.' });
+                    fileInput.value = "";
+                    resetDropZonePerjadin();
+                    return false;
+                }
+                return true;
+            };
+
+            // Saat file dipilih lewat browse
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    if (validateFileSize(fileInput.files[0])) {
+                        updateUI(fileInput.files[0].name);
+                    }
+                }
+            });
+
+            // Event Drag
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => {
+                dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); }, false);
+            });
+            ['dragenter', 'dragover'].forEach(evt => dropZone.classList.add('dragover'));
+            ['dragleave', 'drop'].forEach(evt => dropZone.classList.remove('dragover'));
+
+            // Saat Drop
+            dropZone.addEventListener('drop', (e) => {
+                if (e.dataTransfer.files.length > 0) {
+                    const file = e.dataTransfer.files[0];
+                    if (validateFileSize(file)) {
+                        fileInput.files = e.dataTransfer.files;
+                        updateUI(file.name);
+                    }
+                }
+            });
+
+            function updateUI(name) {
+                document.getElementById('dropZoneTextPerjadin').style.display = 'none';
+                document.getElementById('fileInfoPerjadin').style.display = 'flex';
+                document.getElementById('fileNamePerjadin').innerText = name;
+            }
+        }
+
+        function resetDropZonePerjadin() {
+            document.getElementById('dropZoneTextPerjadin').style.display = 'block';
+            document.getElementById('fileInfoPerjadin').style.display = 'none';
+            document.getElementById('pFile').value = "";
+            document.getElementById('fileHelpPerjadin').innerText = "";
+        }
+
         // === MODAL & CRUD ===
         const myModal = new bootstrap.Modal(document.getElementById('modalSurat'));
         const dlModal = new bootstrap.Modal(document.getElementById('modalDownload')); 
@@ -1959,7 +2994,7 @@
 			const penginput = rowData[idxPenginput] ? rowData[idxPenginput] : "-";
 
 			if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
-				Swal.fire({icon: 'error', title: 'Akses Ditolak', text: `Hanya user "${penginput}" yang dapat mengedit.`});
+				Swal.fire({icon: 'error', title: 'Akses Ditolak', text: `Hanya Pemilik dan Super Admin yang dapat mengedit data ini.`});
 				return;
 			}
 
@@ -1967,7 +3002,7 @@
 			
 			document.getElementById('isEditMode').value = "true";
 			document.getElementById('realRowNumber').value = rowNumber;
-			document.getElementById('btnSimpan').innerText = "Update Data";
+			document.getElementById('btnSimpan').innerText = "Perbarui";
 			document.getElementById('modalTitle').innerHTML = "<i class='fas fa-pen me-2'></i>Edit Data";
 
 			// Format Tanggal untuk input date (YYYY-MM-DD)
@@ -1990,11 +3025,16 @@
 
 			} else {
 				// MAPPING KELUAR: [Time, Tgl, Kode, NoUrut, NoLengkap, Jenis, Perihal, Tujuan, AsalNaskah, Ket, URL, User]
+
+				// Helper lokal untuk padding
+                const padNo = (val) => val ? String(parseInt(val)).padStart(3, '0') : "";
 				
 				// Populate Field Pecahan
 				document.getElementById('inpKode').value = rowData[2];
-				document.getElementById('inpNoUrut').value = rowData[3];
 				
+				// UPDATE DI SINI: Gunakan padNo
+                document.getElementById('inpNoUrut').value = padNo(rowData[3]);				
+								
 				// Parsing No Lengkap (Index 4) untuk ambil KodeLanjutan dan Tahun
 				// Format: Kode/NoUrut/KodeLanjutan/Tahun
 				const noLengkap = rowData[4] || "";
@@ -2025,7 +3065,7 @@
 			}
 		}
 
-        // UPDATE: HAPUS DATA DENGAN KONFIRMASI KEPEMILIKAN & UI UPDATE
+		// --- UPDATE: HAPUS DATA (STYLE SERAGAM DENGAN PERJADIN) ---
         function hapusData(type, rowNumber) {
             const sourceArray = type === 'masuk' ? globalData.suratMasuk : globalData.suratKeluar;
             const dataObj = sourceArray.find(item => item.rowNumber === rowNumber);
@@ -2033,57 +3073,47 @@
             if (!dataObj) return;
             const rowData = dataObj.values;
 
-            const penginput = rowData[8] ? rowData[8] : "-";
+            // Perbaikan Index Kepemilikan (Masuk: Col 9, Keluar: Col 11)
+            const idxPenginput = type === 'masuk' ? 9 : 11;
+            const penginput = rowData[idxPenginput] ? rowData[idxPenginput] : "-";
 
             if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Akses Ditolak',
-                    text: `Data ini diinput oleh user "${penginput}". Hanya penginput asli yang dapat menghapusnya.`,
-                    confirmButtonText: 'Mengerti'
+                    text: `Hanya Pemilik dan Super Admin yang dapat menghapus data ini.`,
+                    confirmButtonText: 'OK'
                 });
                 return;
             }
 
+            // --- STYLE NOTIFIKASI DISAMAKAN DENGAN PERJADIN ---
+            const label = type === 'masuk' ? 'Surat Masuk' : 'Surat Keluar';
+
             Swal.fire({
-                title: 'Konfirmasi Keamanan',
-                html: `
-                    <p>Anda akan menghapus data ini secara permanen.</p>                   
-                    <div class="text-start mb-1 fw-bold small text-muted">Masukkan Password Anda:</div>
-                `,
-                input: 'password',				
-                inputAttributes: {
-                    autocapitalize: 'off',
-                    placeholder: 'Password Login'
-                },
+                title: `Hapus ${label}?`,
+                html: `Anda akan menghapus data <b>${label}</b> ini.<br>Masukkan Password untuk konfirmasi:`,
+                input: 'password',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d', 
                 confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal',
-                reverseButtons: true, 
-                showLoaderOnConfirm: true,
-                preConfirm: (password) => {
-                    if (!password) {
-                        Swal.showValidationMessage('Password wajib diisi!');
-                        return false;
-                    }
-                    return password;
+                reverseButtons: true,
+                preConfirm: (pass) => {
+                    if (!pass) Swal.showValidationMessage('Password wajib diisi!');
+                    return pass;
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // --- TAMBAHKAN BARIS INI ---
-                    showLoading(true); // Munculkan animasi loading
-                    // ---------------------------
-
-                    const userPassword = result.value;
+                    showLoading(true);
+                    
                     const payload = {
                         action: 'hapusSurat',
                         kategori: type === 'masuk' ? 'surat_masuk' : 'surat_keluar',
                         rowNumber: rowNumber,
                         username: currentUser.username, 
-                        password: userPassword
+                        password: result.value
                     };
                     kirimKeGAS(payload);
                 }
@@ -2158,40 +3188,47 @@
 
 			// --- LOGIKA BARU DI SINI ---
 			
-			// 4.5. KHUSUS SURAT KELUAR: CEK DUPLIKASI NOMOR URUT
-			if (kategori === 'surat_keluar' && !isEdit) { 
-				const inputNoUrut = payload.noUrut;
-				const inputTahun = document.getElementById('inpTahun').value;
+			// 4.5. KHUSUS SURAT KELUAR: CEK DUPLIKASI NOMOR URUT (UPDATE: BERLAKU JUGA SAAT EDIT)
+            if (kategori === 'surat_keluar') { 
+                // A. Auto Format Payload sebelum cek dan simpan (Pastikan 001)
+                if (payload.noUrut) {
+                    payload.noUrut = String(parseInt(payload.noUrut)).padStart(3, '0');
+                    // Update juga No Lengkap dengan nomor yang sudah diformat
+                    const k = document.getElementById('inpKode').value;
+                    const kl = document.getElementById('inpKodeLanjutan').value;
+                    const t = document.getElementById('inpTahun').value;
+                    payload.noLengkap = `${k}/${payload.noUrut}/${kl}/${t}`;
+                }
 
-				// Cek di Global Data (Client Side)
-				const isDuplicate = globalData.suratKeluar.some(item => {
-					const dbNoUrut = String(item.values[3]); // Index 3: No Urut
-					const dbNoLengkap = String(item.values[4]); // Index 4: No Lengkap (berisi tahun)
-					
-					// Cek kesamaan No Urut DAN Tahun
-					return (dbNoUrut === inputNoUrut && dbNoLengkap.includes(inputTahun));
-				});
+                const inputNoUrut = payload.noUrut; // Ini sudah "001"
+                const inputTahun = document.getElementById('inpTahun').value;
+                const currentRow = document.getElementById('realRowNumber').value;
 
-				if (isDuplicate) {
-					Swal.fire({
-						title: 'Nomor Sudah Digunakan!',
-						html: `Nomor Urut <b>${inputNoUrut}</b> di tahun <b>${inputTahun}</b> sudah terdaftar.<br><br>Apakah Anda yakin tetap ingin menggunakan nomor ini (duplikasi)?`,
-						icon: 'warning',
-						showCancelButton: true,
-						confirmButtonColor: '#ea580c', 
-						cancelButtonColor: '#334155',
-						confirmButtonText: 'Ya, Tetap Pakai',
-						cancelButtonText: 'Batal / Perbaiki',
-						reverseButtons: true
-					}).then((result) => {
-						if (result.isConfirmed) {
-							// Jika user memaksa lanjut
-							executeSimpan(fileInput, payload);
-						}
-					});
-					return; // Stop dulu, tunggu konfirmasi user
-				}
-			}
+                // B. Cek Duplikasi Strict (Integer Comparison)
+                const isDuplicate = globalData.suratKeluar.some(item => {
+                    // Skip jika edit data sendiri
+                    if (isEdit && String(item.rowNumber) === String(currentRow)) return false;
+
+                    const dbNoUrut = parseInt(item.values[3]) || 0; // Ubah DB ke angka
+                    const dbNoLengkap = String(item.values[4]); 
+                    
+                    const inpNoInt = parseInt(inputNoUrut) || 0; // Ubah Input ke angka
+
+                    // Bandingkan Angka vs Angka DAN pastikan Tahun sama
+                    return (dbNoUrut === inpNoInt && dbNoLengkap.includes(inputTahun));
+                });
+
+                if (isDuplicate) {
+                    Swal.fire({
+                        title: 'Gagal Simpan!',
+                        html: `Nomor urut <b>${inputNoUrut}</b> sudah terdaftar di tahun <b>${inputTahun}</b>.<br>Silakan gunakan nomor lain.`,
+                        icon: 'error', // MERAH (ERROR)
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'Tutup & Perbaiki'
+                    });
+                    return; // STOP PROSES (TOLAK)
+                }
+            }
 
 			// Jika tidak ada duplikasi, langsung eksekusi simpan
 			executeSimpan(fileInput, payload);
@@ -2376,7 +3413,7 @@
             else el.classList.add('d-none');
         }
 
-        function logout() {
+		function logout() {
             Swal.fire({
                 title: 'Konfirmasi',
                 text: "Anda yakin ingin keluar dari aplikasi?",
@@ -2388,6 +3425,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     currentUser = null;
+                    
+                    // --- TAMBAHAN FIX: SEMBUNYIKAN FAB SAAT LOGOUT ---
+                    document.getElementById('fabTambah').style.display = 'none'; 
+                    // -------------------------------------------------
+
                     document.getElementById('appPanel').classList.add('d-none');
                     document.getElementById('loginPanel').classList.remove('d-none');
                     document.getElementById('formLogin').reset();
@@ -2420,7 +3462,586 @@
 			document.getElementById('framePreview').src = "";
 		});		
 				
-		
+		function handleFabClick() {
+			// Cek tab mana yang aktif
+			if (!document.getElementById('tab-suratMasuk').classList.contains('d-none')) {
+				openModal('masuk');
+			} else if (!document.getElementById('tab-suratKeluar').classList.contains('d-none')) {
+				openModal('keluar');
+			} else if (!document.getElementById('tab-perjadin').classList.contains('d-none')) { // TAMBAHAN
+                openModalPerjadin();
+            }			
+		}
+
+		// === LOGIKA PERJADIN ===
+
+        function openModalPerjadin() {
+            document.getElementById('formPerjadin').reset();
+            resetDropZonePerjadin(); // Reset Drag & Drop UI
+
+            // SET DEFAULT VALUES
+            document.getElementById('pJenis').value = "";      
+            document.getElementById('pAsalNaskah').value = "";
+			
+			// --- TAMBAHAN: Reset Tampilan Lainnya ---
+            toggleAsalNaskahLainnya(); 
+            //			
+			
+            document.getElementById('tsSuffix').value = "BKPSDM-BLG";
+            document.getElementById('tsTahun').value = "2026";
+            document.getElementById('sptSuffix').value = "BKPSDM-BLG"; 
+            document.getElementById('sptTahun').value = "2026";            
+
+            // Reset Preview & Validasi Visual
+            updatePreviewPerjadin();
+            document.getElementById('tsNo').classList.remove('is-invalid');
+            document.getElementById('sptNo').classList.remove('is-invalid');
+            
+            document.getElementById('pIsEdit').value = "false";
+            document.getElementById('pRowNumber').value = "";
+            document.getElementById('personilContainer').innerHTML = ""; // Kosongkan personil
+            document.getElementById('personilEmptyState').style.display = 'block';
+            document.getElementById('modalPerjadinTitle').innerHTML = "<i class='fas fa-plane-departure me-2'></i>Input Perjalanan Dinas";
+            
+            // Default Values Form
+            toggleTanggalSelesai();
+            
+            // Buka Modal
+            new bootstrap.Modal(document.getElementById('modalPerjadin')).show();
+        }
+
+        function toggleTanggalSelesai() {
+            const jenis = document.getElementById('pJenis').value;
+            const divSelesai = document.getElementById('divTglSelesai');
+            if (jenis === 'Dalam Daerah') {
+                divSelesai.style.display = 'none';
+                document.getElementById('pTglSelesai').removeAttribute('required');
+            } else {
+                divSelesai.style.display = 'block';
+                document.getElementById('pTglSelesai').setAttribute('required', '');
+            }
+        }
+
+		// --- HELPER: AUTO FORMAT 3 DIGIT (UNIVERSAL) ---
+        function formatAutoPad(input) {
+            // 1. Hapus karakter aneh, ambil angkanya saja
+            const rawVal = input.value.replace(/\D/g, ''); 
+            
+            if (rawVal !== "") {
+                // 2. Format jadi minimal 3 digit (contoh: 1 -> 001, 12 -> 012, 1000 -> 1000)
+                const valNum = parseInt(rawVal);
+                input.value = String(valNum).padStart(3, '0');
+            }
+
+            // 3. Update Preview Sesuai Konteks
+            // Jika ini input Surat Keluar
+            if (input.id === 'inpNoUrut' && typeof updatePreviewNomor === "function") {
+                updatePreviewNomor();
+            }
+            // Jika ini input Perjadin (TS/SPT/SPPD)
+            else if (typeof updatePreviewPerjadin === "function") {
+                updatePreviewPerjadin();
+            }
+        }
+
+		function toggleAsalNaskahLainnya() {
+            const dropdown = document.getElementById('pAsalNaskah');
+            const inputLain = document.getElementById('pAsalNaskahLainnya');
+            
+            if (dropdown.value === 'Lainnya') {
+                inputLain.style.display = 'block';
+                inputLain.setAttribute('required', ''); // Wajib diisi jika Lainnya
+                inputLain.focus();
+            } else {
+                inputLain.style.display = 'none';
+                inputLain.removeAttribute('required');
+                inputLain.value = ""; // Reset isinya
+            }
+        }
+
+        // --- REPEATER PERSONIL & AUTOCOMPLETE ---
+        let personilCount = 0;
+
+        function addPersonilRow(data = null) {
+            document.getElementById('personilEmptyState').style.display = 'none';
+            personilCount++;
+            
+            const container = document.getElementById('personilContainer');
+            const rowId = `pRow_${personilCount}`;
+            
+            // Tentukan No SPPD Otomatis
+            let defaultNo = "";
+            let defaultNama = "";
+            let defaultNip = "";
+
+            if (data) {
+                defaultNo = data.no;
+                defaultNama = data.nama;
+                defaultNip = data.nip;
+            } else {
+                // Logic Auto Number Sederhana
+                const inputs = container.querySelectorAll('.inp-sppd');
+                if(inputs.length > 0) {
+                    const lastNo = inputs[inputs.length - 1].value;
+                    if(!isNaN(lastNo) && lastNo !== "") {
+                        defaultNo = String(parseInt(lastNo) + 1).padStart(3, '0');
+                    }
+                }
+            }
+
+            const div = document.createElement('div');
+            div.className = 'personil-row';
+            div.id = rowId;
+			div.innerHTML = `
+                <input type="text" class="form-control form-control-sm inp-sppd" 
+                       placeholder="000" value="${defaultNo}" title="No SPPD"
+                       onblur="formatAutoPad(this)">
+                
+                <div class="position-relative inp-nama">
+                    <input type="text" class="form-control form-control-sm personil-search" 
+                           list="listOpsiASN" 
+                           placeholder="Ketik nama..." 
+                           value="${defaultNama ? defaultNama + ' (' + defaultNip + ')' : ''}" 
+                           oninput="handleInputASN(this, '${rowId}')" 
+                           autocomplete="off">
+                    
+                    <input type="hidden" class="personil-nip" value="${defaultNip}">
+                </div>
+
+                <button type="button" class="btn btn-sm btn-outline-danger border-0" onclick="removePersonilRow('${rowId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function removePersonilRow(id) {
+            document.getElementById(id).remove();
+            if(document.getElementById('personilContainer').children.length === 0) {
+                document.getElementById('personilEmptyState').style.display = 'block';
+            }
+        }
+
+        // --- SEARCH ENGINE ASN (VERSI DATALIST) ---
+        function handleInputASN(inputEl, rowId) {
+            const query = inputEl.value.toLowerCase();
+            const dataList = document.getElementById('listOpsiASN');
+            
+            // 1. UPDATE OPSI DATALIST (Hanya jika mengetik 3 huruf lebih)
+            if (query.length >= 3) {
+                const results = globalASN.filter(asn => 
+                    asn.nama.toLowerCase().includes(query)
+                ).slice(0, 20);
+
+                dataList.innerHTML = ''; 
+                results.forEach(asn => {
+                    const opt = document.createElement('option');
+                    opt.value = `${asn.nama} (${asn.nip})`; 
+                    dataList.appendChild(opt);
+                });
+            }
+
+            // 2. DETEKSI PILIHAN USER (AUTO-FILL NIP)
+            const match = inputEl.value.match(/\(([^)]+)\)$/);
+            const nipInput = document.querySelector(`#${rowId} .personil-nip`);
+
+            if (match) {
+                const extractedNip = match[1]; 
+                nipInput.value = extractedNip;
+            } else {
+                nipInput.value = ""; 
+            }
+        }
+        
+        // Tutup search box (Legacy safety)
+        document.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('personil-search')) {
+                document.querySelectorAll('.search-result-box').forEach(el => el.style.display = 'none');
+            }
+        });
+
+		// --- SIMPAN / EDIT PERJADIN (VERSI FINAL: VALIDASI CERDAS & BACKWARD COMPATIBLE) ---
+        function simpanPerjadin() {
+            // 1. AMBIL DATA FORM
+            const pJenis = document.getElementById('pJenis').value;
+            const pTglMulai = document.getElementById('pTglMulai').value;
+            let pTglSelesai = document.getElementById('pTglSelesai').value;
+            if (pJenis === 'Dalam Daerah') pTglSelesai = pTglMulai;
+
+            const pMaksud = document.getElementById('pMaksud').value;
+            const pTempat = document.getElementById('pTempat').value;
+            const pDaerah = document.getElementById('pDaerah').value;
+            
+            let valAsalNaskah = document.getElementById('pAsalNaskah').value;
+            if (valAsalNaskah === 'Lainnya') valAsalNaskah = document.getElementById('pAsalNaskahLainnya').value;
+
+            // 2. VALIDASI FIELD WAJIB
+            let emptyFields = [];
+            if (!pJenis) emptyFields.push("Jenis Perjadin");
+            if (!valAsalNaskah) emptyFields.push("Asal Naskah"); 
+            if (!pTempat) emptyFields.push("Tempat/Tujuan");
+            if (!pDaerah) emptyFields.push("Kota/Kabupaten");
+            if (!pTglMulai) emptyFields.push("Tanggal Mulai");
+            if (!pMaksud) emptyFields.push("Maksud/Kegiatan");
+            if (pJenis !== 'Dalam Daerah' && !pTglSelesai) emptyFields.push("Tanggal Selesai");
+
+            if (emptyFields.length > 0) {
+                Swal.fire({icon: 'warning', title: 'Data Belum Lengkap', html: `Mohon lengkapi:<br/><b>${emptyFields.join(', ')}</b>`});
+                return;
+            }
+
+            // 3. SIAPKAN KOMPONEN NOMOR
+            const tsKode = document.getElementById('tsKode').value;
+            const tsNo = document.getElementById('tsNo').value;
+            const tsSuffix = document.getElementById('tsSuffix').value;
+            const tsTahun = document.getElementById('tsTahun').value;
+            const tsFull = `${tsKode}/${tsNo}/${tsSuffix}/${tsTahun}`;
+
+            const sptKode = document.getElementById('sptKode').value;
+            const sptNo = document.getElementById('sptNo').value;
+            const sptSuffix = document.getElementById('sptSuffix').value;
+            const sptTahun = document.getElementById('sptTahun').value;
+            const sptFull = `${sptKode}/${sptNo}/${sptSuffix}/${sptTahun}`;
+
+			// 4. AMBIL PERSONIL
+            const rows = document.querySelectorAll('.personil-row');
+            if (rows.length === 0) {
+                Swal.fire('Error', 'Minimal 1 pelaksana!', 'warning');
+                return;
+            }
+            let personilList = [];
+            rows.forEach(row => {
+                let no = row.querySelector('.inp-sppd').value;
+                const rawNama = row.querySelector('.personil-search').value;
+                const nip = row.querySelector('.personil-nip').value;
+                
+                // --- UPDATE: FORMAT PAKSA SEBELUM SIMPAN ---
+                // Jika user mengetik "1" lalu langsung klik Simpan (tanpa blur), 
+                // kode ini menjamin tersimpan sebagai "001"
+                if(no) {
+                    no = String(parseInt(no) || 0).padStart(3, '0');
+                }
+                // -------------------------------------------
+
+                let namaClean = rawNama.includes('(') ? rawNama.split('(')[0].trim() : rawNama;
+                if(namaClean) personilList.push({ no, nama: namaClean, nip });
+            });
+
+            // ============================================================
+            // 5. CEK DUPLIKASI CERDAS (TS, SPT, & SPPD)
+            // ============================================================
+            const isEdit = document.getElementById('pIsEdit').value === "true";
+            const currentRow = document.getElementById('pRowNumber').value;
+            let duplicateMsg = [];
+
+            // Helper: Ubah ke angka (agar "001" sama dengan "1")
+            const toInt = (val) => parseInt(val) || 0;
+
+            globalData.perjadin.forEach(item => {
+                // Jangan cek data sendiri saat edit
+                if (isEdit && String(item.rowNumber) === String(currentRow)) return;
+
+                const vals = item.values;
+                
+                // --- A. CEK NOMOR URUT TS (Index 9 & 10) ---
+                const dbTsNo = vals[9];       // Kolom No Urut (J)
+                const dbTsFull = vals[10] || ""; // Kolom No Lengkap (K)
+                
+                // Cek 1: Bandingkan Kolom No Urut (Jika ada isinya)
+                if (dbTsNo && toInt(dbTsNo) === toInt(tsNo) && dbTsFull.includes(tsTahun)) {
+                    duplicateMsg.push(`Nomor TS <b>${tsNo}</b> (Tahun ${tsTahun})`);
+                } 
+                // Cek 2 (Fallback): Jika Kolom No Urut kosong (Data Lama), bedah string lengkap
+                else if (!dbTsNo && dbTsFull) {
+                    const parts = dbTsFull.split('/'); // Asumsi: Kode/No/Suffix/Tahun
+                    if (parts.length >= 4 && toInt(parts[1]) === toInt(tsNo) && parts[3] == tsTahun) {
+                        duplicateMsg.push(`Nomor TS <b>${tsNo}</b> (Tahun ${tsTahun})`);
+                    }
+                }
+
+                // --- B. CEK NOMOR URUT SPT (Index 12 & 13) ---
+                const dbSptNo = vals[12];        // Kolom No Urut (M)
+                const dbSptFull = vals[13] || ""; // Kolom No Lengkap (N)
+
+                if (dbSptNo && toInt(dbSptNo) === toInt(sptNo) && dbSptFull.includes(sptTahun)) {
+                    duplicateMsg.push(`Nomor SPT <b>${sptNo}</b> (Tahun ${sptTahun})`);
+                }
+                else if (!dbSptNo && dbSptFull) {
+                    const parts = dbSptFull.split('/');
+                    if (parts.length >= 4 && toInt(parts[1]) === toInt(sptNo) && parts[3] == sptTahun) {
+                        duplicateMsg.push(`Nomor SPT <b>${sptNo}</b> (Tahun ${sptTahun})`);
+                    }
+                }
+
+                // --- C. CEK NOMOR SPPD (JSON di Index 16) ---
+                try {
+                    const dbPersonils = JSON.parse(vals[16]);
+                    // Ambil Tahun dari string SPT database sebagai acuan
+                    let dbYear = "";
+                    if(dbSptFull) {
+                        const parts = dbSptFull.split('/');
+                        if(parts.length >= 4) dbYear = parts[3];
+                    }
+
+                    dbPersonils.forEach(dbP => {
+                        const thisPersonil = personilList.find(p => toInt(p.no) === toInt(dbP.no)); // Bandingkan angka SPPD
+                        if (thisPersonil && dbYear == sptTahun) { 
+                            const msg = `Nomor SPPD <b>${thisPersonil.no}</b> (Tahun ${sptTahun})`;
+                            if (!duplicateMsg.includes(msg)) duplicateMsg.push(msg);
+                        }
+                    });
+                } catch(e) {}
+            });
+
+            // JIKA ADA DUPLIKAT -> TOLAK KERAS
+            if (duplicateMsg.length > 0) {
+                Swal.fire({
+                    title: 'Gagal Simpan!',
+                    html: `Nomor urut berikut sudah terdaftar di tahun <b>${inputTahun}</b>:<br>
+                           <ul class="text-start mt-3 mb-3 text-danger fw-bold small" style="list-style-position: inside;">
+                               <li>${duplicateMsg.join('</li><li>')}</li>
+                           </ul>
+                           Silakan gunakan nomor lain.`,
+                    icon: 'error',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Tutup & Perbaiki'
+                });
+                return; // STOP PROSES
+            }
+
+			// 6. KIRIM KE SERVER
+            
+            // FORMATTING AKHIR: Pastikan No Urut tersimpan minimal 3 digit (001)
+            const fmtNo = (n) => n ? String(parseInt(n)).padStart(3, '0') : "";
+            
+            const finalTsNo = fmtNo(tsNo);
+            const finalSptNo = fmtNo(sptNo);
+            
+            // Update String Lengkap dengan nomor yang sudah diformat
+            const finalTsFull = `${tsKode}/${finalTsNo}/${tsSuffix}/${tsTahun}`;
+            const finalSptFull = `${sptKode}/${finalSptNo}/${sptSuffix}/${sptTahun}`;
+
+            const payload = {
+                action: isEdit ? 'updatePerjadin' : 'simpanPerjadin',
+                rowNumber: currentRow,
+                jenisPerjadin: pJenis,
+                tglMulai: pTglMulai,
+                tglSelesai: pTglSelesai,
+                maksud: pMaksud,
+                tempat: pTempat,
+                daerah: pDaerah,
+                
+                // GUNAKAN VARIABEL YANG SUDAH DIFORMAT
+                tsKode: tsKode,
+                tsNo: finalTsNo,     // Kirim "001"
+                noTS: finalTsFull,   // Kirim "800/.../001/..."
+                
+                sptKode: sptKode,
+                sptNo: finalSptNo,   // Kirim "001"
+                noSPT: finalSptFull, // Kirim "800/.../001/..."
+                
+                asalNaskah: valAsalNaskah,
+                keterangan: document.getElementById('pKeterangan').value,
+                personilJson: JSON.stringify(personilList),
+                existingFile: document.getElementById('pExistingFile').value,
+                username: currentUser.username,
+                fileName: "", fileData: ""
+            };
+
+            const fileInput = document.getElementById('pFile');
+            const sendRequest = () => {
+                showLoading(true);
+                bootstrap.Modal.getInstance(document.getElementById('modalPerjadin')).hide();
+                fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(payload) })
+                .then(res => res.json()).then(resp => {
+                    showLoading(false);
+                    if(resp.status === 'success') {
+                        Swal.fire('Berhasil', resp.message, 'success');
+                        loadData();
+                    } else {
+                        Swal.fire('Gagal', resp.message, 'error');
+                    }
+                });
+            };
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.size > 2*1024*1024) { Swal.fire('Error','File max 2MB','error'); return; }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    payload.fileName = file.name;
+                    payload.fileData = e.target.result.split(',')[1];
+                    sendRequest();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                sendRequest();
+            }
+        }
+
+		function editPerjadin(rowNumber) {
+            const dataObj = globalData.perjadin.find(item => item.rowNumber === rowNumber);
+            if (!dataObj) return;
+            const r = dataObj.values;
+
+            // Index 18 = Username
+            if (r[18] !== currentUser.username && currentUser.role !== 'Super Admin') {
+                Swal.fire('Akses Ditolak', 'Hanya Pemilik dan Super Admin yang dapat mengedit data ini.', 'error');
+                return;
+            }
+
+            openModalPerjadin();
+            document.getElementById('pIsEdit').value = "true";
+            document.getElementById('pRowNumber').value = rowNumber;
+            document.getElementById('modalPerjadinTitle').innerHTML = "<i class='fas fa-pen me-2'></i>Edit Perjadin";
+            
+            // Helper: Format 3 Digit (1 -> 001)
+            const padNo = (val) => val ? String(parseInt(val)).padStart(3, '0') : "";
+
+            document.getElementById('pJenis').value = r[2];
+            
+            const fmtDate = (dStr) => { 
+                if(!dStr) return "";
+                const d = new Date(dStr); 
+                return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
+            };
+            document.getElementById('pTglMulai').value = fmtDate(r[3]);
+            document.getElementById('pTglSelesai').value = fmtDate(r[4]);
+            toggleTanggalSelesai();
+
+            document.getElementById('pMaksud').value = r[5];
+            document.getElementById('pTempat').value = r[6];
+            document.getElementById('pDaerah').value = r[7];
+            
+            // --- POPULATE TS ---
+            document.getElementById('tsKode').value = r[8];
+            document.getElementById('tsNo').value = padNo(r[9]); // Auto Format 001
+            
+            const rawTS = r[10] || "";
+            const partsTS = rawTS.split('/');
+            if(partsTS.length >= 4) {
+                document.getElementById('tsSuffix').value = partsTS[2];
+                document.getElementById('tsTahun').value = partsTS[3];
+            } else {
+                document.getElementById('tsSuffix').value = "BKPSDM-BLG";
+                document.getElementById('tsTahun').value = "2026";
+            }
+
+            // --- POPULATE SPT ---
+            document.getElementById('sptKode').value = r[11];
+            document.getElementById('sptNo').value = padNo(r[12]); // Auto Format 001
+            
+            const rawSPT = r[13] || "";
+            const partsSPT = rawSPT.split('/');
+            if(partsSPT.length >= 4) {
+                document.getElementById('sptSuffix').value = partsSPT[2];
+                document.getElementById('sptTahun').value = partsSPT[3];
+            } else {
+                document.getElementById('sptSuffix').value = "SPT/BKPSDM-BLG";
+                document.getElementById('sptTahun').value = "2026";
+            }
+            
+            updatePreviewPerjadin(); 
+            
+            // Asal Naskah
+            const dbAsal = r[14]; 
+            const standardOptions = ["Sekretariat", "Bidang PSDM", "Bidang PPIK", "Bidang MPK"];
+            if (standardOptions.includes(dbAsal)) {
+                document.getElementById('pAsalNaskah').value = dbAsal;
+                toggleAsalNaskahLainnya();
+            } else {
+                document.getElementById('pAsalNaskah').value = "Lainnya";
+                toggleAsalNaskahLainnya();
+                document.getElementById('pAsalNaskahLainnya').value = dbAsal;
+            }
+
+            document.getElementById('pKeterangan').value = r[15];
+            
+            // File
+            const fileUrl = r[17];
+            document.getElementById('pExistingFile').value = fileUrl;
+            const fileHelp = document.getElementById('fileHelpPerjadin');
+            if (fileUrl) {
+                fileHelp.innerHTML = `<span class="text-success fw-bold"><i class="fas fa-check-circle"></i> File tersimpan.</span> Upload baru untuk mengganti.`;
+            } else {
+                fileHelp.innerText = "Belum ada file. Upload untuk menambahkan.";
+            }
+
+            // Personil
+            try {
+                const pList = JSON.parse(r[16]);
+                pList.forEach(p => {
+                    // Pastikan No SPPD juga tampil 3 digit saat edit
+                    p.no = padNo(p.no); 
+                    addPersonilRow(p);
+                });
+            } catch(e) {}
+        }
+
+		// --- FUNGSI HAPUS KHUSUS PERJADIN ---
+        function hapusPerjadin(rowNumber) {
+            // 1. Cari Data Dulu
+            const dataObj = globalData.perjadin.find(item => item.rowNumber === rowNumber);
+            if (!dataObj) return;
+            const r = dataObj.values;
+
+            // 2. Cek Kepemilikan (Index 14 adalah Username)
+            // Sesuaikan index ini dengan urutan kolom di Code.gs simpanPerjadin
+            const penginput = r[18]; 
+
+            if (penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Akses Ditolak',
+                    text: `Hanya Pemilik dan Super Admin yang dapat menghapus data ini.`,
+                });
+                return;
+            }
+
+            // 3. Konfirmasi Hapus
+            Swal.fire({
+                title: 'Hapus Perjadin?',
+                html: `Anda akan menghapus data perjalanan dinas ini.<br>Masukkan Password untuk konfirmasi:`,
+                input: 'password',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                preConfirm: (pass) => {
+                    if (!pass) Swal.showValidationMessage('Password wajib diisi!');
+                    return pass;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    showLoading(true);
+                    
+                    // 4. Kirim ke Backend (Action: hapusPerjadin)
+                    fetch(GAS_API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            action: 'hapusPerjadin',
+                            rowNumber: rowNumber,
+                            username: currentUser.username,
+                            password: result.value
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(resp => {
+                        showLoading(false);
+                        if(resp.status === 'success') {
+                            Swal.fire('Terhapus', resp.message, 'success');
+                            loadData(); // Refresh tabel
+                        } else {
+                            Swal.fire('Gagal', resp.message, 'error');
+                        }
+                    });
+                }
+            });
+        }
+
     </script>
 </body>
 
