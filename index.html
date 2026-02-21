@@ -1054,7 +1054,7 @@
                     <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
                         <h6 class="fw-bold m-0"><i class="fas fa-table me-2 text-muted"></i>Data Surat Masuk</h6>
                         <div class="d-flex gap-2">
-                            <input type="text" id="searchMasuk" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('masuk'); renderTables()">
+							<input type="text" id="searchMasuk" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat" autocomplete="new-password" onkeyup="resetPagination('masuk'); renderTables()">
                             
                             <button class="btn btn-masuk btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModal('masuk')">
                                 <i class="fas fa-plus me-1"></i> Tambah
@@ -1090,7 +1090,7 @@
                     <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
                         <h6 class="fw-bold m-0"><i class="fas fa-table me-2 text-muted"></i>Data Surat Keluar</h6>
                         <div class="d-flex gap-2">
-                            <input type="text" id="searchKeluar" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat..." onkeyup="resetPagination('keluar'); renderTables()">
+							<input type="text" id="searchKeluar" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat" autocomplete="new-password" onkeyup="resetPagination('keluar'); renderTables()">
                             
                             <button class="btn btn-keluar btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModal('keluar')">
                                 <i class="fas fa-plus me-1"></i> Tambah
@@ -1126,7 +1126,7 @@
                     <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
                         <h6 class="fw-bold m-0"><i class="fas fa-plane-departure me-2 text-muted"></i>Data Perjalanan Dinas</h6>
                         <div class="d-flex gap-2">
-                            <input type="text" id="searchPerjadin" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Kegiatan/Pelaksana" onkeyup="resetPagination('perjadin'); renderTables()">
+							<input type="text" id="searchPerjadin" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Kegiatan/Pelaksana" autocomplete="new-password" onkeyup="resetPagination('perjadin'); renderTables()">
                             
                             <button class="btn btn-primary btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" style="background-color: #3b82f6; border-color: #3b82f6;" onclick="openModalPerjadin()">
                                 <i class="fas fa-plus me-1"></i> Tambah
@@ -1871,15 +1871,15 @@
                     
                     // === LOGIKA SORTING DI SISI CLIENT (Aplikasi) ===
                     
-                    // 1. Surat Masuk: Sort by Tanggal Surat (Index 1) DESCENDING (Terbaru di atas)
+					// 1. Surat Masuk: Sort by Tanggal Surat (Index 2)
                     let sortedMasuk = resp.data.suratMasuk.sort((a, b) => {
-                        return new Date(b.values[1]) - new Date(a.values[1]);
+                        return new Date(b.values[2]) - new Date(a.values[2]);
                     });
 
-                    // 2. Surat Keluar: Sort by No Urut (Index 3) DESCENDING (Terbesar di atas)
+                    // 2. Surat Keluar: Sort by No Urut (Index 4)
                     let sortedKeluar = resp.data.suratKeluar.sort((a, b) => {
-                        const numA = parseInt(a.values[3]) || 0;
-                        const numB = parseInt(b.values[3]) || 0;
+                        const numA = parseInt(a.values[4]) || 0;
+                        const numB = parseInt(b.values[4]) || 0;
                         return numB - numA;
                     });
 
@@ -2287,14 +2287,14 @@
 			// Hitung Masuk
 			const totalMasuk = globalData.suratMasuk.length;
 			const bulanMasuk = globalData.suratMasuk.filter(row => {
-				const d = new Date(row.values[1]); // Kolom Tanggal index 1
+				const d = new Date(row.values[2]);
 				return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
 			}).length;
 
 			// Hitung Keluar
 			const totalKeluar = globalData.suratKeluar.length;
 			const bulanKeluar = globalData.suratKeluar.filter(row => {
-				const d = new Date(row.values[1]); // Kolom Tanggal index 1
+				const d = new Date(row.values[2]);
 				return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
 			}).length;
 
@@ -2315,11 +2315,11 @@
 			} else {
 				recentMasuk.forEach(item => {
 					const r = item.values;
-					const tgl = new Date(r[1]).toLocaleDateString('id-ID', {day:'numeric', month:'short'});
+					const tgl = new Date(r[2]).toLocaleDateString('id-ID', {day:'numeric', month:'short'});
 					tbodyMasuk.innerHTML += `
 						<tr>
 							<td class="text-nowrap">${tgl}</td>
-							<td class="fw-bold text-truncate" style="max-width: 100px;">${r[5]}</td> <td class="text-truncate" style="max-width: 150px;">${r[4]}</td> </tr>`;
+							<td class="fw-bold text-truncate" style="max-width: 100px;">${r[6]}</td> <td class="text-truncate" style="max-width: 150px;">${r[5]}</td> </tr>`;
 				});
 			}
 
@@ -2330,11 +2330,11 @@
 			} else {
 				recentKeluar.forEach(item => {
 					const r = item.values;
-					const tgl = new Date(r[1]).toLocaleDateString('id-ID', {day:'numeric', month:'short'});
+					const tgl = new Date(r[2]).toLocaleDateString('id-ID', {day:'numeric', month:'short'});
 					tbodyKeluar.innerHTML += `
 						<tr>
 							<td class="text-nowrap">${tgl}</td>
-							<td class="fw-bold text-truncate" style="max-width: 100px;">${r[7]}</td> <td class="text-truncate" style="max-width: 150px;">${r[6]}</td> </tr>`;
+							<td class="fw-bold text-truncate" style="max-width: 100px;">${r[8]}</td> <td class="text-truncate" style="max-width: 150px;">${r[7]}</td> </tr>`;
 				});
 			}
 
@@ -2353,9 +2353,9 @@
 				return counts;
 			};
 
-			// Masuk (Jenis ada di index 3), Keluar (Jenis ada di index 5)
-			const statsMasuk = getStatsByJenis(globalData.suratMasuk, 3);
-			const statsKeluar = getStatsByJenis(globalData.suratKeluar, 5);
+			// Masuk (Jenis ada di index 4), Keluar (Jenis ada di index 6)
+			const statsMasuk = getStatsByJenis(globalData.suratMasuk, 4);
+			const statsKeluar = getStatsByJenis(globalData.suratKeluar, 6);
 
 			// Fungsi bikin chart
 			const createOrUpdateChart = (canvasId, chartInstance, label, dataObj, colorBase) => {
@@ -2488,26 +2488,26 @@
 
 			// LOGIKA PENCARIAN BARU (DIPERLUAS)
 
-			// Surat Masuk: Cek Nomor(2), Jenis(3), Perihal(4), Pengirim(5), Diteruskan(6)
+			// --- Filter Masuk ---
 			const filteredMasuk = globalData.suratMasuk.filter(row => {
 				const textData = (
-					(row.values[2] || "") + " " + // Nomor Surat
-					(row.values[3] || "") + " " + // Jenis
-					(row.values[4] || "") + " " + // Perihal
-					(row.values[5] || "") + " " + // Pengirim (Asal)
-					(row.values[6] || "")         // Diteruskan ke
+					(row.values[3] || "") + " " + // Nomor
+					(row.values[4] || "") + " " + // Jenis
+					(row.values[5] || "") + " " + // Perihal
+					(row.values[6] || "") + " " + // Pengirim
+					(row.values[7] || "")         // Diteruskan
 				).toLowerCase();
 				return textData.includes(termMasuk);
 			});
 
-			// Surat Keluar: Cek No Lengkap(4), Jenis(5), Perihal(6), Tujuan(7), Asal Naskah(8)
+			// --- Filter Keluar ---
 			const filteredKeluar = globalData.suratKeluar.filter(row => {
 				const textData = (
-					(row.values[4] || "") + " " + // No Surat Lengkap
-					(row.values[5] || "") + " " + // Jenis
-					(row.values[6] || "") + " " + // Perihal
-					(row.values[7] || "") + " " + // Tujuan
-					(row.values[8] || "")         // Asal Naskah
+					(row.values[5] || "") + " " + // No Lengkap
+					(row.values[6] || "") + " " + // Jenis
+					(row.values[7] || "") + " " + // Perihal
+					(row.values[8] || "") + " " + // Tujuan
+					(row.values[9] || "")         // Asal Naskah
 				).toLowerCase();
 				return textData.includes(termKeluar);
 			});
@@ -2551,9 +2551,9 @@
 				const realRow = rowObj.rowNumber;
 				
 				// Tentukan index URL File & Keterangan
-				// Masuk: URL=8, Ket=7. Keluar: URL=10, Ket=9.
-				const idxUrl = type === 'masuk' ? 8 : 10;
-				const idxKet = type === 'masuk' ? 7 : 9;
+				// Masuk: URL=9, Ket=8. Keluar: URL=11, Ket=10.
+				const idxUrl = type === 'masuk' ? 9 : 11;
+				const idxKet = type === 'masuk' ? 8 : 10;
 				
 				// Tombol Lihat File
 				let btnFile = row[idxUrl] ? 
@@ -2561,7 +2561,7 @@
 					`<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-eye-slash"></i></button>`;
 				
 				// Format Tanggal
-				let tgl = new Date(row[1]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
+				let tgl = new Date(row[2]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
 				const badgeClass = type === 'masuk' ? 'badge-masuk' : 'badge-keluar';
 
 				// --- STYLE KETERANGAN (SERAGAM PERJADIN) ---
@@ -2578,15 +2578,15 @@
 					return `
 						<tr>
 							<td>
-								<div class="fw-bold text-dark small">${row[2]}</div>
+								<div class="fw-bold text-dark small">${row[3]}</div>
 								<small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
 							</td>
 							<td>
-								<span class="badge ${badgeClass} mb-1">${row[3]}</span>
-								<div class="small text-dark text-wrap">${row[4]}</div>
+								<span class="badge ${badgeClass} mb-1">${row[4]}</span>
+								<div class="small text-dark text-wrap">${row[5]}</div>
 							</td>
-							<td><div class="small">${row[5]}</div></td>
-							<td><span class="badge bg-light text-dark border">${row[6]}</span></td> 
+							<td><div class="small">${row[6]}</div></td>
+							<td><span class="badge bg-light text-dark border">${row[7]}</span></td> 
 							
 							<td>${ketHtml}</td>
 							
@@ -2605,15 +2605,15 @@
 					return `
 						<tr>
 							<td>
-								<div class="fw-bold text-dark small">${row[4]}</div> 
+								<div class="fw-bold text-dark small">${row[5]}</div> 
 								<small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
 							</td>
 							<td>
-								<span class="badge ${badgeClass} mb-1">${row[5]}</span>
-								<div class="small text-dark text-wrap">${row[6]}</div>
+								<span class="badge ${badgeClass} mb-1">${row[6]}</span>
+								<div class="small text-dark text-wrap">${row[7]}</div>
 							</td>
-							<td><div class="small">${row[7]}</div></td>
-							<td><span class="badge bg-light text-dark border">${row[8]}</span></td> 
+							<td><div class="small">${row[8]}</div></td>
+							<td><span class="badge bg-light text-dark border">${row[9]}</span></td> 
 							
 							<td>${ketHtml}</td>
 							
@@ -2690,11 +2690,9 @@
                 // Kita gunakan No Urut (Col J/M) agar bisa diformat rapi, 
                 // digabung dengan Kode & Tahun dari string lengkap (Col K/N)
                 
-                let displayTS = "";
+				let displayTS = "";
                 if (r[9]) { // Jika ada No Urut TS
-                    // Ambil Kode dan Tahun dari string lengkap r[10]
                     const parts = (r[10] || "").split('/'); 
-                    // Asumsi format: Kode/NoUrut/Suffix/Tahun
                     if(parts.length >= 4) {
                         displayTS = `${parts[0]}/<span class="text-primary fw-bold">${padNo(r[9])}</span>/${parts[2]}/${parts[3]}`;
                     } else {
@@ -2712,9 +2710,11 @@
                     }
                 }
 
+                // UPDATE: Sembunyikan label jika kosong, tampilkan strip (-) jika keduanya kosong
                 const docHtml = `
                     ${displayTS ? `<div class="small text-dark mb-1" style="font-size: 0.75rem;"><span class="fw-bold text-secondary">TS:</span> ${displayTS}</div>` : ''}
-                    <div class="small text-dark" style="font-size: 0.75rem;"><span class="fw-bold text-secondary">SPT:</span> ${displaySPT}</div>
+                    ${displaySPT ? `<div class="small text-dark" style="font-size: 0.75rem;"><span class="fw-bold text-secondary">SPT:</span> ${displaySPT}</div>` : ''}
+                    ${!displayTS && !displaySPT ? `<span class="text-muted fst-italic small">-</span>` : ''}
                 `;
 
                 // Index 17: URL File
@@ -2989,8 +2989,8 @@
 			if (!dataObj) return;
 
 			const rowData = dataObj.values;
-			// Cek User Penginput (Masuk: Col 9, Keluar: Col 11) -> Index array mulai 0
-			const idxPenginput = type === 'masuk' ? 9 : 11;
+			// Cek User Penginput (Masuk: Col 10, Keluar: Col 12) -> Index array mulai 0
+			const idxPenginput = type === 'masuk' ? 10 : 12;
 			const penginput = rowData[idxPenginput] ? rowData[idxPenginput] : "-";
 
 			if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
@@ -3006,22 +3006,21 @@
 			document.getElementById('modalTitle').innerHTML = "<i class='fas fa-pen me-2'></i>Edit Data";
 
 			// Format Tanggal untuk input date (YYYY-MM-DD)
-			const d = new Date(rowData[1]);
+			const d = new Date(rowData[2]);
 			const yyyy = d.getFullYear();
 			const mm = String(d.getMonth() + 1).padStart(2, '0');
 			const dd = String(d.getDate()).padStart(2, '0');
 			document.getElementById('inpTanggal').value = `${yyyy}-${mm}-${dd}`;
 
 			if (type === 'masuk') {
-				// MAPPING MASUK: [Time, Tgl, No, Jenis, Perihal, Asal, Diteruskan, Ket, URL, User]
-				document.getElementById('inpNomorMasuk').value = rowData[2];
-				document.getElementById('inpJenis').value = rowData[3];
-				document.getElementById('inpPerihal').value = rowData[4];
-				document.getElementById('inpPengirim').value = rowData[5];
-				document.getElementById('inpDiteruskan').value = rowData[6]; // Baru
-				document.getElementById('inpKeterangan').value = rowData[7];
-				document.getElementById('existingFileUrl').value = rowData[8];
-				checkFileStatus(rowData[8]);
+				document.getElementById('inpNomorMasuk').value = rowData[3];
+				document.getElementById('inpJenis').value = rowData[4];
+				document.getElementById('inpPerihal').value = rowData[5];
+				document.getElementById('inpPengirim').value = rowData[6];
+				document.getElementById('inpDiteruskan').value = rowData[7]; 
+				document.getElementById('inpKeterangan').value = rowData[8];
+				document.getElementById('existingFileUrl').value = rowData[9];
+				checkFileStatus(rowData[9]);
 
 			} else {
 				// MAPPING KELUAR: [Time, Tgl, Kode, NoUrut, NoLengkap, Jenis, Perihal, Tujuan, AsalNaskah, Ket, URL, User]
@@ -3030,27 +3029,27 @@
                 const padNo = (val) => val ? String(parseInt(val)).padStart(3, '0') : "";
 				
 				// Populate Field Pecahan
-				document.getElementById('inpKode').value = rowData[2];
+				document.getElementById('inpKode').value = rowData[3];
 				
 				// UPDATE DI SINI: Gunakan padNo
-                document.getElementById('inpNoUrut').value = padNo(rowData[3]);				
+                document.getElementById('inpNoUrut').value = padNo(rowData[4]);				
 								
 				// Parsing No Lengkap (Index 4) untuk ambil KodeLanjutan dan Tahun
 				// Format: Kode/NoUrut/KodeLanjutan/Tahun
-				const noLengkap = rowData[4] || "";
+				const noLengkap = rowData[5] || "";
 				const parts = noLengkap.split('/');
 				if (parts.length >= 4) {
 					document.getElementById('inpKodeLanjutan').value = parts[2];
 					document.getElementById('inpTahun').value = parts[3];
 				}
 
-				document.getElementById('inpJenis').value = rowData[5];
-				document.getElementById('inpPerihal').value = rowData[6];
-				document.getElementById('inpTujuan').value = rowData[7];
-				document.getElementById('inpAsalNaskah').value = rowData[8]; // Baru
-				document.getElementById('inpKeterangan').value = rowData[9];
-				document.getElementById('existingFileUrl').value = rowData[10];
-				checkFileStatus(rowData[10]);
+				document.getElementById('inpJenis').value = rowData[6];
+				document.getElementById('inpPerihal').value = rowData[7];
+				document.getElementById('inpTujuan').value = rowData[8];
+				document.getElementById('inpAsalNaskah').value = rowData[9]; 
+				document.getElementById('inpKeterangan').value = rowData[10];
+				document.getElementById('existingFileUrl').value = rowData[11];
+				checkFileStatus(rowData[11]);
 				
 				updatePreviewNomor();
 			}
@@ -3073,8 +3072,8 @@
             if (!dataObj) return;
             const rowData = dataObj.values;
 
-            // Perbaikan Index Kepemilikan (Masuk: Col 9, Keluar: Col 11)
-            const idxPenginput = type === 'masuk' ? 9 : 11;
+            // Perbaikan Index Kepemilikan (Masuk: Col 10, Keluar: Col 12)
+            const idxPenginput = type === 'masuk' ? 10 : 12;
             const penginput = rowData[idxPenginput] ? rowData[idxPenginput] : "-";
 
             if (penginput !== "-" && penginput !== currentUser.username && currentUser.role !== 'Super Admin') {
@@ -3094,6 +3093,11 @@
                 title: `Hapus ${label}?`,
                 html: `Anda akan menghapus data <b>${label}</b> ini.<br>Masukkan Password untuk konfirmasi:`,
                 input: 'password',
+				// TAMBAHKAN BLOK INI UNTUK MENCEGAH AUTOFILL BROWSER
+                inputAttributes: {
+                    autocomplete: 'new-password',
+                    autocapitalize: 'off'
+                },
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -3115,7 +3119,26 @@
                         username: currentUser.username, 
                         password: result.value
                     };
-                    kirimKeGAS(payload);
+					// UBAH CARA PEMANGGILAN FETCH AGAR BISA RESET PENCARIAN
+                    fetch(GAS_API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(payload)
+                    })
+                    .then(res => res.json())
+                    .then(resp => {
+                        showLoading(false);
+                        if(resp.status === 'success') {
+                            // PENGAMAN TAMBAHAN: Kosongkan kolom pencarian & reset paginasi
+                            if (type === 'masuk') document.getElementById('searchMasuk').value = "";
+                            else document.getElementById('searchKeluar').value = "";
+                            resetPagination(type);
+
+                            Swal.fire('Terhapus', resp.message, 'success');
+                            loadData(); // Refresh tabel
+                        } else {
+                            Swal.fire('Gagal', resp.message, 'error');
+                        }
+                    });
                 }
             });
         }
@@ -3204,15 +3227,16 @@
                 const inputTahun = document.getElementById('inpTahun').value;
                 const currentRow = document.getElementById('realRowNumber').value;
 
-                // B. Cek Duplikasi Strict (Integer Comparison)
+				// B. Cek Duplikasi Strict (Integer Comparison)
                 const isDuplicate = globalData.suratKeluar.some(item => {
                     // Skip jika edit data sendiri
                     if (isEdit && String(item.rowNumber) === String(currentRow)) return false;
 
-                    const dbNoUrut = parseInt(item.values[3]) || 0; // Ubah DB ke angka
-                    const dbNoLengkap = String(item.values[4]); 
+                    // UPDATE INDEKS: No Urut bergeser ke 4, No Lengkap bergeser ke 5
+                    const dbNoUrut = parseInt(item.values[4]) || 0; 
+                    const dbNoLengkap = String(item.values[5]); 
                     
-                    const inpNoInt = parseInt(inputNoUrut) || 0; // Ubah Input ke angka
+                    const inpNoInt = parseInt(inputNoUrut) || 0; 
 
                     // Bandingkan Angka vs Angka DAN pastikan Tahun sama
                     return (dbNoUrut === inpNoInt && dbNoLengkap.includes(inputTahun));
@@ -3522,26 +3546,33 @@
             }
         }
 
-		// --- HELPER: AUTO FORMAT 3 DIGIT (UNIVERSAL) ---
+		// --- HELPER: AUTO FORMAT 3 DIGIT (MENDUKUNG RANGE) ---
         function formatAutoPad(input) {
-            // 1. Hapus karakter aneh, ambil angkanya saja
+            // KHUSUS SPPD: Izinkan tanda strip (-) untuk nomor "Terlampir" (contoh: 005-020)
+            if (input.classList.contains('inp-sppd') && input.value.includes('-')) {
+                const parts = input.value.split('-');
+                const val1 = parseInt(parts[0].replace(/\D/g, ''));
+                const val2 = parseInt(parts[1].replace(/\D/g, ''));
+                
+                if (!isNaN(val1) && !isNaN(val2)) {
+                    input.value = String(val1).padStart(3, '0') + '-' + String(val2).padStart(3, '0');
+                }
+                return; // Berhenti di sini untuk format range
+            }
+
+            // --- Logika Standar (TS / SPT / SPPD Tunggal) ---
             const rawVal = input.value.replace(/\D/g, ''); 
             
             if (rawVal !== "") {
-                // 2. Format jadi minimal 3 digit (contoh: 1 -> 001, 12 -> 012, 1000 -> 1000)
                 const valNum = parseInt(rawVal);
                 input.value = String(valNum).padStart(3, '0');
+            } else {
+                input.value = ""; // Pastikan bisa dikosongkan jika belum ada nomor
             }
 
-            // 3. Update Preview Sesuai Konteks
-            // Jika ini input Surat Keluar
-            if (input.id === 'inpNoUrut' && typeof updatePreviewNomor === "function") {
-                updatePreviewNomor();
-            }
-            // Jika ini input Perjadin (TS/SPT/SPPD)
-            else if (typeof updatePreviewPerjadin === "function") {
-                updatePreviewPerjadin();
-            }
+            // Update Preview
+            if (input.id === 'inpNoUrut' && typeof updatePreviewNomor === "function") updatePreviewNomor();
+            else if (typeof updatePreviewPerjadin === "function") updatePreviewPerjadin();
         }
 
 		function toggleAsalNaskahLainnya() {
@@ -3704,7 +3735,7 @@
             const sptTahun = document.getElementById('sptTahun').value;
             const sptFull = `${sptKode}/${sptNo}/${sptSuffix}/${sptTahun}`;
 
-			// 4. AMBIL PERSONIL
+			// 4. AMBIL PERSONIL (Dukung Range)
             const rows = document.querySelectorAll('.personil-row');
             if (rows.length === 0) {
                 Swal.fire('Error', 'Minimal 1 pelaksana!', 'warning');
@@ -3716,111 +3747,143 @@
                 const rawNama = row.querySelector('.personil-search').value;
                 const nip = row.querySelector('.personil-nip').value;
                 
-                // --- UPDATE: FORMAT PAKSA SEBELUM SIMPAN ---
-                // Jika user mengetik "1" lalu langsung klik Simpan (tanpa blur), 
-                // kode ini menjamin tersimpan sebagai "001"
+                // Format ulang saat mau disimpan agar konsisten
                 if(no) {
-                    no = String(parseInt(no) || 0).padStart(3, '0');
+                    if(no.includes('-')) {
+                        const parts = no.split('-');
+                        no = String(parseInt(parts[0]) || 0).padStart(3, '0') + '-' + String(parseInt(parts[1]) || 0).padStart(3, '0');
+                    } else {
+                        no = String(parseInt(no) || 0).padStart(3, '0');
+                    }
                 }
-                // -------------------------------------------
 
                 let namaClean = rawNama.includes('(') ? rawNama.split('(')[0].trim() : rawNama;
                 if(namaClean) personilList.push({ no, nama: namaClean, nip });
             });
 
             // ============================================================
-            // 5. CEK DUPLIKASI CERDAS (TS, SPT, & SPPD)
+            // 5. CEK DUPLIKASI CERDAS (Mengabaikan yang Kosong & Baca Range)
             // ============================================================
             const isEdit = document.getElementById('pIsEdit').value === "true";
             const currentRow = document.getElementById('pRowNumber').value;
             let duplicateMsg = [];
-
-            // Helper: Ubah ke angka (agar "001" sama dengan "1")
             const toInt = (val) => parseInt(val) || 0;
 
-            globalData.perjadin.forEach(item => {
-                // Jangan cek data sendiri saat edit
-                if (isEdit && String(item.rowNumber) === String(currentRow)) return;
+            // Helper untuk mengurai "005-008" menjadi array [5, 6, 7, 8]
+            const expandSppd = (sppdStr) => {
+                if (!sppdStr) return [];
+                if (sppdStr.includes('-')) {
+                    const parts = sppdStr.split('-');
+                    const start = Math.min(toInt(parts[0]), toInt(parts[1]));
+                    const end = Math.max(toInt(parts[0]), toInt(parts[1]));
+                    let res = [];
+                    for (let i = start; i <= end; i++) res.push(i);
+                    return res;
+                }
+                return [toInt(sppdStr)];
+            };
 
+            globalData.perjadin.forEach(item => {
+                if (isEdit && String(item.rowNumber) === String(currentRow)) return;
                 const vals = item.values;
                 
-                // --- A. CEK NOMOR URUT TS (Index 9 & 10) ---
-                const dbTsNo = vals[9];       // Kolom No Urut (J)
-                const dbTsFull = vals[10] || ""; // Kolom No Lengkap (K)
-                
-                // Cek 1: Bandingkan Kolom No Urut (Jika ada isinya)
-                if (dbTsNo && toInt(dbTsNo) === toInt(tsNo) && dbTsFull.includes(tsTahun)) {
-                    duplicateMsg.push(`Nomor TS <b>${tsNo}</b> (Tahun ${tsTahun})`);
-                } 
-                // Cek 2 (Fallback): Jika Kolom No Urut kosong (Data Lama), bedah string lengkap
-                else if (!dbTsNo && dbTsFull) {
-                    const parts = dbTsFull.split('/'); // Asumsi: Kode/No/Suffix/Tahun
-                    if (parts.length >= 4 && toInt(parts[1]) === toInt(tsNo) && parts[3] == tsTahun) {
+                // --- A. CEK NOMOR TS (Hanya jika diinput) ---
+                if (tsNo !== "") {
+                    const dbTsNo = vals[9];       
+                    const dbTsFull = vals[10] || ""; 
+                    if (dbTsNo && toInt(dbTsNo) === toInt(tsNo) && dbTsFull.includes(tsTahun)) {
                         duplicateMsg.push(`Nomor TS <b>${tsNo}</b> (Tahun ${tsTahun})`);
+                    } else if (!dbTsNo && dbTsFull) {
+                        const parts = dbTsFull.split('/'); 
+                        if (parts.length >= 4 && toInt(parts[1]) === toInt(tsNo) && parts[3] == tsTahun) {
+                            duplicateMsg.push(`Nomor TS <b>${tsNo}</b> (Tahun ${tsTahun})`);
+                        }
                     }
                 }
 
-                // --- B. CEK NOMOR URUT SPT (Index 12 & 13) ---
-                const dbSptNo = vals[12];        // Kolom No Urut (M)
-                const dbSptFull = vals[13] || ""; // Kolom No Lengkap (N)
-
-                if (dbSptNo && toInt(dbSptNo) === toInt(sptNo) && dbSptFull.includes(sptTahun)) {
-                    duplicateMsg.push(`Nomor SPT <b>${sptNo}</b> (Tahun ${sptTahun})`);
-                }
-                else if (!dbSptNo && dbSptFull) {
-                    const parts = dbSptFull.split('/');
-                    if (parts.length >= 4 && toInt(parts[1]) === toInt(sptNo) && parts[3] == sptTahun) {
+                // --- B. CEK NOMOR SPT (Hanya jika diinput) ---
+                if (sptNo !== "") {
+                    const dbSptNo = vals[12];        
+                    const dbSptFull = vals[13] || ""; 
+                    if (dbSptNo && toInt(dbSptNo) === toInt(sptNo) && dbSptFull.includes(sptTahun)) {
                         duplicateMsg.push(`Nomor SPT <b>${sptNo}</b> (Tahun ${sptTahun})`);
+                    } else if (!dbSptNo && dbSptFull) {
+                        const parts = dbSptFull.split('/');
+                        if (parts.length >= 4 && toInt(parts[1]) === toInt(sptNo) && parts[3] == sptTahun) {
+                            duplicateMsg.push(`Nomor SPT <b>${sptNo}</b> (Tahun ${sptTahun})`);
+                        }
                     }
                 }
 
-                // --- C. CEK NOMOR SPPD (JSON di Index 16) ---
+				// --- C. CEK NOMOR SPPD (Mendukung Irisan Range) ---
                 try {
                     const dbPersonils = JSON.parse(vals[16]);
-                    // Ambil Tahun dari string SPT database sebagai acuan
+                    
+                    // PERBAIKAN: Deteksi Tahun yang Lebih Cerdas (Karena SPT/TS bisa kosong)
                     let dbYear = "";
-                    if(dbSptFull) {
-                        const parts = dbSptFull.split('/');
-                        if(parts.length >= 4) dbYear = parts[3];
+                    if (vals[13]) { // Coba dari string Nomor SPT Lengkap
+                        const parts = vals[13].split('/');
+                        if (parts.length >= 4) dbYear = parts[3];
+                    }
+                    if (!dbYear && vals[10]) { // Coba dari string Nomor TS Lengkap
+                        const parts = vals[10].split('/');
+                        if (parts.length >= 4) dbYear = parts[3];
+                    }
+                    if (!dbYear && vals[3]) { // Fallback: Ambil dari Tanggal Mulai Perjadin
+                        dbYear = new Date(vals[3]).getFullYear().toString();
                     }
 
-                    dbPersonils.forEach(dbP => {
-                        const thisPersonil = personilList.find(p => toInt(p.no) === toInt(dbP.no)); // Bandingkan angka SPPD
-                        if (thisPersonil && dbYear == sptTahun) { 
-                            const msg = `Nomor SPPD <b>${thisPersonil.no}</b> (Tahun ${sptTahun})`;
-                            if (!duplicateMsg.includes(msg)) duplicateMsg.push(msg);
-                        }
-                    });
-                } catch(e) {}
+                    // Tahun target dari input form
+                    const targetYear = sptTahun || tsTahun || new Date().getFullYear().toString();
+
+                    if (dbYear === targetYear) { 
+                        dbPersonils.forEach(dbP => {
+                            if (!dbP.no) return; // Lewati jika SPPD di database kosong
+                            const dbSppdArr = expandSppd(dbP.no);
+                            
+                            personilList.forEach(inputP => {
+                                if (inputP.no !== "") { // Lewati jika SPPD yang diketik kosong
+                                    const inputSppdArr = expandSppd(inputP.no);
+                                    // Cek tabrakan angka
+                                    const isOverlap = inputSppdArr.some(num => dbSppdArr.includes(num));
+                                    
+                                    if (isOverlap) {
+                                        const msg = `Nomor SPPD <b>${inputP.no}</b> bertabrakan dengan data terdaftar (Tahun ${targetYear})`;
+                                        if (!duplicateMsg.includes(msg)) duplicateMsg.push(msg);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                } catch(e) {
+                    console.log("Error parse personil:", e);
+                }
             });
 
             // JIKA ADA DUPLIKAT -> TOLAK KERAS
             if (duplicateMsg.length > 0) {
                 Swal.fire({
                     title: 'Gagal Simpan!',
-                    html: `Nomor urut berikut sudah terdaftar di tahun <b>${inputTahun}</b>:<br>
+                    html: `Nomor urut berikut sudah terdaftar/bertabrakan:<br>
                            <ul class="text-start mt-3 mb-3 text-danger fw-bold small" style="list-style-position: inside;">
                                <li>${duplicateMsg.join('</li><li>')}</li>
                            </ul>
-                           Silakan gunakan nomor lain.`,
+                           Silakan kosongkan nomor jika belum ada, atau gunakan nomor lain.`,
                     icon: 'error',
                     confirmButtonColor: '#d33',
                     confirmButtonText: 'Tutup & Perbaiki'
                 });
-                return; // STOP PROSES
+                return; 
             }
 
-			// 6. KIRIM KE SERVER
-            
-            // FORMATTING AKHIR: Pastikan No Urut tersimpan minimal 3 digit (001)
+            // 6. KIRIM KE SERVER (Jika kosong, pastikan tidak menyimpan format "800//BKPSDM...")
             const fmtNo = (n) => n ? String(parseInt(n)).padStart(3, '0') : "";
             
             const finalTsNo = fmtNo(tsNo);
             const finalSptNo = fmtNo(sptNo);
             
-            // Update String Lengkap dengan nomor yang sudah diformat
-            const finalTsFull = `${tsKode}/${finalTsNo}/${tsSuffix}/${tsTahun}`;
-            const finalSptFull = `${sptKode}/${finalSptNo}/${sptSuffix}/${sptTahun}`;
+            const finalTsFull = finalTsNo ? `${tsKode}/${finalTsNo}/${tsSuffix}/${tsTahun}` : "";
+            const finalSptFull = finalSptNo ? `${sptKode}/${finalSptNo}/${sptSuffix}/${sptTahun}` : "";
 
             const payload = {
                 action: isEdit ? 'updatePerjadin' : 'simpanPerjadin',
@@ -3831,16 +3894,12 @@
                 maksud: pMaksud,
                 tempat: pTempat,
                 daerah: pDaerah,
-                
-                // GUNAKAN VARIABEL YANG SUDAH DIFORMAT
                 tsKode: tsKode,
-                tsNo: finalTsNo,     // Kirim "001"
-                noTS: finalTsFull,   // Kirim "800/.../001/..."
-                
+                tsNo: finalTsNo,     
+                noTS: finalTsFull,   
                 sptKode: sptKode,
-                sptNo: finalSptNo,   // Kirim "001"
-                noSPT: finalSptFull, // Kirim "800/.../001/..."
-                
+                sptNo: finalSptNo,   
+                noSPT: finalSptFull, 
                 asalNaskah: valAsalNaskah,
                 keterangan: document.getElementById('pKeterangan').value,
                 personilJson: JSON.stringify(personilList),
@@ -3849,7 +3908,7 @@
                 fileName: "", fileData: ""
             };
 
-            const fileInput = document.getElementById('pFile');
+			const fileInput = document.getElementById('pFile');
             const sendRequest = () => {
                 showLoading(true);
                 bootstrap.Modal.getInstance(document.getElementById('modalPerjadin')).hide();
@@ -3968,12 +4027,18 @@
                 fileHelp.innerText = "Belum ada file. Upload untuk menambahkan.";
             }
 
-            // Personil
+			// Personil
             try {
                 const pList = JSON.parse(r[16]);
                 pList.forEach(p => {
-                    // Pastikan No SPPD juga tampil 3 digit saat edit
-                    p.no = padNo(p.no); 
+                    // Pastikan No SPPD mempertahankan format range (strip) jika ada
+                    if (p.no && p.no.includes('-')) {
+                        // Biarkan aslinya, jangan dimasukkan ke padNo agar teks setelah strip tidak hilang
+                        p.no = p.no; 
+                    } else {
+                        // Jika nomor tunggal, pastikan formatnya 3 digit
+                        p.no = padNo(p.no); 
+                    }
                     addPersonilRow(p);
                 });
             } catch(e) {}
@@ -4004,6 +4069,10 @@
                 title: 'Hapus Perjadin?',
                 html: `Anda akan menghapus data perjalanan dinas ini.<br>Masukkan Password untuk konfirmasi:`,
                 input: 'password',
+				inputAttributes: {
+                    autocomplete: 'new-password',
+                    autocapitalize: 'off'
+                },
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -4028,12 +4097,16 @@
                             password: result.value
                         })
                     })
-                    .then(res => res.json())
+					.then(res => res.json())
                     .then(resp => {
                         showLoading(false);
                         if(resp.status === 'success') {
+                            // PENGAMAN TAMBAHAN: Kosongkan pencarian Perjadin
+                            document.getElementById('searchPerjadin').value = "";
+                            resetPagination('perjadin');
+
                             Swal.fire('Terhapus', resp.message, 'success');
-                            loadData(); // Refresh tabel
+                            loadData();
                         } else {
                             Swal.fire('Gagal', resp.message, 'error');
                         }
