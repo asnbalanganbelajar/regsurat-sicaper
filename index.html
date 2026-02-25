@@ -2746,10 +2746,18 @@
                 else if (r[2] === 'Luar Provinsi') badgeClass = "badge-ungu-muda";
                 else if (r[2] === 'Luar Negeri') badgeClass = "badge-coklat-muda";
 
-                // Index 16: Personil JSON
+				// Index 16: Personil JSON
 				let personilHtml = "";
 				try {
 					const pList = JSON.parse(r[16]);
+					
+					// --- TAMBAHAN BARU: Urutkan No SPPD dari Besar ke Kecil (Descending) ---
+					pList.sort((a, b) => {
+						// Ambil angka dari string (mengatasi format range seperti "005-008")
+						const getNum = (str) => parseInt(str ? String(str).split('-')[0].replace(/\D/g, '') : 0) || 0;
+						return getNum(b.no) - getNum(a.no);
+					});
+					
 					pList.forEach(p => {
 						personilHtml += `
 							<div class="mb-1 d-flex align-items-center" style="line-height:1.2;">
