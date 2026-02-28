@@ -1007,7 +1007,13 @@
 								<i class="fas fa-plane-departure me-1"></i> Perjadin
 							</a>
 						</li>						
-						
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-npd" onclick="showTab('npd')">
+                                <i class="fas fa-file-invoice-dollar me-1"></i> NPD
+                            </a>
+                        </li>
+
                         <li class="nav-item" id="menuPengaturan">
                             <a class="nav-link" href="#" id="nav-pengaturan" onclick="showTab('pengaturan')">
                                 <i class="fas fa-sliders-h me-1"></i> Pengaturan
@@ -1230,6 +1236,42 @@
                         </table>
                     </div>
                     <div class="pagination-container" id="paginationPerjadin"></div>
+                </div>
+            </div>
+
+            <div id="tab-npd" class="content-tab d-none">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-file-invoice-dollar me-2 text-muted"></i>Data NPD</h6>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="searchNpd" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari NPD" autocomplete="new-password" onkeyup="resetPagination('npd'); renderTables()">
+                            
+                            <button class="btn btn-success btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModalNpd()">
+                                <i class="fas fa-plus me-1"></i> Tambah
+                            </button>
+                            
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('npd')" title="Unduh Excel / PDF">
+                                <i class="fas fa-file-excel me-1"></i> Unduh Rekap
+                            </button>                           
+                        </div>
+                    </div>
+                    <div class="table-responsive d-none d-md-block">
+                        <table class="table table-custom mb-0" id="tableNpd">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%">Nomor NPD</th>
+                                    <th style="width: 20%">Asal Naskah</th>
+                                    <th style="width: 35%">Keterangan / Keperluan</th>
+                                    <th style="width: 15%" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="mobileNpdContainer" class="d-md-none p-2 bg-light">
+                    </div>
+                    <div class="pagination-container" id="paginationNpd"></div>
                 </div>
             </div>
 
@@ -1630,6 +1672,91 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalNpd" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h6 class="modal-title fw-bold" id="modalNpdTitle"><i class="fas fa-file-invoice-dollar me-2"></i>Input Nota Pencairan Dana (NPD)</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body bg-light">
+                    <form id="formNpd">
+                        <input type="hidden" id="nRowNumber">
+                        <input type="hidden" id="nIsEdit" value="false">
+                        <input type="hidden" id="nExistingFile">
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Tanggal Naskah<span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="nTglNaskah" required>
+                        </div>
+
+                        <div class="mb-3 p-3 border rounded bg-white shadow-sm">
+                            <label class="form-label small fw-bold text-dark mb-2">Penomoran NPD<span class="text-danger">*</span></label>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <label class="small text-muted mb-1">No Urut</label>
+                                    <input type="text" class="form-control text-center fw-bold border-success" id="nNoUrut" placeholder="Cth: 001" required onblur="formatAutoPad(this)">
+                                </div>
+                                <div class="col-4">
+                                    <label class="small text-muted mb-1">Kode Tengah</label>
+                                    <input type="text" class="form-control text-center" id="nKodeTengah" value="NPD/BKPSDM-BLG" readonly>
+                                </div>
+                                <div class="col-4">
+                                    <label class="small text-muted mb-1">Tahun</label>
+                                    <input type="number" class="form-control text-center" id="nTahun" value="2026" required>
+                                </div>
+                            </div>
+                            <div class="form-text small mt-2 text-success">
+                                <i class="fas fa-info-circle me-1"></i> Preview: <span id="previewNpd" class="fw-bold">-</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Asal Naskah<span class="text-danger">*</span></label>
+                            <select class="form-select" id="nAsalNaskah" required onchange="toggleAsalNaskahNpd()">
+                                <option value="">Pilih Asal Naskah</option> 
+                                <option value="Sekretariat">Sekretariat</option>
+                                <option value="Bidang PSDM">Bidang PSDM</option>
+                                <option value="Bidang PPIK">Bidang PPIK</option>
+                                <option value="Bidang MPK">Bidang MPK</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                            <input type="text" class="form-control mt-2" id="nAsalNaskahLainnya" placeholder="Ketikkan Asal Naskah..." style="display:none;">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Keterangan / Keperluan<span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="nKeperluan" rows="3" placeholder="Contoh: Biaya Belanja perjalanan dinas... (Sertakan tanggal kegiatan)" required style="resize: none;"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Upload Dokumen NPD (Opsional)</label>
+                            <input type="file" class="d-none" id="nFile" accept=".pdf,.jpg,.jpeg,.png">
+                            
+                            <div class="drop-zone" id="dropZoneNpd">
+                                <div class="drop-zone-text" id="dropZoneTextNpd">
+                                    <i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
+                                    <div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
+                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
+                                </div>
+                                <div class="file-selected-info" id="fileInfoNpd" style="display:none;">
+                                    <i class="fas fa-file-alt fa-lg"></i>
+                                    <span id="fileNameNpd" class="text-truncate" style="max-width: 150px;">nama_file.pdf</span>
+                                    <i class="fas fa-check-circle text-success ms-1"></i>
+                                </div>
+                            </div>
+                            <div class="form-text small mt-2" id="fileHelpNpd"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-white border-top-0">
+                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-success fw-bold px-4" onclick="simpanNpd()">Simpan NPD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL DOWNLOAD REKAP -->
     <div class="modal fade" id="modalDownload" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm"> 
@@ -1744,7 +1871,8 @@
             jenisSurat: [],
             suratMasuk: [],
             suratKeluar: [],
-			perjadin: [] // <--- TAMBAHAN BARU
+			perjadin: [], // <--- TAMBAHAN BARU
+            npd: [] // <--- TAMBAHAN BARU
         };
 		
 		let globalASN = []; // <--- TEMPAT DATABSE ASN
@@ -1759,6 +1887,8 @@
         let rowsPerPageKeluar = 5;
 		let currentPagePerjadin = 1; 
 		let rowsPerPagePerjadin = 5; // <--- TAMBAHAN BARU
+        let currentPageNpd = 1;      // <--- TAMBAHAN BARU
+        let rowsPerPageNpd = 5;      // <--- TAMBAHAN BARU
 
         // --- FUNGSI HELPER (Boleh diletakkan di sini) ---
         function updatePreviewNomor() {
@@ -1844,6 +1974,7 @@
             showLoading(false);
             setupDragAndDrop();
 			setupDragAndDropPerjadin(); // <--- TAMBAHKAN BARIS INI (Drag Drop Perjadin)
+            setupDragAndDropNpd(); // <--- TAMBAHKAN INI
 
             // PINDAHKAN LISTENER KE SINI (LEBIH AMAN)
             // Listener untuk auto-preview Nomor Surat Keluar
@@ -1862,7 +1993,14 @@
                 if(el) {
                     el.addEventListener('input', updatePreviewPerjadin);
                 }
-            });					
+            });	
+
+            // --- TAMBAHKAN INI UNTUK PREVIEW NPD ---
+            const idsNpd = ['nNoUrut', 'nTahun'];
+            idsNpd.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.addEventListener('input', updatePreviewNpd);
+            });			
         });
 
         // === FUNGSI UTAMA ===
@@ -1972,10 +2110,12 @@
                         globalData.suratMasuk = sortedMasuk;
                         globalData.suratKeluar = sortedKeluar;
 						globalData.perjadin = sortedPerjadin; // <--- SIMPAN
+                        globalData.npd = resp.data.npd || []; // <--- TAMBAHKAN INI
                     } else {
                         globalData.suratMasuk = sortedMasuk;
                         globalData.suratKeluar = sortedKeluar;
 						globalData.perjadin = sortedPerjadin; // <--- SIMPAN
+                        globalData.npd = resp.data.npd || []; // <--- TAMBAHKAN INI
                         globalData.jenisSurat = resp.data.jenisSurat;
                     }
 
@@ -2334,7 +2474,8 @@
                 'suratKeluar': ['Pencatatan Surat Keluar', 'Daftar surat yang keluar/diterbitkan'],
                 'pengaturan': ['Pengaturan Sistem', 'Konfigurasi aplikasi'],
 				// --- TAMBAHKAN BARIS INI ---
-				'perjadin': ['Data Perjalanan Dinas', 'Pengelolaan TS, SPT, & SPPD']				
+				'perjadin': ['Pencatatan Data Perjalanan Dinas', 'Daftar TS, SPT, & SPPD'],
+                'npd': ['Pencatatan Nota Pencairan Dana (NPD)', 'Daftar NPD yang diterbitkan'] // <--- TAMBAHAN BARU				
             };
             document.getElementById('pageTitle').innerText = titles[tabName][0];
             document.getElementById('pageTitle').nextElementSibling.innerText = titles[tabName][1];
@@ -2350,6 +2491,9 @@
 			} else if (tabName === 'perjadin') {
 				fab.style.display = 'flex';
 				fab.style.backgroundColor = '#3b82f6'; // Biru (Warna Perjadin)
+            } else if (tabName === 'npd') {
+				fab.style.display = 'flex';
+				fab.style.backgroundColor = '#10b981'; // Hijau Emerald (NPD)    
 			} else {
 				fab.style.display = 'none'; // Sembunyikan di Dashboard/Pengaturan
 			}
@@ -2498,6 +2642,9 @@
 			} else if (type === 'perjadin') {
 				rowsPerPagePerjadin = value === 'all' ? globalData.perjadin.length : parseInt(value);
 				currentPagePerjadin = 1;
+            } else if (type === 'npd') {  // <--- TAMBAHKAN BLOK INI
+                rowsPerPageNpd = value === 'all' ? globalData.npd.length : parseInt(value);
+                currentPageNpd = 1;    
 			}
 			renderTables();
 		}
@@ -2506,6 +2653,7 @@
 			if (type === 'masuk') currentPageMasuk = page;
 			else if (type === 'keluar') currentPageKeluar = page;
 			else if (type === 'perjadin') currentPagePerjadin = page;
+            else if (type === 'npd') currentPageNpd = page; // <--- TAMBAHKAN INI
 			renderTables();
 		}
 
@@ -2513,6 +2661,7 @@
 			if (type === 'masuk') currentPageMasuk = 1;
 			else if (type === 'keluar') currentPageKeluar = 1;
 			else if (type === 'perjadin') currentPagePerjadin = 1;
+            else if (type === 'npd') currentPageNpd = 1; // <--- TAMBAHKAN INI
 		}
 
         function renderPaginationControls(totalItems, currentPage, rowsPerPage, type, containerId) {
@@ -2573,6 +2722,7 @@
 			const termMasuk = document.getElementById('searchMasuk') ? document.getElementById('searchMasuk').value.toLowerCase() : '';
 			const termKeluar = document.getElementById('searchKeluar') ? document.getElementById('searchKeluar').value.toLowerCase() : '';
 			const termPerjadin = document.getElementById('searchPerjadin') ? document.getElementById('searchPerjadin').value.toLowerCase() : '';
+            const termNpd = document.getElementById('searchNpd') ? document.getElementById('searchNpd').value.toLowerCase() : '';
 
 			// LOGIKA PENCARIAN BARU (DIPERLUAS)
 
@@ -2620,6 +2770,15 @@
                 return textData.includes(termPerjadin);
             });
 
+            // --- Filter NPD ---
+            const filteredNpd = globalData.npd.filter(row => {
+                const textData = (
+                    (row.values[4] || "") + " " + // Nomor NPD Lengkap
+                    (row.values[5] || "") + " " + // Asal Naskah
+                    (row.values[6] || "")         // Keperluan
+                ).toLowerCase();
+                return textData.includes(termNpd);
+            });
 
             // -- PAGINATION SLICE --
             const startMasuk = (currentPageMasuk - 1) * rowsPerPageMasuk;
@@ -2631,6 +2790,10 @@
 			// Pagination Perjadin
             const startPerjadin = (currentPagePerjadin - 1) * rowsPerPagePerjadin;
             const paginatedPerjadin = filteredPerjadin.slice(startPerjadin, startPerjadin + rowsPerPagePerjadin);
+
+            // Pagination NPD
+            const startNpd = (currentPageNpd - 1) * rowsPerPageNpd;
+            const paginatedNpd = filteredNpd.slice(startNpd, startNpd + rowsPerPageNpd);
 
             // -- RENDER ROWS HELPER --
 
@@ -2688,33 +2851,44 @@
 						</tr>
 					`;
 				} else {
-					// TABLE ROW SURAT KELUAR
-					// 4:NoLengkap, 5:Jenis, 6:Perihal, 7:Tujuan, 8:AsalNaskah
-					return `
-						<tr>
-							<td>
-								<div class="fw-bold text-dark small">${row[5]}</div> 
-								<small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
-							</td>
-							<td>
-								<span class="badge ${badgeClass} mb-1">${row[6]}</span>
-								<div class="small text-dark text-wrap">${row[7]}</div>
-							</td>
-							<td><div class="small">${row[8]}</div></td>
-							<td><span class="badge bg-light text-dark border">${row[9]}</span></td> 
-							
-							<td>${ketHtml}</td>
-							
-							<td class="text-center">
-								<div class="d-flex justify-content-center gap-2">
-									${btnFile}
-									<button class="btn-circle btn-circle-warning" onclick="editData('${type}', ${realRow})"><i class="fas fa-pen"></i></button>
-									<button class="btn-circle btn-circle-danger" onclick="hapusData('${type}', ${realRow})"><i class="fas fa-trash-alt"></i></button>
-								</div>
-							</td>
-						</tr>
-					`;
-				}
+                    // TABLE ROW SURAT KELUAR
+                    
+                    // --- LOGIKA WARNA BIRU NOMOR URUT SURAT KELUAR ---
+                    let displayNoKeluar = row[5] || "";
+                    if (displayNoKeluar.includes('/')) {
+                        let parts = displayNoKeluar.split('/');
+                        // Nomor urut Surat Keluar ada di posisi ke-2 (index 1), contoh: 800.1.3/001/BKPSDM...
+                        if (parts.length > 1) {
+                            parts[1] = `<span class="text-primary fw-bold">${parts[1]}</span>`;
+                            displayNoKeluar = parts.join('/');
+                        }
+                    }
+
+                    return `
+                        <tr>
+                            <td>
+                                <div class="fw-bold text-dark small">${displayNoKeluar}</div> 
+                                <small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
+                            </td>
+                            <td>
+                                <span class="badge ${badgeClass} mb-1">${row[6]}</span>
+                                <div class="small text-dark text-wrap">${row[7]}</div>
+                            </td>
+                            <td><div class="small">${row[8]}</div></td>
+                            <td><span class="badge bg-light text-dark border">${row[9]}</span></td> 
+                            
+                            <td>${ketHtml}</td>
+                            
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    ${btnFile}
+                                    <button class="btn-circle btn-circle-warning" onclick="editData('${type}', ${realRow})"><i class="fas fa-pen"></i></button>
+                                    <button class="btn-circle btn-circle-danger" onclick="hapusData('${type}', ${realRow})"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
 			};
 
 			// --- UPDATE: FUNGSI RENDER BARIS PERJADIN (VERSI INDEX BARU) ---
@@ -2844,6 +3018,101 @@
                 `;
             };
 
+            // --- FUNGSI RENDER BARIS NPD ---
+            const createRowNpd = (rowObj) => {
+                const r = rowObj.values;
+                const realRow = rowObj.rowNumber;
+                
+                // Format Tanggal Naskah
+                const tgl = new Date(r[2]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
+                
+                // --- LOGIKA WARNA BIRU NOMOR URUT NPD ---
+                let displayNoNpd = r[4] || "";
+                if (displayNoNpd.includes('/')) {
+                    let parts = displayNoNpd.split('/');
+                    // Nomor urut NPD ada di posisi paling depan (index 0), contoh: 001/NPD/BKPSDM...
+                    if (parts.length > 0) {
+                        parts[0] = `<span class="text-primary fw-bold">${parts[0]}</span>`;
+                        displayNoNpd = parts.join('/');
+                    }
+                }
+
+                // Tombol File
+                let btnFile = r[7] ? 
+                    `<button class="btn-circle btn-circle-primary" onclick="previewFile('${r[7]}')" title="Lihat Dokumen"><i class="fas fa-eye"></i></button>` : 
+                    `<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-eye-slash"></i></button>`;
+
+                return `
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <div class="fw-bold text-dark small">${displayNoNpd}</div> 
+                            <small class="text-muted" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> ${tgl}</small>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <span class="badge bg-light text-dark border">${r[5]}</span>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="small text-dark text-wrap" style="line-height: 1.4;">${r[6]}</div>
+                        </td>
+                        <td class="text-center" style="vertical-align: top;">
+                            <div class="d-flex justify-content-center gap-2">
+                                ${btnFile}
+                                <button class="btn-circle btn-circle-warning" onclick="editNpd(${realRow})"><i class="fas fa-pen"></i></button>
+                                <button class="btn-circle btn-circle-danger" onclick="hapusNpd(${realRow})"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            };
+
+            // --- FUNGSI RENDER CARD MOBILE NPD ---
+            const createCardNpd = (rowObj) => {
+                const r = rowObj.values;
+                const realRow = rowObj.rowNumber;
+                
+                // Format Tanggal (Format lengkap untuk di kartu)
+                const tgl = new Date(r[2]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                
+                // Logika Warna Biru Nomor Urut (Sama dengan versi Desktop)
+                let displayNoNpd = r[4] || "";
+                if (displayNoNpd.includes('/')) {
+                    let parts = displayNoNpd.split('/');
+                    if (parts.length > 0) {
+                        parts[0] = `<span class="text-primary fw-bold">${parts[0]}</span>`;
+                        displayNoNpd = parts.join('/');
+                    }
+                }
+
+                // Tombol File versi Mobile (Melebar)
+                let btnFile = r[7] ? 
+                    `<button class="btn btn-sm btn-outline-primary flex-fill fw-bold" onclick="previewFile('${r[7]}')"><i class="fas fa-eye me-1"></i>Lihat Dokumen</button>` : 
+                    `<button class="btn btn-sm btn-outline-secondary flex-fill" disabled><i class="fas fa-eye-slash me-1"></i>Kosong</button>`;
+
+                return `
+                    <div class="card shadow-sm mb-3 border-0" style="border-radius: 12px; overflow: hidden;">
+                        <div class="card-body p-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <div class="fw-bold text-dark" style="font-size: 1.05rem;">${displayNoNpd}</div>
+                                    <div class="small text-muted mt-1"><i class="far fa-calendar-alt me-1"></i> ${tgl}</div>
+                                </div>
+                                <span class="badge bg-success bg-opacity-10 text-success border border-success">${r[5]}</span>
+                            </div>
+                            
+                            <div class="small text-dark mb-3 pb-3 border-bottom" style="line-height: 1.5;">
+                                ${r[6]}
+                            </div>
+                            
+                            <div class="d-flex gap-2">
+                                ${btnFile}
+                                <button class="btn btn-sm btn-warning text-white px-3" onclick="editNpd(${realRow})"><i class="fas fa-pen"></i></button>
+                                <button class="btn btn-sm btn-danger px-3" onclick="hapusNpd(${realRow})"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            };
+
             // Render Masuk
             const tbodyMasuk = document.querySelector('#tableMasuk tbody');
             tbodyMasuk.innerHTML = '';
@@ -2874,6 +3143,26 @@
                     paginatedPerjadin.forEach(rowObj => tbodyPerjadin.innerHTML += createRowPerjadin(rowObj));
                 }
                 renderPaginationControls(filteredPerjadin.length, currentPagePerjadin, rowsPerPagePerjadin, 'perjadin', 'paginationPerjadin');
+            }
+
+            // Render NPD ke Desktop dan Mobile
+            const tbodyNpd = document.querySelector('#tableNpd tbody');
+            const mobileNpd = document.getElementById('mobileNpdContainer');
+            
+            if(tbodyNpd && mobileNpd) {
+                tbodyNpd.innerHTML = '';
+                mobileNpd.innerHTML = ''; 
+                
+                if (paginatedNpd.length === 0) {
+                    tbodyNpd.innerHTML = '<tr><td colspan="4" class="text-center py-5 text-muted">Data tidak ditemukan</td></tr>';
+                    mobileNpd.innerHTML = '<div class="text-center py-5 text-muted bg-white rounded shadow-sm">Data tidak ditemukan</div>';
+                } else {
+                    paginatedNpd.forEach(rowObj => {
+                        tbodyNpd.innerHTML += createRowNpd(rowObj);   // Isi ke tabel PC
+                        mobileNpd.innerHTML += createCardNpd(rowObj);  // Isi ke kartu HP
+                    });
+                }
+                renderPaginationControls(filteredNpd.length, currentPageNpd, rowsPerPageNpd, 'npd', 'paginationNpd');
             }
         }			
 
@@ -3606,8 +3895,10 @@
 				openModal('masuk');
 			} else if (!document.getElementById('tab-suratKeluar').classList.contains('d-none')) {
 				openModal('keluar');
-			} else if (!document.getElementById('tab-perjadin').classList.contains('d-none')) { // TAMBAHAN
+			} else if (!document.getElementById('tab-perjadin').classList.contains('d-none')) { 
                 openModalPerjadin();
+            } else if (!document.getElementById('tab-npd').classList.contains('d-none')) { // <--- TAMBAHAN UNTUK NPD
+                openModalNpd();
             }			
 		}
 
@@ -3686,6 +3977,7 @@
 
             // Update Preview
             if (input.id === 'inpNoUrut' && typeof updatePreviewNomor === "function") updatePreviewNomor();
+            else if (input.id === 'nNoUrut' && typeof updatePreviewNpd === "function") updatePreviewNpd(); // <--- TAMBAHAN UNTUK NPD
             else if (typeof updatePreviewPerjadin === "function") updatePreviewPerjadin();
         }
 
@@ -4221,6 +4513,312 @@
 
                             Swal.fire('Terhapus', resp.message, 'success');
                             loadData();
+                        } else {
+                            Swal.fire('Gagal', resp.message, 'error');
+                        }
+                    });
+                }
+            });
+        }
+
+        // === LOGIKA NPD (NOTA PENCAIRAN DANA) ===
+
+        function openModalNpd() {
+            document.getElementById('formNpd').reset();
+            resetDropZoneNpd();
+
+            // Set Default
+            document.getElementById('nTahun').value = "2026";
+            document.getElementById('nKodeTengah').value = "NPD/BKPSDM-BLG";
+            document.getElementById('nAsalNaskah').value = "";
+            toggleAsalNaskahNpd();
+            
+            document.getElementById('nIsEdit').value = "false";
+            document.getElementById('nRowNumber').value = "";
+            document.getElementById('modalNpdTitle').innerHTML = "<i class='fas fa-file-invoice-dollar me-2'></i>Input Nota Pencairan Dana (NPD)";
+            
+            updatePreviewNpd();
+            new bootstrap.Modal(document.getElementById('modalNpd')).show();
+        }
+
+        function updatePreviewNpd() {
+            const no = document.getElementById('nNoUrut').value;
+            const kode = document.getElementById('nKodeTengah').value;
+            const tahun = document.getElementById('nTahun').value;
+            
+            const preview = document.getElementById('previewNpd');
+            if(no) {
+                preview.innerText = `${no}/${kode}/${tahun}`;
+            } else {
+                preview.innerText = `-`;
+            }
+        }
+
+        function toggleAsalNaskahNpd() {
+            const dropdown = document.getElementById('nAsalNaskah');
+            const inputLain = document.getElementById('nAsalNaskahLainnya');
+            
+            if (dropdown.value === 'Lainnya') {
+                inputLain.style.display = 'block';
+                inputLain.setAttribute('required', '');
+                inputLain.focus();
+            } else {
+                inputLain.style.display = 'none';
+                inputLain.removeAttribute('required');
+                inputLain.value = ""; 
+            }
+        }
+
+        // --- DRAG & DROP KHUSUS NPD ---
+        function setupDragAndDropNpd() {
+            const dropZone = document.getElementById('dropZoneNpd');
+            const fileInput = document.getElementById('nFile'); 
+            
+            if(!dropZone || !fileInput) return; // Safety check
+
+            dropZone.addEventListener('click', () => fileInput.click());
+            
+            const validateFileSize = (file) => {
+                if (file.size > 2 * 1024 * 1024) {
+                    Swal.fire({ icon: 'error', title: 'Gagal Upload', text: 'Ukuran file max 2 MB.' });
+                    fileInput.value = "";
+                    resetDropZoneNpd();
+                    return false;
+                }
+                return true;
+            };
+
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    if (validateFileSize(fileInput.files[0])) updateUI(fileInput.files[0].name);
+                }
+            });
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => {
+                dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); }, false);
+            });
+            ['dragenter', 'dragover'].forEach(evt => dropZone.classList.add('dragover'));
+            ['dragleave', 'drop'].forEach(evt => dropZone.classList.remove('dragover'));
+
+            dropZone.addEventListener('drop', (e) => {
+                if (e.dataTransfer.files.length > 0) {
+                    const file = e.dataTransfer.files[0];
+                    if (validateFileSize(file)) {
+                        fileInput.files = e.dataTransfer.files;
+                        updateUI(file.name);
+                    }
+                }
+            });
+
+            function updateUI(name) {
+                document.getElementById('dropZoneTextNpd').style.display = 'none';
+                document.getElementById('fileInfoNpd').style.display = 'flex';
+                document.getElementById('fileNameNpd').innerText = name;
+            }
+        }
+
+        function resetDropZoneNpd() {
+            document.getElementById('dropZoneTextNpd').style.display = 'block';
+            document.getElementById('fileInfoNpd').style.display = 'none';
+            document.getElementById('nFile').value = "";
+            document.getElementById('fileHelpNpd').innerText = "";
+        }
+
+        // ==========================================
+        // --- CRUD NOTA PENCAIRAN DANA (NPD) ---
+        // ==========================================
+
+        function simpanNpd() {
+            const tglNaskah = document.getElementById('nTglNaskah').value;
+            let noUrut = document.getElementById('nNoUrut').value; // Menggunakan let agar bisa diformat
+            const kodeTengah = document.getElementById('nKodeTengah').value;
+            const tahun = document.getElementById('nTahun').value;
+            
+            let asalNaskah = document.getElementById('nAsalNaskah').value;
+            if (asalNaskah === 'Lainnya') asalNaskah = document.getElementById('nAsalNaskahLainnya').value;
+            
+            const keperluan = document.getElementById('nKeperluan').value;
+
+            // Validasi Field Wajib
+            let emptyFields = [];
+            if (!tglNaskah) emptyFields.push("Tanggal Naskah");
+            if (!noUrut) emptyFields.push("No Urut");
+            if (!tahun) emptyFields.push("Tahun");
+            if (!asalNaskah) emptyFields.push("Asal Naskah");
+            if (!keperluan) emptyFields.push("Keterangan/Keperluan");
+
+            if (emptyFields.length > 0) {
+                Swal.fire({icon: 'warning', title: 'Data Belum Lengkap', html: `Lengkapi:<br><b>${emptyFields.join(', ')}</b>`});
+                return;
+            }
+
+            // --- LOGIKA AUTO-PAD & CEK DUPLIKASI BARU ---
+            // Format angka secara paksa jika user melewatkan onblur
+            noUrut = String(parseInt(noUrut) || 0).padStart(3, '0');
+            document.getElementById('nNoUrut').value = noUrut; // update ke layar UI
+            
+            const noLengkap = `${noUrut}/${kodeTengah}/${tahun}`;
+            const isEdit = document.getElementById('nIsEdit').value === "true";
+            const currentRow = document.getElementById('nRowNumber').value;
+            
+            const inputNoInt = parseInt(noUrut) || 0; // Ubah jadi angka murni untuk perbandingan
+
+            // Cek Duplikasi Cerdas (1 = 01 = 001)
+            const isDuplicate = globalData.npd.some(item => {
+                if (isEdit && String(item.rowNumber) === String(currentRow)) return false;
+                
+                const dbNoUrutInt = parseInt(item.values[3]) || 0; // Kolom No Urut (Index 3)
+                const dbNoLengkap = String(item.values[4] || "");  // Kolom No Lengkap (Index 4)
+
+                // Tolak jika angkanya sama persis DAN berada di tahun yang sama
+                return (dbNoUrutInt === inputNoInt && dbNoLengkap.includes(tahun));
+            });
+
+            if (isDuplicate) {
+                Swal.fire({
+                    title: 'Gagal Simpan!', 
+                    html: `Nomor Urut <b>${inputNoInt}</b> sudah terdaftar di tahun <b>${tahun}</b>.<br>Silakan gunakan nomor urut lain.`, 
+                    icon: 'error',
+                    confirmButtonColor: '#d33'
+                });
+                return;
+            }
+            // ---------------------------------------------
+
+            const payload = {
+                action: isEdit ? 'updateNpd' : 'simpanNpd',
+                rowNumber: currentRow,
+                tanggalNaskah: tglNaskah,
+                noUrut: noUrut,
+                noNpdLengkap: noLengkap,
+                asalNaskah: asalNaskah,
+                keperluan: keperluan,
+                existingFile: document.getElementById('nExistingFile').value,
+                username: currentUser.username,
+                fileName: "", fileData: ""
+            };
+
+            const fileInput = document.getElementById('nFile');
+            
+            const sendRequest = () => {
+                showLoading(true);
+                bootstrap.Modal.getInstance(document.getElementById('modalNpd')).hide();
+                fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(payload) })
+                .then(res => res.json()).then(resp => {
+                    showLoading(false);
+                    if(resp.status === 'success') {
+                        Swal.fire('Berhasil', resp.message, 'success');
+                        loadData();
+                    } else {
+                        Swal.fire('Gagal', resp.message, 'error');
+                    }
+                });
+            };
+
+            // Proses Upload File jika ada
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.size > 2*1024*1024) { Swal.fire('Error','File max 2MB','error'); return; }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    payload.fileName = file.name;
+                    payload.fileData = e.target.result.split(',')[1];
+                    sendRequest();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                sendRequest();
+            }
+        }
+
+        function editNpd(rowNumber) {
+            const dataObj = globalData.npd.find(item => item.rowNumber === rowNumber);
+            if (!dataObj) return;
+            const r = dataObj.values;
+
+            // Cek Kepemilikan (Username di index 8)
+            if (r[8] !== currentUser.username && currentUser.role !== 'Super Admin') {
+                Swal.fire('Akses Ditolak', 'Hanya Pemilik dan Super Admin yang dapat mengedit data ini.', 'error');
+                return;
+            }
+
+            openModalNpd();
+            document.getElementById('nIsEdit').value = "true";
+            document.getElementById('nRowNumber').value = rowNumber;
+            document.getElementById('modalNpdTitle').innerHTML = "<i class='fas fa-pen me-2'></i>Edit NPD";
+
+            // Set Form Data
+            const d = new Date(r[2]);
+            document.getElementById('nTglNaskah').value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+            const padNo = (val) => val ? String(parseInt(val)).padStart(3, '0') : "";
+            document.getElementById('nNoUrut').value = padNo(r[3]);
+            
+            // Ekstrak Tahun dari Nomor Lengkap
+            const parts = (r[4] || "").split('/');
+            if(parts.length >= 3) {
+                document.getElementById('nTahun').value = parts[parts.length-1];
+            }
+
+            const dbAsal = r[5];
+            const stdOptions = ["Sekretariat", "Bidang PSDM", "Bidang PPIK", "Bidang MPK"];
+            if (stdOptions.includes(dbAsal)) {
+                document.getElementById('nAsalNaskah').value = dbAsal;
+                toggleAsalNaskahNpd();
+            } else {
+                document.getElementById('nAsalNaskah').value = "Lainnya";
+                toggleAsalNaskahNpd();
+                document.getElementById('nAsalNaskahLainnya').value = dbAsal;
+            }
+
+            document.getElementById('nKeperluan').value = r[6];
+            document.getElementById('nExistingFile').value = r[7];
+            
+            if (r[7]) {
+                document.getElementById('fileHelpNpd').innerHTML = `<span class="text-success fw-bold"><i class="fas fa-check-circle"></i> File tersimpan.</span> Upload baru untuk mengganti.`;
+            } else {
+                document.getElementById('fileHelpNpd').innerText = "Belum ada file. Upload untuk menambahkan.";
+            }
+
+            updatePreviewNpd();
+        }
+
+        function hapusNpd(rowNumber) {
+            const dataObj = globalData.npd.find(item => item.rowNumber === rowNumber);
+            if (!dataObj) return;
+
+            if (dataObj.values[8] !== currentUser.username && currentUser.role !== 'Super Admin') {
+                Swal.fire('Akses Ditolak', 'Hanya Pemilik dan Super Admin yang dapat menghapus data ini.', 'error');
+                return;
+            }
+
+            Swal.fire({
+                title: 'Hapus NPD?',
+                html: `Masukkan Password Anda untuk konfirmasi penghapusan:`,
+                input: 'password',
+                inputAttributes: { autocomplete: 'new-password', autocapitalize: 'off' },
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                preConfirm: (pass) => {
+                    if (!pass) Swal.showValidationMessage('Password wajib diisi!');
+                    return pass;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    showLoading(true);
+                    fetch(GAS_API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'hapusNpd', rowNumber: rowNumber, username: currentUser.username, password: result.value })
+                    }).then(res => res.json()).then(resp => {
+                        showLoading(false);
+                        if(resp.status === 'success') {
+                            document.getElementById('searchNpd').value = "";
+                            resetPagination('npd');
+                            Swal.fire('Terhapus', resp.message, 'success');
+                            loadData(); // Refresh Data
                         } else {
                             Swal.fire('Gagal', resp.message, 'error');
                         }
