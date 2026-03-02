@@ -2812,7 +2812,7 @@
 					`<button class="btn-circle btn-circle-disabled" disabled><i class="fas fa-eye-slash"></i></button>`;
 				
 				// Format Tanggal
-				let tgl = new Date(row[2]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
+				let tgl = new Date(row[2]).toLocaleDateString('id-ID', { timeZone: 'Asia/Makassar', day: 'numeric', month: 'short', year: '2-digit' });
 				const badgeClass = type === 'masuk' ? 'badge-masuk' : 'badge-keluar';
 
 				// --- STYLE KETERANGAN (SERAGAM PERJADIN) ---
@@ -2897,7 +2897,7 @@
                 const realRow = rowObj.rowNumber;
                 
                 // Format: 20 Feb 26
-                const dateOpts = {day:'numeric', month:'short', year: '2-digit'};
+                const dateOpts = { timeZone: 'Asia/Makassar', day:'numeric', month:'short', year: '2-digit' };
                 
                 let tglStart = new Date(r[3]).toLocaleDateString('id-ID', dateOpts);
                 let tglDisplay = tglStart;
@@ -3024,7 +3024,7 @@
                 const realRow = rowObj.rowNumber;
                 
                 // Format Tanggal Naskah
-                const tgl = new Date(r[2]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: '2-digit' });
+               const tgl = new Date(r[2]).toLocaleDateString('id-ID', { timeZone: 'Asia/Makassar', day: 'numeric', month: 'short', year: '2-digit' });
                 
                 // --- LOGIKA WARNA BIRU NOMOR URUT NPD ---
                 let displayNoNpd = r[4] || "";
@@ -3071,7 +3071,7 @@
                 const realRow = rowObj.rowNumber;
                 
                 // Format Tanggal (Format lengkap untuk di kartu)
-                const tgl = new Date(r[2]).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                const tgl = new Date(r[2]).toLocaleDateString('id-ID', { timeZone: 'Asia/Makassar', day: 'numeric', month: 'short', year: 'numeric' });
                 
                 // Logika Warna Biru Nomor Urut (Sama dengan versi Desktop)
                 let displayNoNpd = r[4] || "";
@@ -3390,11 +3390,12 @@
 			document.getElementById('btnSimpan').innerText = "Perbarui";
 			document.getElementById('modalTitle').innerHTML = "<i class='fas fa-pen me-2'></i>Edit Data";
 
-			// Format Tanggal untuk input date (YYYY-MM-DD)
+			// Format Tanggal untuk input date (YYYY-MM-DD) - Force WITA
 			const d = new Date(rowData[2]);
-			const yyyy = d.getFullYear();
-			const mm = String(d.getMonth() + 1).padStart(2, '0');
-			const dd = String(d.getDate()).padStart(2, '0');
+			const tzDate = new Date(d.toLocaleString("en-US", {timeZone: "Asia/Makassar"}));
+			const yyyy = tzDate.getFullYear();
+			const mm = String(tzDate.getMonth() + 1).padStart(2, '0');
+			const dd = String(tzDate.getDate()).padStart(2, '0');
 			document.getElementById('inpTanggal').value = `${yyyy}-${mm}-${dd}`;
 
 			if (type === 'masuk') {
@@ -4369,8 +4370,10 @@
             const fmtDate = (dStr) => { 
                 if(!dStr) return "";
                 const d = new Date(dStr); 
-                return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
+                const tzDate = new Date(d.toLocaleString("en-US", {timeZone: "Asia/Makassar"}));
+                return `${tzDate.getFullYear()}-${String(tzDate.getMonth()+1).padStart(2,'0')}-${String(tzDate.getDate()).padStart(2,'0')}`; 
             };
+			
             document.getElementById('pTglMulai').value = fmtDate(r[3]);
             document.getElementById('pTglSelesai').value = fmtDate(r[4]);
             toggleTanggalSelesai();
@@ -4747,11 +4750,12 @@
             document.getElementById('nRowNumber').value = rowNumber;
             document.getElementById('modalNpdTitle').innerHTML = "<i class='fas fa-pen me-2'></i>Edit NPD";
 
-            // Set Form Data
+            // Set Form Data (Force Zona Waktu ke WITA agar tidak mundur sehari)
             const d = new Date(r[2]);
-            document.getElementById('nTglNaskah').value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+            const tzDate = new Date(d.toLocaleString("en-US", {timeZone: "Asia/Makassar"}));
+            document.getElementById('nTglNaskah').value = `${tzDate.getFullYear()}-${String(tzDate.getMonth()+1).padStart(2,'0')}-${String(tzDate.getDate()).padStart(2,'0')}`;
+            
             const padNo = (val) => val ? String(parseInt(val)).padStart(3, '0') : "";
-            document.getElementById('nNoUrut').value = padNo(r[3]);
             
             // Ekstrak Tahun dari Nomor Lengkap
             const parts = (r[4] || "").split('/');
@@ -4831,6 +4835,7 @@
 </body>
 
 </html>
+
 
 
 
