@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICAPER - BKPSDM Balangan</title>
+	<link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- SheetJS (XLSX) Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- SortableJS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    
+    <!-- Custom CSS (File Terpisah) -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- === MODAL PENCARIAN KODE KLASIFIKASI === -->
+    <div class="modal fade" id="modalKlasifikasi" tabindex="-1" aria-labelledby="modalKlasifikasiLabel" aria-hidden="true" style="z-index: 1060;">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white py-3">
+                    <h6 class="modal-title m-0" id="modalKlasifikasiLabel">
+                        <i class="fas fa-list-ol me-2"></i>Pilih Kode Klasifikasi
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body p-0 bg-light">
+                    <!-- Bar Pencarian Nempel di Atas (Sticky) -->
+                    <div class="p-3 bg-white border-bottom position-sticky top-0 shadow-sm" style="z-index: 10;">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white text-muted border-end-0"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0 shadow-none" id="searchKlasifikasi" placeholder="Ketik kode atau deskripsi klasifikasi..." onkeyup="cariKlasifikasi()">
+                        </div>
+                        <div class="small text-muted mt-2 fst-italic" id="klasifikasiInfo">Memuat data...</div>
+                    </div>
+                    
+                    <!-- Daftar Kode -->
+                    <div class="list-group list-group-flush pb-3" id="listKlasifikasi">
+                        <!-- Data akan dirender JS di sini -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay d-none">
+        <img src="https://lh3.googleusercontent.com/pw/AP1GczN7ufulI_rQtJKcpRoa3XLkYc72vg-cmZVNYqM730nWdWONDhiwlrxlTmIbtTNUtZHP-oAC0flAjxc9b06ROnL9GCtKWCuCyYKk43h-408xvaQ1_HL39x_CFu8J3ENQ6DbHB4BEp1onZYi3FVPbLn4p=w500-h500-s-no-gm?authuser=0" alt="Logo" class="loading-logo">
+        <div class="loading-text">Memuat Data ...</div>
+    </div>
+
+    <!-- 1. LOGIN PANEL -->
+	<div id="loginPanel" class="login-wrapper">
+        <div class="login-container">
+            
+            <div class="login-brand-side">
+                <div class="login-decoration-1"></div>
+                <div class="login-decoration-2"></div>
+                
+                <img src="https://lh3.googleusercontent.com/pw/AP1GczM_UPrepfWkWp7jie4Km8sQ31_CG_kAWBdf0n1pqo_DxxM_rdZrJuI88Bl3rS36MIAwqtcBFcJbv2P2Rqrvy59MbD_OkSroCvOZJv9EXIgwgU5JNYSOKU7E05N0UP_SiBF_yfYLKj1RmFyfE-BGJV9N=w500-h500-s-no-gm?authuser=0" alt="Logo BKPSDM" class="brand-logo-img">
+                <div class="brand-title">SICAPER</div>
+                <div class="brand-divider"></div>
+                <div class="brand-subtitle">
+                    Sistem Informasi & Catatan Persuratan<br>
+                    BKPSDM Kabupaten Balangan
+                </div>
+            </div>
+
+            <div class="login-form-side">
+                <div class="login-header">
+                    <h5>Selamat Datang!</h5>
+                    <p>Silakan masukkan kredensial untuk melanjutkan.</p>
+                </div>
+
+				<form id="formLogin">
+                    <div class="input-group login-input-group mb-4">
+                        <span class="input-group-text">
+                            <i class="fas fa-user fa-lg"></i>
+                        </span>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="username" placeholder="Username" required>
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group login-input-group mb-5">
+                        <span class="input-group-text">
+                            <i class="fas fa-lock fa-lg"></i>
+                        </span>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-login-custom w-100 mb-4">
+                        MASUK <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </form>
+
+                <div class="login-footer-text">
+                    &copy; 2026 <span>BKPSDM Balangan</span>. All rights reserved.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 2. APP PANEL (INTI) -->
+    <div id="appPanel" class="d-none">
+        
+        <header class="app-header">
+            <nav class="navbar navbar-expand-lg navbar-main">
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN7ufulI_rQtJKcpRoa3XLkYc72vg-cmZVNYqM730nWdWONDhiwlrxlTmIbtTNUtZHP-oAC0flAjxc9b06ROnL9GCtKWCuCyYKk43h-408xvaQ1_HL39x_CFu8J3ENQ6DbHB4BEp1onZYi3FVPbLn4p=w500-h500-s-no-gm?authuser=0" alt="Logo">
+                        <div class="ms-2">
+                            <div class="navbar-text-main">S I C A P E R</div>
+                            <div class="navbar-text-sub">Sistem Informasi & Catatan Persuratan</div>
+                        </div>
+                    </a>
+                   
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="user-pill d-none d-md-flex">
+                            <div class="pe-2">
+                                <div class="user-name small fw-bold" id="userNama">User</div>
+                                <div class="user-role small" style="font-size: 0.7rem; margin-top: -2px;" id="userRole">Admin</div>
+                            </div>
+                        </div>
+                        <button class="btn-logout" onclick="logout()" title="Keluar Aplikasi">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="nav-tabs-container">
+                <div class="container">
+                    <ul class="nav nav-pills" id="mainTab">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" id="nav-dashboard" onclick="showTab('dashboard')">
+                                <i class="fas fa-chart-pie me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-suratMasuk" onclick="showTab('suratMasuk')">
+                                <i class="fas fa-envelope-open-text me-1"></i> Surat Masuk
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-suratKeluar" onclick="showTab('suratKeluar')">
+                                <i class="fas fa-paper-plane me-1"></i> Surat Keluar
+                            </a>
+                        </li>
+
+                        <!-- TAMBAHAN MENU SURAT KEPUTUSAN -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-suratKeputusan" onclick="showTab('suratKeputusan')">
+                                <i class="fas fa-gavel me-1"></i> Surat Keputusan
+                            </a>
+                        </li>
+						
+						<li class="nav-item">
+							<a class="nav-link" href="#" id="nav-perjadin" onclick="showTab('perjadin')">
+								<i class="fas fa-plane-departure me-1"></i> Perjadin
+							</a>
+						</li>						
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-npd" onclick="showTab('npd')">
+                                <i class="fas fa-file-invoice-dollar me-1"></i> NPD
+                            </a>
+                        </li>
+
+                        <li class="nav-item" id="menuPengaturan">
+                            <a class="nav-link" href="#" id="nav-pengaturan" onclick="showTab('pengaturan')">
+                                <i class="fas fa-sliders-h me-1"></i> Pengaturan
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN CONTAINER -->
+        <div class="container pb-5 mt-4" style="min-height: 100vh;">
+            
+            <div class="d-flex justify-content-between align-items-end mb-4 px-1">
+                <div>
+                    <h4 id="pageTitle" class="fw-bold text-dark mb-0">Statistik Surat</h4>
+                    <p class="text-muted small mb-0">Kounter jumlah Surat Masuk dan Surat Keluar</p>
+                </div>
+            </div>
+
+            <!-- TAB: DASHBOARD -->
+			<div id="tab-dashboard" class="content-tab">
+				
+				<div class="row g-4 mb-4">
+					<div class="col-md-6">
+						<div class="card stat-card bg-gradient-masuk h-100 p-4 shadow-soft">
+							<div class="position-relative z-1 d-flex justify-content-between align-items-center">
+								<div>
+									<h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Total Surat Masuk</h6>
+									<h1 id="countMasuk" class="display-4 fw-bold mb-0">0</h1>
+									<p class="text-white-50 mb-0 mt-2 small">
+										<i class="fas fa-calendar-alt me-1"></i> Bulan ini: <span id="countMasukMonth" class="fw-bold text-white">0</span>
+									</p>
+								</div>
+								<div class="text-end opacity-50">
+									<i class="fas fa-inbox fa-4x"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card stat-card bg-gradient-keluar h-100 p-4 shadow-soft">
+							<div class="position-relative z-1 d-flex justify-content-between align-items-center">
+								<div>
+									<h6 class="text-white-50 text-uppercase fw-bold letter-spacing-1">Total Surat Keluar</h6>
+									<h1 id="countKeluar" class="display-4 fw-bold mb-0">0</h1>
+									<p class="text-white-50 mb-0 mt-2 small">
+										<i class="fas fa-calendar-alt me-1"></i> Bulan ini: <span id="countKeluarMonth" class="fw-bold text-white">0</span>
+									</p>
+								</div>
+								<div class="text-end opacity-50">
+									<i class="fas fa-paper-plane fa-4x"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-4 mb-4">
+					<div class="col-md-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3">
+								<h6 class="fw-bold m-0 text-dark"><i class="fas fa-chart-pie me-2 text-success"></i>Statistik Surat Masuk</h6>
+							</div>
+							<div class="card-body">
+								<canvas id="chartMasuk" style="max-height: 250px;"></canvas>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3">
+								<h6 class="fw-bold m-0 text-dark"><i class="fas fa-chart-pie me-2 text-warning"></i>Statistik Surat Keluar</h6>
+							</div>
+							<div class="card-body">
+								<canvas id="chartKeluar" style="max-height: 250px;"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-4">
+					<div class="col-lg-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+								<h6 class="fw-bold m-0 text-success">5 Surat Masuk Terakhir</h6>
+								<button class="btn btn-sm btn-light rounded-pill" onclick="showTab('suratMasuk')">Lihat Semua</button>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover table-sm mb-0" style="font-size: 0.8rem;">
+									<thead class="table-light">
+										<tr><th>Tgl Surat</th><th>Pengirim</th><th>Perihal</th></tr>
+									</thead>
+									<tbody id="listRecentMasuk"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="card card-custom shadow-sm h-100">
+							<div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+								<h6 class="fw-bold m-0 text-warning">5 Surat Keluar Terakhir</h6>
+								<button class="btn btn-sm btn-light rounded-pill" onclick="showTab('suratKeluar')">Lihat Semua</button>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover table-sm mb-0" style="font-size: 0.8rem;">
+									<thead class="table-light">
+										<tr><th>Tgl Surat</th><th>Tujuan</th><th>Perihal</th></tr>
+									</thead>
+									<tbody id="listRecentKeluar"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+            <!-- TAB: SURAT MASUK -->
+            <div id="tab-suratMasuk" class="content-tab d-none">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-envelope-open-text me-2 text-muted"></i>Data Surat Masuk</h6>
+                        <div class="d-flex gap-2">
+							<input type="text" id="searchMasuk" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat" autocomplete="new-password" onkeyup="resetPagination('masuk'); renderTables()">
+                            
+                            <button class="btn btn-masuk btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModal('masuk')">
+                                <i class="fas fa-plus me-1"></i> Tambah
+                            </button>
+                            
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_masuk')" title="Unduh Excel">
+                                <i class="fas fa-file-excel me-1"></i> Unduh Rekap
+                            </button>
+                            <!-- TAMBAHKAN TOMBOL INI -->
+                            <button class="btn btn-outline-primary btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="loadData()" title="Segarkan Data">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0" id="tableMasuk">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Nomor & Tanggal Surat</th>
+                                    <th style="width: 20%">Jenis & Perihal</th>
+                                    <th style="width: 18%">Pengirim</th>
+									<th style="width: 15%">Diteruskan ke</th>
+									<th style="width: 15%">Keterangan</th>
+                                    <th style="width: 12%" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="paginationMasuk"></div>
+                </div>
+            </div>
+
+            <!-- TAB: SURAT KELUAR -->
+            <div id="tab-suratKeluar" class="content-tab d-none">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-paper-plane me-2 text-muted"></i>Data Surat Keluar</h6>
+                        <div class="d-flex gap-2">
+							<input type="text" id="searchKeluar" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Surat" autocomplete="new-password" onkeyup="resetPagination('keluar'); renderTables()">
+                            
+                            <button class="btn btn-keluar btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModal('keluar')">
+                                <i class="fas fa-plus me-1"></i> Tambah
+                            </button>
+                            
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_keluar')" title="Unduh Excel">
+                                <i class="fas fa-file-excel me-1"></i> Unduh Rekap
+                            </button>
+                            <!-- TAMBAHKAN TOMBOL INI -->
+                            <button class="btn btn-outline-primary btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="loadData()" title="Segarkan Data">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0" id="tableKeluar">
+                            <thead>
+                                <tr>
+									<th style="width: 20%">Nomor & Tanggal Surat</th>
+									<th style="width: 20%">Jenis & Perihal</th>
+									<th style="width: 18%">Tujuan</th>
+									<th style="width: 15%">Asal Naskah</th> 
+									<th style="width: 15%">Keterangan</th>
+									<th style="width: 12%" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="paginationKeluar"></div>
+                </div>
+            </div>
+
+            <!-- TAB: SURAT KEPUTUSAN -->
+            <div id="tab-suratKeputusan" class="content-tab d-none">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-gavel me-2 text-muted"></i>Data Surat Keputusan</h6>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="searchKeputusan" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari SK" autocomplete="new-password" onkeyup="resetPagination('keputusan'); renderTables()">
+                            
+                            <button class="btn btn-keputusan btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" onclick="openModal('keputusan')">
+                                <i class="fas fa-plus me-1"></i> Tambah
+                            </button>
+                                                        
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('surat_keputusan')" title="Unduh Excel">
+                                <i class="fas fa-file-excel me-1"></i> Unduh Rekap
+                            </button>
+                            <button class="btn btn-outline-primary btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="loadData()" title="Segarkan Data">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0" id="tableKeputusan">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Nomor & Tanggal Surat</th>
+                                    <th style="width: 20%">Jenis & Perihal</th>
+                                    <th style="width: 18%">Tujuan</th>
+                                    <th style="width: 15%">Asal Naskah</th> 
+                                    <th style="width: 15%">Keterangan</th>
+                                    <th style="width: 12%" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="paginationKeputusan"></div>
+                </div>
+            </div>
+
+			<!-- TAB: PERJADIN -->
+			<div id="tab-perjadin" class="content-tab d-none">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-plane-departure me-2 text-muted"></i>Data Perjalanan Dinas</h6>
+                        <div class="d-flex gap-2">
+							<input type="text" id="searchPerjadin" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari Kegiatan/Pelaksana" autocomplete="new-password" onkeyup="resetPagination('perjadin'); renderTables()">
+                            
+                            <button class="btn btn-primary btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop" style="background-color: #3b82f6; border-color: #3b82f6;" onclick="openModalPerjadin()">
+                                <i class="fas fa-plus me-1"></i> Tambah
+                            </button>
+                            
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('perjadin')" title="Unduh Excel / PDF">
+                                <i class="fas fa-file-excel me-1"></i> Unduh Rekap
+                            </button> 
+                            <!-- TAMBAHKAN TOMBOL INI -->
+                            <button class="btn btn-outline-primary btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="loadData()" title="Segarkan Data">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>                          
+						</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0" id="tablePerjadin">
+                            <thead>
+                                <tr>
+                                    <th style="width: 18%">Tanggal</th>
+                                    <th style="width: 22%">Kegiatan & Tujuan</th>
+                                    <th style="width: 20%">Nomor TS & SPT</th>
+                                    <th style="width: 20%">Nomor SPPD & Pelaksana</th>
+                                    <th style="width: 10%">Asal Naskah</th>
+                                    <th style="width: 10%" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container" id="paginationPerjadin"></div>
+                </div>
+            </div>
+
+            <div id="tab-npd" class="content-tab d-none">
+                <div class="card card-custom shadow-sm overflow-hidden">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h6 class="fw-bold m-0"><i class="fas fa-file-invoice-dollar me-2 text-muted"></i>Data NPD</h6>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="searchNpd" class="form-control form-control-sm search-input shadow-sm" placeholder="Cari NPD" autocomplete="new-password" onkeyup="resetPagination('npd'); renderTables()">
+                            
+                            <!-- Tombol Tambah NPD Desktop -->
+                            <button class="btn btn-header fw-bold px-3 rounded-pill shadow-sm btn-tambah-desktop text-white" style="background-color: #8b5cf6; border-color: #8b5cf6;" onclick="openModalNpd()">
+                                <i class="fas fa-plus me-1"></i> Tambah
+                            </button>
+                            
+                            <button class="btn btn-outline-dark btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="openDownloadModal('npd')" title="Unduh Excel / PDF">
+                                <i class="fas fa-file-excel me-1"></i> Unduh Rekap
+                            </button>     
+                            <!-- TAMBAHKAN TOMBOL INI -->
+                            <button class="btn btn-outline-primary btn-header fw-bold px-3 rounded-pill shadow-sm" onclick="loadData()" title="Segarkan Data">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>                      
+                        </div>
+                    </div>
+                    <div class="table-responsive d-none d-md-block">
+                        <table class="table table-custom mb-0" id="tableNpd">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Nomor NPD</th>
+                                    <th style="width: 50%">Deskripsi Belanja</th>
+                                    <th style="width: 15%">Asal Naskah</th>                                    
+                                    <th style="width: 15%" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="mobileNpdContainer" class="d-md-none p-2 bg-light">
+                    </div>
+                    <div class="pagination-container" id="paginationNpd"></div>
+                </div>
+            </div>
+
+            <!-- TAB: PENGATURAN -->
+            <div id="tab-pengaturan" class="content-tab d-none">
+                <div class="card card-custom p-4 border-start border-4 border-warning mb-4">
+                    <div class="d-flex">
+                        <i class="fas fa-lock fa-2x text-warning me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Area Terbatas</h5>
+                            <p class="text-muted mb-0">Halaman ini hanya dapat diakses oleh Super Admin untuk konfigurasi sistem.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- Kolom Kiri: Manajemen User -->
+                    <div class="col-md-7 mb-4">
+                        <div class="card card-custom shadow-sm overflow-hidden h-100">
+                            <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
+                                <h6 class="fw-bold m-0"><i class="fas fa-users-cog me-2 text-muted"></i>Manajemen User</h6>
+                                <button class="btn btn-dark btn-sm rounded-pill fw-bold px-3" onclick="openUserModal()">
+                                    <i class="fas fa-user-plus me-1"></i> Tambah
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-custom mb-0" id="tableUsers">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Nama</th>
+                                            <th>Role</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Kanan: Manajemen Jenis Surat -->
+                    <div class="col-md-5 mb-4">
+                        <div class="card card-custom shadow-sm overflow-hidden h-100">
+                            <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center">
+                                <h6 class="fw-bold m-0"><i class="fas fa-list-ul me-2 text-muted"></i>Jenis Surat</h6>
+                                <button class="btn btn-dark btn-sm rounded-pill fw-bold px-3" onclick="addJenisSurat()">
+                                    <i class="fas fa-plus me-1"></i> Tambah
+                                </button>
+                            </div>
+                            <div class="card-body bg-light">
+                                <div class="alert alert-info py-2 small mb-2"><i class="fas fa-info-circle me-1"></i> Drag untuk atur urutan.</div>
+                                <ul class="list-group shadow-sm" id="listJenisSurat">
+                                    <!-- Items will be here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM INPUT SURAT -->
+    <div class="modal fade" id="modalSurat" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
+            <div class="modal-content">
+                <div class="modal-header" id="modalHeaderBg">
+                    <h6 class="modal-title fw-bold" id="modalTitle">Tambah Surat</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+					<form id="formSurat">
+                        <input type="hidden" id="kategoriSurat">
+                        <input type="hidden" id="realRowNumber">
+                        <input type="hidden" id="isEditMode" value="false">
+                        <input type="hidden" id="existingFileUrl">
+
+                        <!-- 1. TANGGAL SURAT -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Tanggal Surat<span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="inpTanggal" required>
+                        </div>
+
+                        <!-- 2. BLOK ATAS: NOMOR SURAT (Hanya tampil di Surat Masuk) -->
+                        <div id="blockMasukAtas">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Nomor Surat<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="inpNomorMasuk" placeholder="Nomor surat lengkap">
+                            </div>
+                        </div>
+
+                        <!-- 3. BLOK ATAS: PENOMORAN (Hanya tampil di Surat Keluar & SK) -->
+                        <div id="blockKeluarAtas" class="d-none">
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Kode</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="inpKode" placeholder="Cth: 800.1.3" required>
+                                        <button class="btn btn-outline-primary bg-light" type="button" onclick="bukaModalKlasifikasi('inpKode')" title="Cari Kode">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Nomor Urut<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="inpNoUrut" placeholder="Cth: 001" onblur="formatAutoPad(this)">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Kode Lanjutan<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="inpKodeLanjutan" value="BKPSDM-BLG">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Tahun<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="inpTahun" value="2026">
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-text small text-primary">
+                                        <i class="fas fa-info-circle me-1"></i> Preview: <span id="previewNoSurat" class="fw-bold">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. FIELD UMUM TENGAH (Selalu tampil di semua mode) -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Jenis Surat<span class="text-danger">*</span></label>
+                            <select class="form-select form-control" id="inpJenis" required>
+                                <option value="">Pilih</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Perihal / Deskripsi<span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="inpPerihal" rows="3" required placeholder="Perihal / deskripsi surat"></textarea>
+                        </div>
+
+                        <!-- 5. BLOK BAWAH: PENGIRIM & DITERUSKAN (Hanya tampil di Surat Masuk) -->
+                        <div id="blockMasukBawah">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Asal / Pengirim<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="inpPengirim" placeholder="Lembaga / perorangan / dll">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Diteruskan ke</label>
+                                <input class="form-control" list="listOpsiTujuan" id="inpDiteruskan" placeholder="Pilih unit atau ketik nama personal">
+                                <datalist id="listOpsiTujuan">
+                                    <option value="Semua">
+                                    <option value="Sekretariat">
+                                    <option value="Sekretariat: Umpeg">
+                                    <option value="Sekretariat: Renkeu">
+                                    <option value="Bidang PSDM">
+                                    <option value="Bidang PPIK">
+                                    <option value="Bidang MPK">
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <!-- 6. BLOK BAWAH: TUJUAN & ASAL NASKAH (Hanya tampil di Surat Keluar & SK) -->
+                        <div id="blockKeluarBawah" class="d-none">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Tujuan / Penerima<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="inpTujuan" placeholder="Lembaga / perorangan / dll">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Asal Naskah<span class="text-danger">*</span></label>
+                                <select class="form-select" id="inpAsalNaskah">
+                                    <option value="">Pilih</option>
+                                    <option value="Sekretariat">Sekretariat</option>
+                                    <option value="Sekretariat: Umpeg">Sekretariat: Umpeg</option>
+                                    <option value="Sekretariat: Renkeu">Sekretariat: Renkeu</option>
+                                    <option value="Bidang PSDM">Bidang PSDM</option>
+                                    <option value="Bidang PPIK">Bidang PPIK</option>
+                                    <option value="Bidang MPK">Bidang MPK</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 7. FIELD UMUM BAWAH (Selalu tampil di semua mode) -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Keterangan</label>
+                            <input type="text" class="form-control" id="inpKeterangan" placeholder="Catatan tambahan">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">File</label>
+                            <input type="file" class="d-none" id="inpFile" accept=".pdf,.jpg,.jpeg,.png">
+                            
+                            <div class="drop-zone" id="dropZoneArea">
+                                <div class="drop-zone-text" id="dropZoneText">
+                                    <i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
+                                    <div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
+                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
+                                </div>
+                                <div class="file-selected-info" id="fileSelectedInfo">
+                                    <i class="fas fa-file-alt fa-lg"></i>
+                                    <span id="fileNameDisplay" class="text-truncate" style="max-width: 200px;">nama_file.pdf</span>
+                                    <i class="fas fa-check-circle text-success ms-1"></i>
+                                </div>
+                            </div>
+                            <div class="form-text small mt-2" id="fileHelpText"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-secondary text-white text-decoration-none" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark fw-bold px-4 rounded-3" onclick="simpanData()" id="btnSimpan">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- MODAL FORM PERJADIN -->
+	<div class="modal fade" id="modalPerjadin" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"> 
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h6 class="modal-title fw-bold" id="modalPerjadinTitle"><i class="fas fa-plane-departure me-2"></i>Input Perjalanan Dinas</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body bg-light">
+					<form id="formPerjadin">
+                        <input type="hidden" id="pId"> 
+                        <input type="hidden" id="pRowNumber">
+                        <input type="hidden" id="pIsEdit" value="false">
+                        <input type="hidden" id="pExistingFile">
+
+                        <div class="row g-3">
+                            
+                            <div class="col-lg-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-white fw-bold text-primary small">A. INFORMASI KEGIATAN</div>
+                                    <div class="card-body">
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Jenis Perjadin<span class="text-danger">*</span></label>
+                                            <select class="form-select" id="pJenis" onchange="toggleTanggalSelesai()" required>
+                                                <option value="">Pilih</option> <option value="Dalam Daerah">Dalam Daerah</option>
+                                                <option value="Dalam Provinsi">Dalam Provinsi</option>
+                                                <option value="Luar Provinsi">Luar Provinsi</option>
+                                                <option value="Luar Negeri">Luar Negeri</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Tgl Mulai<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="pTglMulai" required>
+                                        </div>
+                                        
+                                        <div class="mb-3" id="divTglSelesai" style="display:none;">
+                                            <label class="form-label small fw-bold text-muted">Tgl Selesai<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="pTglSelesai">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Maksud / Kegiatan<span class="text-danger">*</span></label>
+                                            <textarea class="form-control" id="pMaksud" rows="4" placeholder="Uraian kegiatan" required style="resize: none;"></textarea>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-bold text-muted">Tujuan<span class="text-danger">*</span></label>
+                                            <div class="input-group mb-2">
+                                                <span class="input-group-text bg-light"><i class="fas fa-building"></i></span>
+                                                <input type="text" class="form-control" id="pTempat" placeholder="Nama Tempat/Kantor" required>
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light"><i class="fas fa-map-marker-alt"></i></span>
+                                                <input type="text" class="form-control" id="pDaerah" placeholder="Nama Lokasi/Daerah" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-white fw-bold text-primary small">B. DOKUMEN DASAR (PENOMORAN)</div>
+                                    <div class="card-body">
+
+										<div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Asal Naskah<span class="text-danger">*</span></label>
+                                            <select class="form-select" id="pAsalNaskah" required onchange="toggleAsalNaskahLainnya()">
+                                                <option value="">Pilih</option> 
+                                                <option value="Sekretariat">Sekretariat</option>
+                                                <option value="Sekretariat: Umpeg">Sekretariat: Umpeg</option>
+                                                <option value="Sekretariat: Renkeu">Sekretariat: Renkeu</option>
+                                                <option value="Bidang PSDM">Bidang PSDM</option>
+                                                <option value="Bidang PPIK">Bidang PPIK</option>
+                                                <option value="Bidang MPK">Bidang MPK</option>
+                                                <option value="Lainnya">Lainnya</option>
+                                            </select>
+                                            
+                                            <input type="text" class="form-control mt-2" id="pAsalNaskahLainnya" placeholder="Tuliskan Asal Naskah..." style="display:none;">
+                                        </div>
+
+                                        <div class="mb-3 p-2 border rounded bg-light">
+                                            <label class="form-label small fw-bold text-dark mb-1">Nomor Telaahan Staf</label>
+                                            <div class="row g-2">
+                                                <!-- Ganti bagian input tsKode menjadi ini -->
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control text-center" id="tsKode" placeholder="Kode">
+                                                        <button class="btn btn-outline-secondary bg-light" type="button" onclick="bukaModalKlasifikasi('tsKode')">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center bg-white border-warning fw-bold" id="tsNo" placeholder="000" onblur="formatAutoPad(this)">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center" id="tsSuffix" value="BKPSDM-BLG">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center" id="tsTahun" value="2026">
+                                                </div>
+                                            </div>
+                                            <div class="form-text small mt-2 text-primary">
+                                                <i class="fas fa-info-circle me-1"></i> Preview: <span id="previewTS" class="fw-bold">-</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 p-2 border rounded bg-light">
+                                            <label class="form-label small fw-bold text-dark mb-1">Nomor Surat Perintah Tugas</label>
+                                            <div class="row g-2">
+                                                <!-- Ganti bagian input sptKode menjadi ini -->
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control text-center" id="sptKode" placeholder="Kode">
+                                                        <button class="btn btn-outline-secondary bg-light" type="button" onclick="bukaModalKlasifikasi('sptKode')">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center bg-white border-warning fw-bold" id="sptNo" placeholder="000" onblur="formatAutoPad(this)">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control form-control-sm text-center" id="sptSuffix" value="BKPSDM-BLG">
+                                                </div>
+                                                <div class="col-6">
+                                                    <input type="number" class="form-control form-control-sm text-center" id="sptTahun" value="2026"><input type="text" class="form-control form-control-sm text-center" id="sptTahun" value="2026">
+                                                </div>
+                                            </div>
+                                            <div class="form-text small mt-2 text-primary">
+                                                <i class="fas fa-info-circle me-1"></i> Preview: <span id="previewSPT" class="fw-bold">-</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Keterangan / Status</label>
+                                            <textarea class="form-control" id="pKeterangan" rows="2" placeholder="Catatan tambahan..."></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label small fw-bold text-muted">Upload File</label>
+                                            <input type="file" class="d-none" id="pFile" accept=".pdf,.jpg,.jpeg,.png">
+                                            
+                                            <div class="drop-zone" id="dropZonePerjadin">
+                                                <div class="drop-zone-text" id="dropZoneTextPerjadin">
+                                                    <i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
+                                                    <div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
+                                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
+                                                </div>
+                                                <div class="file-selected-info" id="fileInfoPerjadin" style="display:none;">
+                                                    <i class="fas fa-file-alt fa-lg"></i>
+                                                    <span id="fileNamePerjadin" class="text-truncate" style="max-width: 150px;">nama_file.pdf</span>
+                                                    <i class="fas fa-check-circle text-success ms-1"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-text small mt-2" id="fileHelpPerjadin"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary small">C. PELAKSANA PERJADIN</span>
+                                        <button type="button" class="btn btn-sm btn-success rounded-pill px-3" onclick="addPersonilRow()">
+                                            <i class="fas fa-plus me-1"></i> Tambah
+                                        </button>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="bg-light border-bottom py-2 px-3 d-flex small fw-bold text-muted">
+                                            <div style="width: 15%;">No SPPD</div>
+                                            <div style="width: 80%;">Nama Pegawai</div>
+                                            <div style="width: 5%;"></div>
+                                        </div>
+                                        
+                                        <div id="personilContainer" style="max-height: 500px; overflow-y: auto;">
+                                            </div>
+                                        
+                                        <datalist id="listOpsiASN"></datalist>  
+
+                                        <div id="personilEmptyState" class="text-center py-5 text-muted">
+                                            <i class="fas fa-users fa-3x mb-3 opacity-25"></i>
+                                            <p class="small">Belum ada pelaksana ditambahkan.<br>Klik tombol <b>+ Tambah</b>.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-white p-3">
+                                        <div class="alert alert-info small mb-0 d-flex align-items-center">
+                                            <i class="fas fa-lightbulb fa-lg me-3"></i>
+                                            <div>
+                                                <b>Tips:</b> Ketik nama pegawai, sistem otomatis melengkapi NIP. 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+			<div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-secondary text-white text-decoration-none" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark fw-bold px-4 rounded-3" onclick="simpanPerjadin()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalNpd" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
+            <div class="modal-content">
+                <!-- Header Modal NPD -->
+                <div class="modal-header text-white" style="background-color: #8b5cf6;">
+                    <h6 class="modal-title fw-bold" id="modalNpdTitle"><i class="fas fa-file-invoice-dollar me-2"></i>Input Nota Pencairan Dana (NPD)</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNpd">
+                        <input type="hidden" id="nRowNumber">
+                        <input type="hidden" id="nIsEdit" value="false">
+                        <input type="hidden" id="nExistingFile">
+
+                        <!-- 1. TANGGAL NASKAH -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Tanggal Naskah<span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="nTglNaskah" required>
+                        </div>
+
+                        <!-- 2. PENOMORAN NPD -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">No Urut<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-center" id="nNoUrut" placeholder="Cth: 001" required onblur="formatAutoPad(this)">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">Kode Tengah<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-center" id="nKodeTengah" value="NPD/BKPSDM-BLG" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">Tahun<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-center" id="nTahun" value="2026" required>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-text small text-primary">
+                                    <i class="fas fa-info-circle me-1"></i> Preview: <span id="previewNpd" class="fw-bold">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. DESKRIPSI BELANJA (Dipindah ke atas) -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Deskripsi Belanja<span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="nKeperluan" rows="3" placeholder="Contoh: Biaya Belanja perjalanan dinas... (Sertakan tanggal kegiatan)" required style="resize: none;"></textarea>
+                        </div>
+
+                        <!-- 4. ASAL NASKAH (Dipindah ke bawah) -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Asal Naskah<span class="text-danger">*</span></label>
+                            <select class="form-select" id="nAsalNaskah" required>
+                                <option value="">Pilih</option>
+                                <option value="Sekretariat">Sekretariat</option>
+                                <option value="Sekretariat: Umpeg">Sekretariat: Umpeg</option>
+                                <option value="Sekretariat: Renkeu">Sekretariat: Renkeu</option>
+                                <option value="Bidang PSDM">Bidang PSDM</option>
+                                <option value="Bidang PPIK">Bidang PPIK</option>
+                                <option value="Bidang MPK">Bidang MPK</option>
+                            </select>
+                        </div>
+
+                        <!-- 5. UPLOAD FILE -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">File</label>
+                            <input type="file" class="d-none" id="nFile" accept=".pdf,.jpg,.jpeg,.png">
+                            
+                            <div class="drop-zone" id="dropZoneNpd">
+                                <div class="drop-zone-text" id="dropZoneTextNpd">
+                                    <i class="fas fa-cloud-upload-alt text-muted fa-2x mb-2"></i>
+                                    <div class="fw-bold text-dark">Klik atau Drag file ke sini</div>
+                                    <div class="small text-muted mt-1">(PDF/Gambar, Max 2MB)</div>
+                                </div>
+                                <div class="file-selected-info" id="fileInfoNpd" style="display:none;">
+                                    <i class="fas fa-file-alt fa-lg"></i>
+                                    <span id="fileNameNpd" class="text-truncate" style="max-width: 150px;">nama_file.pdf</span>
+                                    <i class="fas fa-check-circle text-success ms-1"></i>
+                                </div>
+                            </div>
+                            <div class="form-text small mt-2" id="fileHelpNpd"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark fw-bold px-4 rounded-3" onclick="simpanNpd()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DOWNLOAD REKAP -->
+    <div class="modal fade" id="modalDownload" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm"> 
+            <div class="modal-content">
+                <div class="modal-header bg-header-download text-white">
+                    <h6 class="modal-title fw-bold"><i class="fas fa-file-download me-2"></i>Unduh Rekap</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDownload">
+                        <input type="hidden" id="downloadKategori">
+						
+						<div class="mb-3">
+							<label class="form-label small fw-bold text-muted">Format Laporan</label>
+							<select class="form-select" id="dlFormat">
+								<option value="xlsx">Excel (.xlsx)</option>
+								<option value="pdf">Dokumen PDF (.pdf)</option>
+							</select>
+						</div>								
+						
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Tanggal Awal</label>
+                            <input type="date" class="form-control" id="dlStartDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Tanggal Akhir</label>
+                            <input type="date" class="form-control" id="dlEndDate" required>
+                        </div>
+                        <div class="alert alert-info py-2 px-3 small mb-0">
+                            <i class="fas fa-info-circle me-1"></i> File dapat diunduh dalam format XLSX atau PDF.
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light border-0 p-2 justify-content-center">
+                    <button type="button" class="btn btn-dark w-100 fw-bold rounded-3" onclick="processDownload()">
+                        <i class="fas fa-download me-2"></i>Unduh Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TAMBAH/EDIT USER -->
+    <div class="modal fade" id="modalUser" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"> 
+            <div class="modal-content">
+                <div class="modal-header bg-header-user text-white">
+                    <h6 class="modal-title fw-bold" id="modalUserTitle">Kelola User</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formUser">
+                        <input type="hidden" id="isUserEdit" value="false">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Username</label>
+                            <input type="text" class="form-control" id="uUsername" required>
+                            <div class="form-text small" id="uUsernameHelp">Username unik untuk login.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Password</label>
+                            <input type="text" class="form-control" id="uPassword" placeholder="Masukkan password">
+                            <div class="form-text small" id="uPasswordHelp">Biarkan kosong jika tidak ingin mengubah password.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="uNama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Role</label>
+                            <select class="form-select" id="uRole" required>
+                                <option value="Admin">Admin</option>
+                                <option value="Super Admin">Super Admin</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark fw-bold" onclick="saveUser()">Simpan User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div class="modal fade" id="modalPreview" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-xl"> 
+			<div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+				<div class="modal-header bg-dark text-white py-2">
+					<h6 class="modal-title fw-bold small"><i class="fas fa-eye me-2"></i>Pratinjau Dokumen</h6>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body p-0" style="height: 85vh; background: #333;">
+					<iframe id="framePreview" src="" width="100%" height="100%" style="border:none;"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<button id="fabTambah" class="fab-btn" onclick="handleFabClick()">
+		<i class="fas fa-plus"></i>
+	</button>
+
+    <!-- Script Utama (Bootstrap & SweetAlert tetap dimuat sebelum app.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Custom JavaScript (File Terpisah) -->
+    <script src="app.js"></script>
+</body>
+</html>
