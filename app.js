@@ -136,15 +136,15 @@ function loadData(isBackground = false) {
     fetch(GAS_API_URL + "?action=getData").then(res => res.json()).then(resp => {
         if (!isBackground) showLoading(false);
         if (resp.status === 'success') {
-            globalData.suratMasuk = resp.data.suratMasuk.sort((a, b) => new Date(b.values[2]) - new Date(a.values[2]));
-            globalData.suratKeluar = resp.data.suratKeluar.sort((a, b) => (parseInt(b.values[4]) || 0) - (parseInt(a.values[4]) || 0));
-            globalData.suratKeputusan = (resp.data.suratKeputusan || []).sort((a, b) => (parseInt(b.values[4]) || 0) - (parseInt(a.values[4]) || 0));
-            globalData.beritaAcara = (resp.data.berita_acara || []).sort((a, b) => (parseInt(b.values[4]) || 0) - (parseInt(a.values[4]) || 0));
-            globalData.pesanan = (resp.data.pesanan || []).sort((a, b) => (parseInt(b.values[3]) || 0) - (parseInt(a.values[3]) || 0));
-            globalData.perjadin = resp.data.perjadin.sort((a, b) => new Date(b.values[1]) - new Date(a.values[1]));
-            globalData.bon = (resp.data.bon || []).sort((a, b) => (parseInt(b.values[3]) || 0) - (parseInt(a.values[3]) || 0));
-            globalData.npd = resp.data.npd || []; 
-            
+            globalData.suratMasuk = resp.data.suratMasuk;
+            globalData.suratKeluar = resp.data.suratKeluar;
+            globalData.suratKeputusan = resp.data.suratKeputusan;
+            globalData.beritaAcara = resp.data.berita_acara;
+            globalData.pesanan = resp.data.pesanan;
+            globalData.perjadin = resp.data.perjadin;
+            globalData.bon = resp.data.bon;
+            globalData.npd = resp.data.npd; 
+                        
             if (!isBackground) {
                 globalData.jenisSurat = resp.data.jenisSurat;
                 globalData.kodeKlasifikasi = resp.data.kodeKlasifikasi || [];
