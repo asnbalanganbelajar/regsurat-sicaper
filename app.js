@@ -133,20 +133,30 @@ function initApp() {
 function loadData(isBackground = false) {
     if (!isBackground) showLoading(true);
     
-    fetch(GAS_API_URL + "?action=getData").then(res => res.json()).then(resp => {
+    // 1. Tambahkan parameter waktu (cache buster) untuk menghindari cache browser yang menyangkut
+    const timestamp = new Date().getTime();
+    fetch(GAS_API_URL + "?action=getData&t=" + timestamp)
+    .then(res => res.json())
+    .then(resp => {
         if (!isBackground) showLoading(false);
         if (resp.status === 'success') {
-            globalData.suratMasuk = resp.data.suratMasuk;
-            globalData.suratKeluar = resp.data.suratKeluar;
-            globalData.suratKeputusan = resp.data.suratKeputusan;
-            globalData.beritaAcara = resp.data.berita_acara;
-            globalData.pesanan = resp.data.pesanan;
-            globalData.perjadin = resp.data.perjadin;
-            globalData.bon = resp.data.bon;
-            globalData.npd = resp.data.npd; 
+            
+            // 2. PERBAIKAN KRUSIAL: Tambahkan fallback || [] 
+            // Mencegah aplikasi crash (TypeError) jika backend GAS mengirimkan nilai undefined karena sheet kosong
+            globalData.suratMasuk = resp.data.suratMasuk || [];
+            globalData.suratKeluar = resp.data.suratKeluar || [];
+            globalData.suratKeputusan = resp.data.suratKeputusan || [];
+            
+            // Mengantisipasi perbedaan penulisan key dari backend (berita_acara vs beritaAcara)
+            globalData.beritaAcara = resp.data.berita_acara || resp.data.beritaAcara || []; 
+            
+            globalData.pesanan = resp.data.pesanan || [];
+            globalData.perjadin = resp.data.perjadin || [];
+            globalData.bon = resp.data.bon || [];
+            globalData.npd = resp.data.npd || []; 
                         
             if (!isBackground) {
-                globalData.jenisSurat = resp.data.jenisSurat;
+                globalData.jenisSurat = resp.data.jenisSurat || [];
                 globalData.kodeKlasifikasi = resp.data.kodeKlasifikasi || [];
             }
 
@@ -159,8 +169,12 @@ function loadData(isBackground = false) {
             }
         }
     }).catch(err => {
-        console.error("Detail Error:", err);
-        if (!isBackground) { showLoading(false); Swal.fire({ icon: 'error', title: 'Error', text: "Gagal mengambil data." }); }
+        console.error("Detail Error loadData:", err);
+        if (!isBackground) { 
+            showLoading(false); 
+            // 3. Modifikasi SweetAlert untuk menampilkan alasan error agar mudah dilacak
+            Swal.fire({ icon: 'error', title: 'Error loadData', text: err.message || "Gagal mengambil data." }); 
+        }
     });
 }
 
