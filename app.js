@@ -120,20 +120,45 @@ function initApp() {
     document.getElementById('userNama').innerText = currentUser.nama;
     document.getElementById('userRole').innerText = currentUser.role;
     
-    if (currentUser.role !== 'Super Admin') document.getElementById('menuPengaturan').classList.add('d-none');
-    else { loadUsers(); renderJenisSuratSettings(); }
+    if (currentUser.role !== 'Super Admin') {
+        document.getElementById('menuPengaturan').classList.add('d-none');
+    }
     
-    loadData();
+    showLoading(true); // Tampilkan loading sejak awal proses antrean
     
-    fetch(GAS_API_URL + "?action=getAsnData").then(res => res.json()).then(resp => {
-        if(resp.status === 'success') { globalASN = resp.data; console.log("Database ASN dimuat:", globalASN.length, "data"); }
-    });         
+    // 1. Eksekusi request ASN terlebih dahulu
+    fetch(GAS_API_URL + "?action=getAsnData")
+    .then(res => res.json())
+    .then(resp => {
+        if(resp.status === 'success') { 
+            globalASN = resp.data; 
+            console.log("Database ASN dimuat:", globalASN.length, "data"); 
+        }
+        
+        // 2. Eksekusi request Users jika Super Admin
+        if (currentUser && currentUser.role === 'Super Admin') {
+            loadUsers();
+        }
+        
+        // 3. Terakhir, eksekusi request Master Data yang paling berat
+        loadData();
+    })
+    .catch(err => {
+        console.error("Gagal memuat ASN:", err);
+        loadData(); // Tetap jalankan aplikasi meski ASN gagal
+    });
 }
 
 function loadData(isBackground = false) {
     if (!isBackground) showLoading(true);
     
-    fetch(GAS_API_URL + "?action=getData").then(res => res.json()).then(resp => {
+    // UBAH DARI GET MENJADI POST
+    fetch(GAS_API_URL, { 
+        method: 'POST', 
+        body: JSON.stringify({ action: 'getData' }) 
+    })
+    .then(res => res.json())
+    .then(resp => {
         if (!isBackground) showLoading(false);
         if (resp.status === 'success') {
             globalData.suratMasuk = resp.data.suratMasuk;
