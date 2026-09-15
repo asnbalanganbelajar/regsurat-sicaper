@@ -163,23 +163,17 @@ function initApp() {
 function loadData(isBackground = false) {
     if (!isBackground) showLoading(true);
     
-    // 1. Tambahkan parameter waktu (cache buster) untuk menghindari cache browser yang menyangkut
-    const timestamp = new Date().getTime();
-    fetch(GAS_API_URL + "?action=getData&t=" + timestamp)
-    .then(res => res.json())
+    // Ganti fetch GET dengan safeFetchPOST
+    safeFetchPOST({ action: 'getData' })
     .then(resp => {
         if (!isBackground) showLoading(false);
         if (resp.status === 'success') {
             
-            // 2. PERBAIKAN KRUSIAL: Tambahkan fallback || [] 
-            // Mencegah aplikasi crash (TypeError) jika backend GAS mengirimkan nilai undefined karena sheet kosong
+            // Tetap gunakan fallback || [] sesuai kodemu sebelumnya
             globalData.suratMasuk = resp.data.suratMasuk || [];
             globalData.suratKeluar = resp.data.suratKeluar || [];
             globalData.suratKeputusan = resp.data.suratKeputusan || [];
-            
-            // Mengantisipasi perbedaan penulisan key dari backend (berita_acara vs beritaAcara)
             globalData.beritaAcara = resp.data.berita_acara || resp.data.beritaAcara || []; 
-            
             globalData.pesanan = resp.data.pesanan || [];
             globalData.perjadin = resp.data.perjadin || [];
             globalData.bon = resp.data.bon || [];
@@ -202,7 +196,6 @@ function loadData(isBackground = false) {
         console.error("Detail Error loadData:", err);
         if (!isBackground) { 
             showLoading(false); 
-            // 3. Modifikasi SweetAlert untuk menampilkan alasan error agar mudah dilacak
             Swal.fire({ icon: 'error', title: 'Error loadData', text: err.message || "Gagal mengambil data." }); 
         }
     });
